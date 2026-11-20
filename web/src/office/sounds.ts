@@ -1,7 +1,8 @@
 // Small office sounds, made in the browser (no audio files): a door shutting or opening near
 // you, and someone walking into or out of the room you're in.
-// Knocks and nudges keep their chime. Each person can turn the door/arrival sounds off in Help;
-// it's remembered in this browser only. They stay quiet while you're in a meeting window.
+// Knocks, nudges, follow requests and meetings starting in your room chime. Each person can turn the
+// door/arrival sounds and the chime off in Help; remembered in this browser only.
+// Door/arrival sounds stay quiet while you're in a meeting window.
 
 let ctx: AudioContext | null = null;
 /** What this tab played, newest last (the e2e suite reads it; audio itself can't be checked). */
@@ -14,6 +15,15 @@ export function soundsOn(): boolean {
 }
 export function setSoundsOn(on: boolean) {
   try { localStorage.setItem(KEY, on ? "1" : "0"); } catch { /* private window: on for this visit */ }
+}
+
+const CHIMES = "es.chimes";
+/** The two-note chime for knocks, nudges, follow requests and meetings starting in your room. On unless turned off in Help. */
+export function chimesOn(): boolean {
+  try { return localStorage.getItem(CHIMES) !== "0"; } catch { return true; }
+}
+export function setChimesOn(on: boolean) {
+  try { localStorage.setItem(CHIMES, on ? "1" : "0"); } catch { /* private window: on for this visit */ }
 }
 
 const ARRIVALS = "es.arrivals";
@@ -69,8 +79,9 @@ function noise(a: AudioContext, at: number, len: number, peak: number, filter: B
   src.start(at);
 }
 
-/** A soft two-note chime for knocks and nudges (always on: someone wants you). */
-export function ding() {
+/** A soft two-note chime: someone wants you (a knock, a nudge, a follow request, a meeting in your room). */
+export function ding(force = false) {
+  if (!force && !chimesOn()) return;
   log("ding");
   const a = audio();
   if (!a) return;

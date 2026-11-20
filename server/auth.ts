@@ -242,7 +242,7 @@ export async function fillSlackProfiles(): Promise<number> {
   for (const r of rows) {
     const s = await slackProfile(r.email);
     if (s) {
-      await q(`UPDATE users SET slack_id = $1, avatar_url = COALESCE($2, avatar_url), title = COALESCE(title, $3) WHERE id = $4`, [s.id, s.avatar, s.title, r.id]);
+      await q(`UPDATE users SET slack_id = $1, avatar_url = CASE WHEN avatar_url LIKE '/api/photos/%' THEN avatar_url ELSE COALESCE($2, avatar_url) END, title = COALESCE(title, $3) WHERE id = $4`, [s.id, s.avatar, s.title, r.id]);
       n++;
     }
     await new Promise((res) => setTimeout(res, 1500));
@@ -280,7 +280,7 @@ export async function upsertUser(email: string, name: string, picture?: string):
     const s = await slackProfile(email);
     if (s) {
       user = (await one<UserRow>(
-        `UPDATE users SET slack_id = $1, avatar_url = COALESCE($2, avatar_url), title = COALESCE(title, $3) WHERE id = $4 RETURNING *`,
+        `UPDATE users SET slack_id = $1, avatar_url = CASE WHEN avatar_url LIKE '/api/photos/%' THEN avatar_url ELSE COALESCE($2, avatar_url) END, title = COALESCE(title, $3) WHERE id = $4 RETURNING *`,
         [s.id, s.avatar, s.title, user.id],
       ))!;
     }

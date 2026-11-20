@@ -11,6 +11,8 @@ export interface Toast {
   text: string;
   action?: { label: string; run: () => void };
   ttl?: number;
+  /** Stays until dismissed (a chime you weren't looking at when it rang). */
+  sticky?: boolean;
 }
 
 export interface Pos {
@@ -82,12 +84,12 @@ export function toast(text: string, opts: Omit<Toast, "id" | "text"> = {}) {
   // a knock or a follow request you still have to answer.
   let list = [...state.toasts, t];
   while (list.length > 4) {
-    const i = list.findIndex((x) => !x.action && x !== t);
+    const i = list.findIndex((x) => !x.action && !x.sticky && x !== t);
     list = list.filter((_, k) => k !== (i >= 0 ? i : 0));
   }
   state.toasts = list;
   bump();
-  setTimeout(() => dismiss(t.id), opts.ttl ?? (opts.action ? 15000 : 4000));
+  if (!t.sticky) setTimeout(() => dismiss(t.id), opts.ttl ?? (opts.action ? 15000 : 4000));
   return t.id;
 }
 export function dismiss(id: number) {

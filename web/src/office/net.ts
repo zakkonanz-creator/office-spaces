@@ -23,6 +23,26 @@ const arrivalToast = new Map<string, number>();
 
 export type Sock = Socket<S2C, C2S>;
 
+// Someone wants you (a knock, a nudge, a follow request, a meeting starting in your room): it chimes.
+// If you weren't looking at the office when it rang, the note stays until you dismiss it, with the time it
+// came in, and the tab title counts them, so a chime you heard from another window is never a mystery.
+let missed = 0;
+let baseTitle = "";
+function setMissed(n: number) {
+  if (!baseTitle) baseTitle = document.title.replace(/^\(\d+\) /, "");
+  missed = n;
+  document.title = n ? `(${n}) ${baseTitle}` : baseTitle;
+}
+if (typeof document !== "undefined") document.addEventListener("visibilitychange", () => { if (!document.hidden && missed) setMissed(0); });
+function wantsYou(text: string, opts: Parameters<typeof toast>[1] = {}) {
+  const away = document.hidden;
+  const at = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const id = toast(away ? `${text} · ${at}` : text, away ? { ...opts, sticky: true } : opts);
+  if (away) setMissed(missed + 1);
+  ding();
+  return id;
+}
+
 /** This tab's web build (the index-*.js it loaded); null in dev, where there's nothing to compare. */
 export const myBuild = () => (document.querySelector('script[type="module"][src*="/assets/index-"]') as HTMLScriptElement | null)?.src.split("/").pop() ?? null;
 
@@ -167,7 +187,7 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
     });
 
     s.on("knock", ({ roomId, from }) => {
-      const t = toast(`${from.name} is knocking${roomName(roomId) ? ` on ${roomName(roomId)}` : ""}`, {
+      const t = wantsYou(`${from.name} is knocking${roomName(roomId) ? ` on ${roomName(roomId)}` : ""}`, {
         action: {
           label: "Let in",
           run: () => {
@@ -176,7 +196,6 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
           },
         },
       });
-      ding();
     });
 
     s.on("admitted", ({ roomId }) => toast(`You've been let in${roomName(roomId) ? ` to ${roomName(roomId)}` : ""}`));
@@ -259,14 +278,13 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
       setTimeout(bump, 3100);
     });
     s.on("nudge", ({ from }) => {
-      toast(`👋 ${from.name} nudged you`);
-      ding();
+      wantsYou(`👋 ${from.name} nudged you`);
       if (document.hidden && "Notification" in window && Notification.permission === "granted") {
         new Notification("Office Spaces", { body: `${from.name} nudged you` });
       }
     });
     s.on("followRequest", ({ from }) => {
-      const t = toast(`${from.name} wants you to follow them`, {
+      const t = wantsYou(`${from.name} wants you to follow them`, {
         action: {
           label: "Follow",
           run: () => {
@@ -275,7 +293,6 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
           },
         },
       });
-      ding();
     });
     s.on("place", ({ x, y }) => {
       serverMe.x = x; serverMe.y = y; serverMe.at = Date.now();
@@ -317,11 +334,10 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
       // You closed the door and that started the meeting: you go straight in.
       if (auto) return void joinMeet(meetUrl, roomId, { embed: true, label: label ?? "Meeting" });
       const where = roomName(roomId);
-      const t = toast(`${byName.split(" ")[0]} started a ${ghl ? "" : "recorded "}meeting${where ? ` in ${where}` : ""}`, {
+      const t = wantsYou(`${byName.split(" ")[0]} started a ${ghl ? "" : "recorded "}meeting${where ? ` in ${where}` : ""}`, {
         ttl: 60000,
         action: { label: ghl ? "Join" : "Join Meet", run: () => { void joinMeet(meetUrl, roomId, ghl ? { embed: true, label: label ?? "Meeting" } : {}); dismiss(t); } },
       });
-      ding();
     });
     s.on("floor", async (f) => {
       state.floor = f;

@@ -31,6 +31,7 @@ import { addWin, registerJumbotron, startJumbotron } from "./jumbotron";
 import { migratePreassign, registerPreassign } from "./preassign";
 import { migrateTranscripts, registerTranscribe, usage as transcribeUsage } from "./transcribe";
 import { registerFeedback } from "./feedback";
+import { migratePhotos, registerPhotos } from "./photos";
 import { migrateOnboarding, registerOnboarding, roleChanged, progress, type Onboarding } from "./onboarding";
 import {
   COOKIE, OAUTH_COOKIE, domainAllowed, exchange, googleAuthUrl, guestLink, newGuestKey, newNonce, safeNext, seal, sessionCookie,
@@ -64,6 +65,7 @@ await migrateTime(); // Time & Payroll: clock, shifts, leave (server/time)
 await migratePreassign(); // access set up for an email before its first sign-in (needs grants + locations)
 await migrateOnboarding(); // getting-started checklist + admin tour progress
 await migrateTranscripts(); // "Transcribe this room": clips, transcripts, notes
+await migratePhotos(); // photos people upload for themselves (server/photos.ts)
 // Deputy imports waiting on a timezone: the office sets it on join too, so sweep now and hourly.
 const deputySweep = () => applyPendingDeputy().catch((e) => console.error("deputy apply", e));
 void deputySweep();
@@ -174,6 +176,7 @@ await registerPayroll(app); // /api/payroll/me and /api/payroll/grants: who mana
 registerJumbotron(app, needUser, needAdmin); // /api/jumbotron — teammates only (client names on it)
 registerPreassign(app, needAdmin); // /api/admin/preassigned — roles waiting for a first sign-in
 registerOnboarding(app, needUser); // /api/onboarding — getting started + the admin tour
+registerPhotos(app, needUser, updateUser); // /api/photos/:token, /api/me/photo, /api/me/photo/slack — your own photo
 registerFeedback(app, needUser, needAdmin); // /api/feedback, /api/admin/feedback, /api/agent/feedback — the Report button
 registerTranscribe(app, needUser); // /api/rooms/:id/transcribe, /api/transcripts — room notes via the Whisper service
 

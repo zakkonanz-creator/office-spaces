@@ -6,6 +6,15 @@ export interface Release { date: string; title: string; items: string[] }
 
 export const CHANGELOG: Release[] = [
   {
+    date: "2026-11-20",
+    title: "Chimes you can't miss, and your own photo",
+    items: [
+      "If the office wasn't the window you were looking at when someone knocked or nudged you, the note now stays until you dismiss it, shows the time, and the tab title counts it.",
+      "Help → Sounds has a switch to turn the chime off. Notes still show.",
+      "Change your own photo: click yourself → Change my photo (cropped to a square), or Use my Slack photo to go back to Slack's.",
+    ],
+  },
+  {
     date: "2026-11-17",
     title: "First public release",
     items: [

@@ -9,7 +9,7 @@ A virtual office you host yourself. Everyone is a little figure on a 2D floor pl
 It runs on your own Railway account, so you pay for hosting instead of buying a seat for each person.
 
 - **Proximity audio and video**: voices fade with distance on the open floor. Inside a room, everyone hears everyone, and a closed door is soundproof.
-- **Rooms, doors, desks**: knock to enter, a desk for each person, status (Available / Focusing / Away), a minimap, Find, emoji reactions, screen share, a pop-out window.
+- **Rooms, doors, desks**: knock to enter, a desk for each person, your own name and photo, status (Available / Focusing / Away), a minimap, Find, emoji reactions, screen share, a pop-out window.
 - **Guests**: an expiring or permanent link that keeps a guest in one room.
 - **Transcribe this room**: each teammate's browser records only their own mic, a Whisper service you host turns it into text, and Claude writes notes. The notes go only to the people who were in the room. Guests are never recorded.
 - **Time tracking** (`/time`): clock in/out with breaks, weekly timesheets, schedules (overnight shifts too), leave balances and requests, shift swaps, and managers for each team.

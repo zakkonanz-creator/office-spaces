@@ -31,8 +31,8 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "start": "tsx server/index.ts",
-    "test": "tsx --test server/jumbotron.test.ts server/unit.test.ts server/onboarding.test.ts server/fathom.test.ts server/streaks.test.ts server/points.test.ts server/feedback.test.ts server/wins.test.ts server/time/*.test.ts shared/*.test.ts",
-    "e2e": "tsx scripts/e2e.ts && tsx scripts/e2e-ui.ts && tsx scripts/e2e-preassign.ts && tsx scripts/e2e-design.ts",
+    "test": "tsx --test server/jumbotron.test.ts server/unit.test.ts server/onboarding.test.ts server/fathom.test.ts server/streaks.test.ts server/points.test.ts server/feedback.test.ts server/wins.test.ts server/photos.test.ts server/time/*.test.ts shared/*.test.ts",
+    "e2e": "tsx scripts/e2e.ts && tsx scripts/e2e-ui.ts && tsx scripts/e2e-preassign.ts && tsx scripts/e2e-design.ts && tsx scripts/e2e-chime-photo.ts",
     "shots": "tsx scripts/shots.ts"
   },
   "dependencies": {

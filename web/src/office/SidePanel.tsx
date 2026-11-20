@@ -12,7 +12,7 @@ import { enableIdleDetection, idleDetectionState } from "./idle";
 import { getRoom } from "./media";
 import { Designer } from "./Designer";
 import { openGettingStarted } from "./Onboarding";
-import { arrivalsOn, doorSound, setArrivalsOn, setSoundsOn, soundsOn } from "./sounds";
+import { arrivalsOn, chimesOn, ding, doorSound, setArrivalsOn, setChimesOn, setSoundsOn, soundsOn } from "./sounds";
 import { quality, setQualityMode } from "./quality";
 import { RowStreak } from "./Streak";
 import { useOnboard, restartTrack } from "../onboard";
@@ -247,6 +247,7 @@ function Help() {
   const [checks, setChecks] = useState<{ label: string; ok: boolean; note?: string }[] | null>(null);
   const [idle, setIdle] = useState(idleDetectionState());
   const [sounds, setSounds] = useState(soundsOn());
+  const [chimes, setChimes] = useState(chimesOn());
   const [arrivals, setArrivals] = useState(arrivalsOn());
   const run = async () => {
     setChecks(null);
@@ -308,7 +309,12 @@ function Help() {
       )}
 
       <h4>Sounds</h4>
-      <p className="hint">A door shutting or opening near you, and someone walking into or out of your room. Knocks and nudges always chime.</p>
+      <p className="hint">A two-note chime when someone knocks, nudges you, asks you to follow them, or starts a meeting in your room. If the office isn't the window you're looking at, the note stays up until you close it, and the tab title shows how many you missed.</p>
+      <label className="check">
+        <input type="checkbox" checked={chimes} onChange={(e) => { setChimesOn(e.target.checked); setChimes(e.target.checked); if (e.target.checked) ding(true); }} />
+        Chime when someone wants me
+      </label>
+      <p className="hint">A door shutting or opening near you, and someone walking into or out of your room.</p>
       <label className="check">
         <input type="checkbox" checked={sounds} onChange={(e) => { setSoundsOn(e.target.checked); setSounds(e.target.checked); if (e.target.checked) doorSound(true); }} />
         Door and arrival sounds

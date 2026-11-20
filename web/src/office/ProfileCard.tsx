@@ -83,7 +83,7 @@ export function ProfileCard({ id, at, onClose }: { id: string; at: { x: number; 
         </div>
       ) : (
         <>
-          {me.guestRoom ? null : <NameForm name={p.name} />}
+          {me.guestRoom ? null : <div className="me-edits"><NameForm name={p.name} /><PhotoForm /></div>}
           <p className="hint">This is you. Set a status message from the bottom bar.</p>
         </>
       )}
@@ -125,5 +125,58 @@ function NameForm({ name }: { name: string }) {
       </div>
       {err ? <p className="hint error">{err}</p> : null}
     </form>
+  );
+}
+
+/** Shrink a picked image to a centred square JPEG (small enough to send and show everywhere). */
+async function squarePhoto(file: File, size = 256): Promise<string> {
+  const bmp = await createImageBitmap(file);
+  const side = Math.min(bmp.width, bmp.height);
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const g = c.getContext("2d")!;
+  g.fillStyle = "#fff";
+  g.fillRect(0, 0, size, size);
+  g.drawImage(bmp, (bmp.width - side) / 2, (bmp.height - side) / 2, side, side, 0, 0, size, size);
+  bmp.close();
+  return c.toDataURL("image/jpeg", 0.86);
+}
+
+/** Change the photo everyone sees. Upload one, or go back to (or pick up a newer) Slack photo. */
+function PhotoForm() {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const send = async (url: string, init: RequestInit, done: string) => {
+    setBusy(true);
+    setErr("");
+    try {
+      const r = await fetch(url, init);
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) return setErr(j.error || "That didn't save. Try again.");
+      toast(done, { ttl: 4000 });
+    } catch {
+      setErr("That didn't save. Try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+  const pick = async (file: File | undefined) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) return setErr("Pick a picture (JPG or PNG).");
+    let image: string;
+    try { image = await squarePhoto(file); } catch { return setErr("We couldn't read that picture. Try a JPG or PNG."); }
+    await send("/api/me/photo", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ image }) }, "Your new photo is up.");
+  };
+  return (
+    <div className="photo-form">
+      <div className="row">
+        <label className={`button small ghost${busy ? " disabled" : ""}`}>
+          Change my photo
+          <input type="file" accept="image/jpeg,image/png,image/webp" hidden disabled={busy} onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ""; }} />
+        </label>
+        <button className="small ghost" disabled={busy} onClick={() => void send("/api/me/photo/slack", { method: "POST" }, "Now showing your Slack photo.")}>Use my Slack photo</button>
+      </div>
+      {err ? <p className="hint error">{err}</p> : null}
+    </div>
   );
 }
