@@ -1,0 +1,24 @@
+{
+  "display_information": {
+    "name": "Proximity Office",
+    "description": "Photos and \"Message on Slack\" in Proximity Office, plus its DMs",
+    "background_color": "#1d1c1d",
+    "long_description": "The Slack side of Proximity Office (your virtual office). It looks people up by email for their photo, title and Slack id, so the office can show faces and a Message on Slack button. It sends DMs only: Fathom notes after a recorded room, and time-tracking decisions (leave, swaps, timesheets). It reads no channels and posts in none."
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "Proximity Office",
+      "always_online": false
+    }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": ["users:read", "users:read.email", "chat:write", "im:write"]
+    }
+  },
+  "settings": {
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}

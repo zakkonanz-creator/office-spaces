@@ -1,0 +1,5267 @@
+{
+ "id": "demo-office",
+ "name": "DEMO OFFICE",
+ "width": 2400,
+ "height": 2160,
+ "spawn": {
+  "x": 1120,
+  "y": 1936
+ },
+ "rooms": [
+  {
+   "id": "team-north",
+   "name": "",
+   "x": 1520,
+   "y": 80,
+   "w": 800,
+   "h": 400,
+   "kind": "team",
+   "floor": "wood",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 416,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "s",
+     "at": 554,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "office-1",
+   "name": "",
+   "x": 1200,
+   "y": 80,
+   "w": 320,
+   "h": 320,
+   "kind": "office",
+   "floor": "oak",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 192,
+    "width": 84
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "studio",
+   "name": "",
+   "x": 400,
+   "y": 720,
+   "w": 240,
+   "h": 320,
+   "kind": "team",
+   "floor": "sage",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 158,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "w",
+     "at": 84,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "office-2",
+   "name": "",
+   "x": 880,
+   "y": 80,
+   "w": 320,
+   "h": 320,
+   "kind": "office",
+   "floor": "oak",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 160,
+    "width": 144
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "sales",
+   "name": "",
+   "x": 320,
+   "y": 1280,
+   "w": 320,
+   "h": 320,
+   "kind": "team",
+   "floor": "carpet",
+   "closable": true,
+   "door": {
+    "side": "n",
+    "at": 192,
+    "width": 84
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "office-3",
+   "name": "",
+   "x": 560,
+   "y": 80,
+   "w": 320,
+   "h": 320,
+   "kind": "office",
+   "floor": "oak",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 128,
+    "width": 84
+   },
+   "wall": "brick"
+  },
+  {
+   "id": "customer-success",
+   "name": "",
+   "x": 80,
+   "y": 80,
+   "w": 480,
+   "h": 320,
+   "kind": "team",
+   "floor": "carpet",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 238,
+    "width": 84
+   },
+   "wall": "green",
+   "openings": [
+    {
+     "side": "s",
+     "at": 82,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "team-east",
+   "name": "",
+   "x": 1360,
+   "y": 800,
+   "w": 320,
+   "h": 400,
+   "kind": "office",
+   "floor": "oak",
+   "closable": true,
+   "door": {
+    "side": "w",
+    "at": 164,
+    "width": 84
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "breakout",
+   "name": "",
+   "x": 80,
+   "y": 1280,
+   "w": 240,
+   "h": 320,
+   "kind": "meeting",
+   "floor": "sage",
+   "closable": true,
+   "door": {
+    "side": "n",
+    "at": 128,
+    "width": 84
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "kitchen",
+   "name": "",
+   "x": 640,
+   "y": 720,
+   "w": 480,
+   "h": 400,
+   "kind": "common",
+   "floor": "tile",
+   "closable": false,
+   "door": {
+    "side": "s",
+    "at": 240,
+    "width": 200
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "e",
+     "at": 200,
+     "width": 200
+    },
+    {
+     "side": "n",
+     "at": 398,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "ops",
+   "name": "",
+   "x": 80,
+   "y": 720,
+   "w": 320,
+   "h": 320,
+   "kind": "team",
+   "floor": "carpet",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 216,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "e",
+     "at": 84,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "huddle",
+   "name": "",
+   "x": 2000,
+   "y": 1040,
+   "w": 320,
+   "h": 160,
+   "kind": "meeting",
+   "floor": "sage",
+   "closable": true,
+   "door": {
+    "side": "s",
+    "at": 238,
+    "width": 84
+   },
+   "wall": "brick"
+  },
+  {
+   "id": "engineering",
+   "name": "",
+   "x": 1360,
+   "y": 1200,
+   "w": 960,
+   "h": 880,
+   "kind": "team",
+   "floor": "wood",
+   "closable": false,
+   "door": {
+    "side": "n",
+    "at": 480,
+    "width": 200
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "s",
+     "at": 480,
+     "width": 200
+    },
+    {
+     "side": "e",
+     "at": 472,
+     "width": 200
+    },
+    {
+     "side": "w",
+     "at": 120,
+     "width": 160
+    },
+    {
+     "side": "w",
+     "at": 474,
+     "width": 200
+    },
+    {
+     "side": "n",
+     "at": 878,
+     "width": 84
+    },
+    {
+     "side": "w",
+     "at": 474,
+     "width": 200
+    }
+   ]
+  },
+  {
+   "id": "conference",
+   "name": "",
+   "x": 80,
+   "y": 1680,
+   "w": 800,
+   "h": 400,
+   "kind": "meeting",
+   "floor": "slate",
+   "closable": true,
+   "door": {
+    "side": "e",
+    "at": 200,
+    "width": 200
+   },
+   "wall": "green"
+  },
+  {
+   "id": "team-west",
+   "name": "",
+   "x": 2000,
+   "y": 480,
+   "w": 320,
+   "h": 560,
+   "kind": "team",
+   "floor": "carpet",
+   "closable": true,
+   "door": {
+    "side": "w",
+    "at": 164,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "n",
+     "at": 74,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "team-south",
+   "name": "",
+   "x": 80,
+   "y": 400,
+   "w": 320,
+   "h": 320,
+   "kind": "team",
+   "floor": "oak",
+   "closable": true,
+   "door": {
+    "side": "e",
+    "at": 148,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "n",
+     "at": 82,
+     "width": 84
+    },
+    {
+     "side": "n",
+     "at": 238,
+     "width": 84
+    }
+   ]
+  },
+  {
+   "id": "lounge",
+   "name": "",
+   "x": 880,
+   "y": 1680,
+   "w": 480,
+   "h": 400,
+   "kind": "common",
+   "floor": "slate",
+   "closable": false,
+   "door": {
+    "side": "n",
+    "at": 200,
+    "width": 200
+   },
+   "wall": "green",
+   "openings": [
+    {
+     "side": "w",
+     "at": 200,
+     "width": 200
+    },
+    {
+     "side": "e",
+     "at": -6,
+     "width": 200
+    }
+   ]
+  },
+  {
+   "id": "projects",
+   "name": "",
+   "x": 640,
+   "y": 1280,
+   "w": 240,
+   "h": 320,
+   "kind": "team",
+   "floor": "carpet",
+   "closable": true,
+   "door": {
+    "side": "n",
+    "at": 112,
+    "width": 84
+   },
+   "wall": "glass"
+  },
+  {
+   "id": "meeting",
+   "name": "",
+   "x": 1680,
+   "y": 800,
+   "w": 320,
+   "h": 400,
+   "kind": "meeting",
+   "floor": "slate",
+   "closable": true,
+   "door": {
+    "side": "n",
+    "at": 192,
+    "width": 84
+   },
+   "wall": "glass",
+   "openings": [
+    {
+     "side": "s",
+     "at": 160,
+     "width": 200
+    }
+   ]
+  }
+ ],
+ "desks": [
+  {
+   "id": "engineering-k1",
+   "roomId": "engineering",
+   "x": 2217,
+   "y": 1930,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2274,
+    "y": 1949
+   },
+   "owner": "Avery Brooks",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k1",
+   "roomId": "team-north",
+   "x": 2257,
+   "y": 168,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2268,
+    "y": 257
+   },
+   "owner": "Blake Carter",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k2",
+   "roomId": "engineering",
+   "x": 2177,
+   "y": 1842,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2089,
+    "y": 1852
+   },
+   "owner": "Cameron Diaz-Cole",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k3",
+   "roomId": "engineering",
+   "x": 1920,
+   "y": 1816,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1921,
+    "y": 1755
+   },
+   "owner": "Dana Ellis",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k4",
+   "roomId": "engineering",
+   "x": 2177,
+   "y": 2001,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2249,
+    "y": 2022
+   },
+   "owner": "Emery Fox",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k5",
+   "roomId": "engineering",
+   "x": 1800,
+   "y": 1517,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1801,
+    "y": 1447
+   },
+   "owner": "Finley Grant",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k6",
+   "roomId": "engineering",
+   "x": 2177,
+   "y": 1666,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2089,
+    "y": 1685
+   },
+   "owner": "Harper Hale",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k2",
+   "roomId": "team-north",
+   "x": 1745,
+   "y": 160,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1777,
+    "y": 257
+   },
+   "owner": "Indigo Ives",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k7",
+   "roomId": "engineering",
+   "x": 1505,
+   "y": 1666,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1425,
+    "y": 1685
+   },
+   "owner": "Jamie Jensen",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k3",
+   "roomId": "team-north",
+   "x": 1648,
+   "y": 353,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1657,
+    "y": 313
+   },
+   "owner": "Kendall Knox",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k8",
+   "roomId": "engineering",
+   "x": 2136,
+   "y": 1930,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2081,
+    "y": 1949
+   },
+   "owner": "Logan Lane",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k9",
+   "roomId": "engineering",
+   "x": 1505,
+   "y": 1834,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1433,
+    "y": 1861
+   },
+   "owner": "Micah Moss",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k4",
+   "roomId": "team-north",
+   "x": 2277,
+   "y": 360,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2268,
+    "y": 428
+   },
+   "owner": "Nico Nash",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k5",
+   "roomId": "team-north",
+   "x": 1609,
+   "y": 168,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1649,
+    "y": 257
+   },
+   "owner": "Oakley Owens",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k10",
+   "roomId": "engineering",
+   "x": 1841,
+   "y": 1886,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1841,
+    "y": 1975
+   },
+   "owner": "Parker Price",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k6",
+   "roomId": "team-north",
+   "x": 2009,
+   "y": 168,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2025,
+    "y": 257
+   },
+   "owner": "Quinn Reed",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k11",
+   "roomId": "engineering",
+   "x": 1921,
+   "y": 1886,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1921,
+    "y": 1975
+   },
+   "owner": "Reese Rowe",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k7",
+   "roomId": "team-north",
+   "x": 1873,
+   "y": 368,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1857,
+    "y": 428
+   },
+   "owner": "Sage Sutton",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k12",
+   "roomId": "engineering",
+   "x": 1545,
+   "y": 1922,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1617,
+    "y": 1940
+   },
+   "owner": "Tatum Tate",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k8",
+   "roomId": "team-north",
+   "x": 2200,
+   "y": 353,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 2201,
+    "y": 321
+   },
+   "owner": "Uma Vance",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k13",
+   "roomId": "engineering",
+   "x": 1984,
+   "y": 1517,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 2033,
+    "y": 1456
+   },
+   "owner": "Wren West",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k14",
+   "roomId": "engineering",
+   "x": 1704,
+   "y": 1517,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1713,
+    "y": 1447
+   },
+   "owner": "Ximena Yu",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k15",
+   "roomId": "engineering",
+   "x": 1553,
+   "y": 1754,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1601,
+    "y": 1773
+   },
+   "owner": "Yael Zimmer",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k9",
+   "roomId": "team-north",
+   "x": 2137,
+   "y": 168,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2137,
+    "y": 257
+   },
+   "owner": "Zion Abbott",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k10",
+   "roomId": "team-north",
+   "x": 1881,
+   "y": 168,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1905,
+    "y": 257
+   },
+   "owner": "Avery Brooks 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k11",
+   "roomId": "team-north",
+   "x": 1776,
+   "y": 353,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1785,
+    "y": 321
+   }
+  },
+  {
+   "id": "engineering-k16",
+   "roomId": "engineering",
+   "x": 1760,
+   "y": 1816,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1761,
+    "y": 1755
+   },
+   "owner": "Blake Carter 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k17",
+   "roomId": "engineering",
+   "x": 1761,
+   "y": 1886,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1761,
+    "y": 1975
+   },
+   "owner": "Cameron Diaz-Cole 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k12",
+   "roomId": "team-north",
+   "x": 1713,
+   "y": 368,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1737,
+    "y": 428
+   }
+  },
+  {
+   "id": "engineering-k18",
+   "roomId": "engineering",
+   "x": 1505,
+   "y": 2001,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1425,
+    "y": 2022
+   },
+   "owner": "Dana Ellis 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k19",
+   "roomId": "engineering",
+   "x": 1464,
+   "y": 1922,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1409,
+    "y": 1940
+   },
+   "owner": "Emery Fox 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k20",
+   "roomId": "engineering",
+   "x": 1896,
+   "y": 1526,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1905,
+    "y": 1447
+   },
+   "owner": "Finley Grant 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k21",
+   "roomId": "engineering",
+   "x": 1496,
+   "y": 1246,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1496,
+    "y": 1344
+   },
+   "owner": "Harper Hale 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k22",
+   "roomId": "engineering",
+   "x": 1608,
+   "y": 1509,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1609,
+    "y": 1456
+   },
+   "owner": "Indigo Ives 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k23",
+   "roomId": "engineering",
+   "x": 2136,
+   "y": 1754,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2073,
+    "y": 1764
+   },
+   "owner": "Jamie Jensen 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k24",
+   "roomId": "engineering",
+   "x": 1464,
+   "y": 1754,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1409,
+    "y": 1773
+   },
+   "owner": "Kendall Knox 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "engineering-k25",
+   "roomId": "engineering",
+   "x": 2080,
+   "y": 1517,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2080,
+    "y": 1592
+   },
+   "owner": "Logan Lane 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k13",
+   "roomId": "team-north",
+   "x": 1585,
+   "y": 360,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 1601,
+    "y": 428
+   }
+  },
+  {
+   "id": "engineering-k26",
+   "roomId": "engineering",
+   "x": 2217,
+   "y": 1754,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2274,
+    "y": 1773
+   },
+   "owner": "Micah Moss 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-north-k14",
+   "roomId": "team-north",
+   "x": 2113,
+   "y": 352,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 2153,
+    "y": 428
+   }
+  },
+  {
+   "id": "engineering-k27",
+   "roomId": "engineering",
+   "x": 1840,
+   "y": 1816,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1841,
+    "y": 1755
+   },
+   "owner": "Nico Nash 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "office-3-d1",
+   "roomId": "office-3",
+   "x": 728,
+   "y": 198,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 728,
+    "y": 147
+   },
+   "owner": "Alex Admin",
+   "title": "Owner"
+  },
+  {
+   "id": "office-2-d1",
+   "roomId": "office-2",
+   "x": 1040,
+   "y": 198,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1040,
+    "y": 147
+   },
+   "owner": "Oakley Owens 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "office-1-d1",
+   "roomId": "office-1",
+   "x": 1360,
+   "y": 198,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1360,
+    "y": 147
+   },
+   "owner": "Parker Price 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-south-d1",
+   "roomId": "team-south",
+   "x": 220,
+   "y": 568,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 220,
+    "y": 517
+   },
+   "owner": "Morgan Lee",
+   "title": "Team Lead"
+  },
+  {
+   "id": "ops-d1",
+   "roomId": "ops",
+   "x": 166,
+   "y": 790,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 166,
+    "y": 841
+   },
+   "owner": "Quinn Reed 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "ops-d2",
+   "roomId": "ops",
+   "x": 286,
+   "y": 790,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 286,
+    "y": 841
+   },
+   "owner": "Reese Rowe 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "studio-d1",
+   "roomId": "studio",
+   "x": 512,
+   "y": 790,
+   "facing": "n",
+   "bare": true,
+   "seat": {
+    "x": 512,
+    "y": 841
+   },
+   "owner": "Sage Sutton 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-east-d1",
+   "roomId": "team-east",
+   "x": 1556,
+   "y": 910,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 1556,
+    "y": 859
+   },
+   "owner": "Tatum Tate 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "sales-d1",
+   "roomId": "sales",
+   "x": 416,
+   "y": 1532,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 416,
+    "y": 1481
+   },
+   "owner": "Uma Vance 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "sales-d2",
+   "roomId": "sales",
+   "x": 536,
+   "y": 1532,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 536,
+    "y": 1481
+   },
+   "owner": "Wren West 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "projects-d1",
+   "roomId": "projects",
+   "x": 760,
+   "y": 1532,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 760,
+    "y": 1481
+   },
+   "owner": "Ximena Yu 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-west-d1",
+   "roomId": "team-west",
+   "x": 2100,
+   "y": 950,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 2100,
+    "y": 899
+   },
+   "owner": "Yael Zimmer 2",
+   "title": "Teammate"
+  },
+  {
+   "id": "team-west-d2",
+   "roomId": "team-west",
+   "x": 2224,
+   "y": 950,
+   "facing": "s",
+   "bare": true,
+   "seat": {
+    "x": 2224,
+    "y": 899
+   },
+   "owner": "Zion Abbott 2",
+   "title": "Teammate"
+  }
+ ],
+ "objects": [
+  {
+   "id": "k2",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 270,
+   "x": 1400,
+   "y": 1648,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k3",
+   "type": "laptop",
+   "r": 270,
+   "x": 2196,
+   "y": 1903,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k5",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 270,
+   "x": 2064,
+   "y": 1815,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k8",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "x": 610,
+   "y": 1808,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k9",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 1384,
+   "y": 1440,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k10",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1618,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k11",
+   "type": "laptop",
+   "x": 2235,
+   "y": 141,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k13",
+   "type": "console",
+   "x": 1587,
+   "y": 1994,
+   "w": 192,
+   "h": 64
+  },
+  {
+   "id": "k14",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 349,
+   "y": 1957,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k17",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 2224,
+   "y": 1328,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k19",
+   "type": "laptop",
+   "r": 270,
+   "x": 2180,
+   "y": 1815,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k20",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 565,
+   "y": 1877,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k21",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 1888,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k22",
+   "type": "laptop",
+   "r": 180,
+   "x": 1893,
+   "y": 1789,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k23",
+   "type": "laptop",
+   "r": 270,
+   "x": 2180,
+   "y": 1974,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k24",
+   "type": "laptop",
+   "r": 180,
+   "x": 1773,
+   "y": 1496,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k25",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 1576,
+   "y": 1224,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k26",
+   "type": "bicycle",
+   "x": 2154,
+   "y": 1403,
+   "w": 140,
+   "h": 70
+  },
+  {
+   "id": "k27",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 1544,
+   "y": 176,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k28",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 270,
+   "x": 1400,
+   "y": 1985,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k32",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1746,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k33",
+   "type": "cup",
+   "variant": "tropical",
+   "x": 2077,
+   "y": 181,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k34",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 1382,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k36",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 2237,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k37",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1781,
+   "y": 181,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k38",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 90,
+   "x": 2249,
+   "y": 1912,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k39",
+   "type": "plant",
+   "x": 2264,
+   "y": 1296,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k40",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1706,
+   "y": 397,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k41",
+   "type": "laptop",
+   "r": 270,
+   "x": 2180,
+   "y": 1639,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k46",
+   "type": "laptop",
+   "x": 1723,
+   "y": 133,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k49",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 421,
+   "y": 1877,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k51",
+   "type": "plant",
+   "variant": "lily",
+   "x": 576,
+   "y": 422,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "k55",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1648,
+   "y": 328,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k58",
+   "type": "laptop",
+   "r": 270,
+   "x": 1508,
+   "y": 1639,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k59",
+   "type": "laptop",
+   "r": 180,
+   "x": 1621,
+   "y": 332,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k60",
+   "type": "laptop",
+   "r": 90,
+   "x": 2109,
+   "y": 1903,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k62",
+   "type": "chess",
+   "x": 710,
+   "y": 519,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "k63",
+   "type": "frame",
+   "variant": "art",
+   "x": 160,
+   "y": 65,
+   "w": 41,
+   "h": 34
+  },
+  {
+   "id": "k71",
+   "type": "laptop",
+   "r": 90,
+   "x": 2132,
+   "y": 1974,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k72",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 270,
+   "x": 1384,
+   "y": 1736,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k75",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 2221,
+   "y": 373,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k76",
+   "type": "deskLamp",
+   "x": 1663,
+   "y": 135,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k81",
+   "type": "laptop",
+   "r": 270,
+   "x": 1508,
+   "y": 1807,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k82",
+   "type": "plantTall",
+   "x": 1216,
+   "y": 422,
+   "w": 48,
+   "h": 48
+  },
+  {
+   "id": "k86",
+   "type": "laptop",
+   "x": 2255,
+   "y": 333,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k87",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "r": 180,
+   "x": 1730,
+   "y": 1944,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k91",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "x": 2170,
+   "y": 284,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k92",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 90,
+   "x": 1579,
+   "y": 1824,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k96",
+   "type": "sofa",
+   "color": "#ece6da",
+   "variant": "cushions",
+   "x": 210,
+   "y": 131,
+   "w": 260,
+   "h": 70
+  },
+  {
+   "id": "k97",
+   "type": "chair",
+   "color": "#e8925a",
+   "variant": "plastic",
+   "x": 1880,
+   "y": 1410,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k98",
+   "type": "laptop",
+   "x": 1587,
+   "y": 141,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k100",
+   "type": "laptop",
+   "x": 1819,
+   "y": 1859,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k101",
+   "type": "rug",
+   "color": "#c4c6c6",
+   "variant": "border",
+   "x": 1840,
+   "y": 1438,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k102",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 270,
+   "x": 2064,
+   "y": 1648,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k104",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 386,
+   "y": 2011,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k109",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 180,
+   "x": 2106,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k111",
+   "type": "frame",
+   "variant": "05",
+   "x": 662,
+   "y": 1265,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k116",
+   "type": "deskLamp",
+   "x": 2047,
+   "y": 135,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k118",
+   "type": "frame",
+   "variant": "05",
+   "x": 338,
+   "y": 65,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k122",
+   "type": "laptop",
+   "x": 1987,
+   "y": 141,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k125",
+   "type": "laptop",
+   "x": 1899,
+   "y": 1859,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k126",
+   "type": "rug",
+   "color": "#55779e",
+   "variant": "kilim",
+   "x": 190,
+   "y": 171,
+   "w": 300,
+   "h": 160
+  },
+  {
+   "id": "k127",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 1672,
+   "y": 1224,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k128",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 270,
+   "x": 1384,
+   "y": 1903,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k129",
+   "type": "cafe",
+   "variant": "plain-rattan",
+   "x": 294,
+   "y": 219,
+   "w": 92,
+   "h": 92
+  },
+  {
+   "id": "k131",
+   "type": "table",
+   "variant": "plain",
+   "x": 1880,
+   "y": 1790,
+   "w": 80,
+   "h": 176
+  },
+  {
+   "id": "k133",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1570,
+   "y": 397,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k137",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1542,
+   "y": 328,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k139",
+   "type": "laptop",
+   "r": 90,
+   "x": 2132,
+   "y": 1815,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k146",
+   "type": "laptop",
+   "x": 1851,
+   "y": 341,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k147",
+   "type": "laptop",
+   "r": 270,
+   "x": 1524,
+   "y": 1895,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k150",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 2122,
+   "y": 397,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k151",
+   "type": "plant",
+   "x": 324,
+   "y": 249,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k152",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 270,
+   "x": 2048,
+   "y": 1727,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k156",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 530,
+   "y": 2011,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k159",
+   "type": "chair",
+   "color": "#e8925a",
+   "variant": "plastic",
+   "x": 1688,
+   "y": 1410,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k161",
+   "type": "chair",
+   "color": "#e8925a",
+   "variant": "plastic",
+   "x": 1776,
+   "y": 1410,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k162",
+   "type": "planter",
+   "x": 488,
+   "y": 144,
+   "w": 48,
+   "h": 144
+  },
+  {
+   "id": "k163",
+   "type": "frame",
+   "variant": "art",
+   "x": 752,
+   "y": 1665,
+   "w": 62,
+   "h": 34
+  },
+  {
+   "id": "k165",
+   "type": "console",
+   "x": 1902,
+   "y": 1994,
+   "w": 192,
+   "h": 64
+  },
+  {
+   "id": "k172",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 2122,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k175",
+   "type": "frame",
+   "variant": "02",
+   "x": 1681,
+   "y": 1185,
+   "w": 42,
+   "h": 34
+  },
+  {
+   "id": "k180",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "x": 1626,
+   "y": 276,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k182",
+   "type": "frame",
+   "variant": "05",
+   "x": 250,
+   "y": 65,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k183",
+   "type": "laptop",
+   "r": 180,
+   "x": 2173,
+   "y": 332,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k184",
+   "type": "table",
+   "variant": "plain",
+   "x": 1800,
+   "y": 1790,
+   "w": 80,
+   "h": 176
+  },
+  {
+   "id": "k187",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 270,
+   "x": 222,
+   "y": 1958,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k188",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 2010,
+   "y": 200,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k189",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 90,
+   "x": 1592,
+   "y": 1903,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k190",
+   "type": "plant",
+   "x": 1904,
+   "y": 1224,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "k192",
+   "type": "mannequin",
+   "x": 1542,
+   "y": 294,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "k194",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1776,
+   "y": 328,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k195",
+   "type": "laptop",
+   "r": 180,
+   "x": 1957,
+   "y": 1496,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k200",
+   "type": "timer",
+   "label": "Timer",
+   "x": 2134,
+   "y": 1128,
+   "w": 48,
+   "h": 32
+  },
+  {
+   "id": "k201",
+   "type": "frame",
+   "variant": "art",
+   "x": 120,
+   "y": 1665,
+   "w": 53,
+   "h": 34
+  },
+  {
+   "id": "k202",
+   "type": "planter",
+   "x": 1688,
+   "y": 104,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "k203",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 90,
+   "x": 2251,
+   "y": 1824,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k206",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 90,
+   "x": 1579,
+   "y": 1648,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k207",
+   "type": "keyboard",
+   "x": 1448,
+   "y": 1222,
+   "w": 80,
+   "h": 16
+  },
+  {
+   "id": "k208",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1560,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k209",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1688,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k210",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 90,
+   "x": 2224,
+   "y": 1985,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k211",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2072,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k212",
+   "type": "rug",
+   "color": "#c4c6c6",
+   "variant": "border",
+   "x": 1560,
+   "y": 1438,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k213",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 1808,
+   "y": 208,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k214",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 90,
+   "x": 2249,
+   "y": 1736,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k215",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1994,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k216",
+   "type": "plantTall",
+   "x": 160,
+   "y": 1062,
+   "w": 48,
+   "h": 48
+  },
+  {
+   "id": "k218",
+   "type": "trinket",
+   "variant": "phone",
+   "x": 2275,
+   "y": 135,
+   "w": 23,
+   "h": 34
+  },
+  {
+   "id": "k221",
+   "type": "frame",
+   "variant": "art",
+   "x": 1321,
+   "y": 65,
+   "w": 56,
+   "h": 34
+  },
+  {
+   "id": "k225",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 270,
+   "x": 2082,
+   "y": 1985,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k226",
+   "type": "laptop",
+   "r": 180,
+   "x": 1677,
+   "y": 1490,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k227",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1826,
+   "y": 397,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k228",
+   "type": "plantTall",
+   "variant": "lily",
+   "x": 1132,
+   "y": 422,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k229",
+   "type": "laptop",
+   "r": 270,
+   "x": 1532,
+   "y": 1727,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k230",
+   "type": "frame",
+   "variant": "02",
+   "x": 483,
+   "y": 705,
+   "w": 42,
+   "h": 34
+  },
+  {
+   "id": "k232",
+   "type": "plant",
+   "x": 1384,
+   "y": 1408,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k234",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 493,
+   "y": 1965,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k236",
+   "type": "plant",
+   "x": 1384,
+   "y": 1224,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k239",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 602,
+   "y": 2011,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k241",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "x": 538,
+   "y": 1770,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k244",
+   "type": "laptop",
+   "x": 2115,
+   "y": 141,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k246",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "x": 1890,
+   "y": 1718,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k247",
+   "type": "frame",
+   "variant": "art",
+   "x": 456,
+   "y": 1665,
+   "w": 40,
+   "h": 34
+  },
+  {
+   "id": "k251",
+   "type": "note",
+   "text": "Click the flag for music!",
+   "color": "#d9c6f2",
+   "variant": "small",
+   "x": 550,
+   "y": 958,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "k255",
+   "type": "laptop",
+   "r": 90,
+   "x": 1460,
+   "y": 1807,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k261",
+   "type": "laptop",
+   "x": 1859,
+   "y": 141,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k262",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1917,
+   "y": 181,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k267",
+   "type": "laptop",
+   "r": 90,
+   "x": 2132,
+   "y": 1639,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k269",
+   "type": "laptop",
+   "r": 180,
+   "x": 1749,
+   "y": 332,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k272",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 270,
+   "x": 1408,
+   "y": 1824,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k273",
+   "type": "laptop",
+   "r": 180,
+   "x": 1733,
+   "y": 1789,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k276",
+   "type": "laptop",
+   "x": 1739,
+   "y": 1859,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k277",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 90,
+   "x": 1557,
+   "y": 1985,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k279",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "x": 466,
+   "y": 1782,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k280",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 2198,
+   "y": 1510,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k282",
+   "type": "plant",
+   "x": 2016,
+   "y": 1224,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k283",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 1712,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k285",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 180,
+   "x": 2237,
+   "y": 397,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k290",
+   "type": "laptop",
+   "r": 90,
+   "x": 1460,
+   "y": 1639,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k291",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "r": 180,
+   "x": 1810,
+   "y": 1946,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k292",
+   "type": "cup",
+   "variant": "boba",
+   "x": 1933,
+   "y": 149,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k294",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 1800,
+   "y": 282,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k295",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "x": 1730,
+   "y": 1718,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k296",
+   "type": "laptop",
+   "x": 1691,
+   "y": 341,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k298",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "r": 180,
+   "x": 1890,
+   "y": 1944,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k299",
+   "type": "plantWall",
+   "variant": "shelf",
+   "x": 394,
+   "y": 99,
+   "w": 144,
+   "h": 26
+  },
+  {
+   "id": "k300",
+   "type": "cup",
+   "variant": "tropical",
+   "x": 2021,
+   "y": 1497,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k305",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "r": 90,
+   "x": 1576,
+   "y": 1736,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k307",
+   "type": "trinket",
+   "variant": "globe",
+   "x": 103,
+   "y": 102,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k308",
+   "type": "plantWall",
+   "x": 2022,
+   "y": 1059,
+   "w": 80,
+   "h": 26
+  },
+  {
+   "id": "k309",
+   "type": "mannequin",
+   "x": 2268,
+   "y": 294,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "k313",
+   "type": "mannequin",
+   "x": 505,
+   "y": 102,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "k315",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1816,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k316",
+   "type": "laptop",
+   "r": 90,
+   "x": 1460,
+   "y": 1974,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k318",
+   "type": "plantWall",
+   "variant": "shelf",
+   "x": 102,
+   "y": 99,
+   "w": 144,
+   "h": 26
+  },
+  {
+   "id": "k322",
+   "type": "laptop",
+   "r": 90,
+   "x": 1437,
+   "y": 1895,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k326",
+   "type": "logo",
+   "x": 1224,
+   "y": 1662,
+   "w": 112,
+   "h": 40
+  },
+  {
+   "id": "k327",
+   "type": "flowers",
+   "variant": "succulent",
+   "x": 1816,
+   "y": 104,
+   "w": 38,
+   "h": 38
+  },
+  {
+   "id": "k328",
+   "type": "plantTall",
+   "variant": "lily",
+   "x": 396,
+   "y": 1062,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k329",
+   "type": "table",
+   "variant": "plain",
+   "x": 1720,
+   "y": 1790,
+   "w": 80,
+   "h": 176
+  },
+  {
+   "id": "k338",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 458,
+   "y": 2011,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k341",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 90,
+   "x": 686,
+   "y": 1950,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k342",
+   "type": "desk",
+   "variant": "dark",
+   "r": 180,
+   "x": 1416,
+   "y": 1222,
+   "w": 160,
+   "h": 112
+  },
+  {
+   "id": "k343",
+   "type": "desk",
+   "variant": "dark",
+   "r": 180,
+   "x": 1576,
+   "y": 1470,
+   "w": 160,
+   "h": 112
+  },
+  {
+   "id": "k347",
+   "type": "laptop",
+   "r": 180,
+   "x": 1869,
+   "y": 1499,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k349",
+   "type": "desk",
+   "variant": "dark",
+   "r": 180,
+   "x": 1768,
+   "y": 1470,
+   "w": 160,
+   "h": 112
+  },
+  {
+   "id": "k353",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "x": 394,
+   "y": 1778,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k356",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1645,
+   "y": 1497,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k357",
+   "type": "cafe",
+   "variant": "plain-wood",
+   "x": 688,
+   "y": 497,
+   "w": 96,
+   "h": 96
+  },
+  {
+   "id": "k358",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 1544,
+   "y": 282,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k360",
+   "type": "trinket",
+   "variant": "sailboat",
+   "x": 447,
+   "y": 102,
+   "w": 34,
+   "h": 26
+  },
+  {
+   "id": "k365",
+   "type": "monitor",
+   "r": 180,
+   "x": 1448,
+   "y": 1222,
+   "w": 96,
+   "h": 48
+  },
+  {
+   "id": "k367",
+   "type": "plantWall",
+   "x": 432,
+   "y": 739,
+   "w": 80,
+   "h": 26
+  },
+  {
+   "id": "k368",
+   "type": "plantTall",
+   "variant": "lily",
+   "x": 885,
+   "y": 422,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k370",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 270,
+   "x": 242,
+   "y": 1868,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k371",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 90,
+   "x": 674,
+   "y": 1868,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k373",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 90,
+   "x": 2220,
+   "y": 1582,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k377",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "x": 1754,
+   "y": 284,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k379",
+   "type": "chair",
+   "color": "#e8925a",
+   "variant": "plastic",
+   "x": 1584,
+   "y": 1419,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k380",
+   "type": "rug",
+   "color": "#e6e2da",
+   "variant": "terrazzo",
+   "x": 2010,
+   "y": 282,
+   "w": 288,
+   "h": 176
+  },
+  {
+   "id": "k382",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 180,
+   "x": 1874,
+   "y": 226,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k384",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 314,
+   "y": 2011,
+   "w": 61,
+   "h": 61
+  },
+  {
+   "id": "k385",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2170,
+   "y": 328,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k386",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2170,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k387",
+   "type": "laptop",
+   "r": 180,
+   "x": 1581,
+   "y": 1488,
+   "w": 54,
+   "h": 41
+  },
+  {
+   "id": "k388",
+   "type": "trinket",
+   "variant": "globe",
+   "x": 2183,
+   "y": 135,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k389",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 1382,
+   "y": 1516,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "k390",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 629,
+   "y": 1957,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k392",
+   "type": "laptop",
+   "r": 90,
+   "x": 2109,
+   "y": 1727,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k393",
+   "type": "flowers",
+   "variant": "sunflower",
+   "x": 1782,
+   "y": 422,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k395",
+   "type": "laptop",
+   "r": 90,
+   "x": 1437,
+   "y": 1727,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k396",
+   "type": "laptop",
+   "r": 180,
+   "x": 2053,
+   "y": 1490,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k397",
+   "type": "table",
+   "variant": "plain-dark",
+   "x": 2104,
+   "y": 1658,
+   "w": 144,
+   "h": 400
+  },
+  {
+   "id": "k399",
+   "type": "cup",
+   "variant": "boba",
+   "x": 517,
+   "y": 1917,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k400",
+   "type": "laptop",
+   "r": 270,
+   "x": 1508,
+   "y": 1974,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k403",
+   "type": "chair",
+   "color": "#e6bf55",
+   "variant": "plastic",
+   "r": 270,
+   "x": 2056,
+   "y": 1912,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k405",
+   "type": "armchair",
+   "color": "#ece8e1",
+   "r": 270,
+   "x": 202,
+   "y": 225,
+   "w": 80,
+   "h": 80
+  },
+  {
+   "id": "k406",
+   "type": "plant",
+   "variant": "fern",
+   "x": 88,
+   "y": 1062,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "k409",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 1544,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k412",
+   "type": "mat",
+   "text": "WELCOME",
+   "x": 984,
+   "y": 426,
+   "w": 112,
+   "h": 64
+  },
+  {
+   "id": "k413",
+   "type": "laptop",
+   "x": 1563,
+   "y": 333,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k416",
+   "type": "laptop",
+   "r": 270,
+   "x": 2196,
+   "y": 1727,
+   "w": 41,
+   "h": 54
+  },
+  {
+   "id": "k417",
+   "type": "plant",
+   "x": 2120,
+   "y": 1224,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "k419",
+   "type": "armchair",
+   "color": "#ece8e1",
+   "r": 90,
+   "x": 398,
+   "y": 225,
+   "w": 80,
+   "h": 80
+  },
+  {
+   "id": "k420",
+   "type": "frame",
+   "variant": "05",
+   "x": 228,
+   "y": 385,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "k421",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "x": 322,
+   "y": 1808,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k422",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "plastic",
+   "x": 1810,
+   "y": 1718,
+   "w": 61,
+   "h": 73
+  },
+  {
+   "id": "k424",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 2048,
+   "y": 1725,
+   "w": 176,
+   "h": 288
+  },
+  {
+   "id": "k427",
+   "type": "laptop",
+   "x": 2091,
+   "y": 325,
+   "w": 43,
+   "h": 54
+  },
+  {
+   "id": "k428",
+   "type": "chair",
+   "color": "#6f9fd6",
+   "variant": "plastic",
+   "x": 2008,
+   "y": 1419,
+   "w": 49,
+   "h": 73
+  },
+  {
+   "id": "k430",
+   "type": "note",
+   "text": "No fish in the microwave, PLEASE!",
+   "color": "#fbe68a",
+   "variant": "small",
+   "x": 666,
+   "y": 814,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "k431",
+   "type": "mannequin",
+   "x": 1833,
+   "y": 1436,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "k433",
+   "type": "laptop",
+   "r": 180,
+   "x": 1813,
+   "y": 1789,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "k438",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1944,
+   "y": 144,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k442",
+   "type": "desk",
+   "variant": "dark",
+   "r": 180,
+   "x": 1952,
+   "y": 1470,
+   "w": 160,
+   "h": 112
+  },
+  {
+   "id": "k445",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2064,
+   "y": 328,
+   "w": 128,
+   "h": 81
+  },
+  {
+   "id": "k450",
+   "type": "table",
+   "variant": "plain-dark",
+   "x": 296,
+   "y": 1856,
+   "w": 384,
+   "h": 176
+  },
+  {
+   "id": "k453",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1653,
+   "y": 181,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "k454",
+   "type": "trinket",
+   "variant": "pens",
+   "x": 2144,
+   "y": 360,
+   "w": 32,
+   "h": 32
+  },
+  {
+   "id": "k458",
+   "type": "table",
+   "variant": "plain-dark",
+   "x": 1432,
+   "y": 1658,
+   "w": 144,
+   "h": 400
+  },
+  {
+   "id": "k-games-rug",
+   "type": "rug",
+   "x": 600,
+   "y": 511,
+   "w": 240,
+   "h": 112,
+   "color": "#6b4a5e",
+   "variant": "kilim"
+  },
+  {
+   "id": "k-games-l",
+   "type": "chair",
+   "x": 602,
+   "y": 513,
+   "w": 64,
+   "h": 64,
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 270
+  },
+  {
+   "id": "k-games-r",
+   "type": "chair",
+   "x": 762,
+   "y": 513,
+   "w": 64,
+   "h": 64,
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 90
+  },
+  {
+   "id": "k-music",
+   "type": "music",
+   "x": 550,
+   "y": 910,
+   "w": 40,
+   "h": 40,
+   "label": "Click the flag for music!",
+   "youtube": "jfKfPfyJRdk"
+  },
+  {
+   "id": "k461",
+   "type": "plate",
+   "x": 2000,
+   "y": 1520,
+   "w": 64,
+   "h": 16,
+   "text": "Wiki"
+  },
+  {
+   "id": "kitchen-fridge",
+   "type": "fridge",
+   "x": 664,
+   "y": 744,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "kitchen-counter-1",
+   "type": "cabinet",
+   "x": 734,
+   "y": 744,
+   "w": 125,
+   "h": 60
+  },
+  {
+   "id": "kitchen-counter-2",
+   "type": "cabinet",
+   "x": 859,
+   "y": 744,
+   "w": 125,
+   "h": 60
+  },
+  {
+   "id": "kitchen-microwave",
+   "type": "microwave",
+   "x": 742,
+   "y": 752,
+   "w": 44,
+   "h": 34
+  },
+  {
+   "id": "kitchen-coffee",
+   "type": "tray",
+   "variant": "coffee",
+   "x": 928,
+   "y": 752,
+   "w": 48,
+   "h": 40
+  },
+  {
+   "id": "kitchen-cooler",
+   "type": "cooler",
+   "x": 1052,
+   "y": 814,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "kitchen-rug",
+   "type": "rug",
+   "color": "#b9502f",
+   "variant": "kilim",
+   "x": 720,
+   "y": 864,
+   "w": 300,
+   "h": 168
+  },
+  {
+   "id": "kitchen-sofa-l",
+   "type": "sofa",
+   "color": "#ece6da",
+   "variant": "cushions",
+   "r": 270,
+   "x": 730,
+   "y": 874,
+   "w": 60,
+   "h": 148
+  },
+  {
+   "id": "kitchen-sofa-r",
+   "type": "sofa",
+   "color": "#ece6da",
+   "variant": "cushions",
+   "r": 90,
+   "x": 950,
+   "y": 874,
+   "w": 60,
+   "h": 148
+  },
+  {
+   "id": "kitchen-table",
+   "type": "coffeeTable",
+   "x": 814,
+   "y": 918,
+   "w": 112,
+   "h": 60
+  },
+  {
+   "id": "kitchen-donuts",
+   "type": "food",
+   "variant": "donuts",
+   "x": 824,
+   "y": 928,
+   "w": 34,
+   "h": 40
+  },
+  {
+   "id": "kitchen-pizza",
+   "type": "food",
+   "variant": "pizza",
+   "x": 864,
+   "y": 928,
+   "w": 34,
+   "h": 40
+  },
+  {
+   "id": "kitchen-boba",
+   "type": "cup",
+   "variant": "boba",
+   "x": 904,
+   "y": 928,
+   "w": 18,
+   "h": 18
+  },
+  {
+   "id": "kitchen-coffee-cup",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 904,
+   "y": 952,
+   "w": 18,
+   "h": 18
+  },
+  {
+   "id": "kitchen-beanbag-0",
+   "type": "beanbag",
+   "color": "#9dbf95",
+   "x": 666,
+   "y": 870,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "kitchen-beanbag-1",
+   "type": "beanbag",
+   "color": "#6f9fd6",
+   "x": 666,
+   "y": 934,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "kitchen-beanbag-2",
+   "type": "beanbag",
+   "color": "#e6bf55",
+   "x": 666,
+   "y": 998,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "kitchen-plant",
+   "type": "plantTall",
+   "variant": "fig",
+   "x": 1032,
+   "y": 1032,
+   "w": 60,
+   "h": 60
+  },
+  {
+   "id": "conf-credenza",
+   "type": "console",
+   "x": 340,
+   "y": 1706,
+   "w": 280,
+   "h": 40
+  },
+  {
+   "id": "conf-donuts",
+   "type": "food",
+   "variant": "donuts",
+   "x": 370,
+   "y": 1710,
+   "w": 30,
+   "h": 32
+  },
+  {
+   "id": "conf-drinks",
+   "type": "tray",
+   "variant": "drinks",
+   "x": 550,
+   "y": 1710,
+   "w": 40,
+   "h": 32
+  },
+  {
+   "id": "conf-plant-1",
+   "type": "plantTall",
+   "x": 104,
+   "y": 1704,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "conf-plant-2",
+   "type": "plantTall",
+   "x": 104,
+   "y": 2000,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "conf-plant-3",
+   "type": "plant",
+   "x": 810,
+   "y": 2010,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "conf-tv",
+   "type": "tv",
+   "x": 102,
+   "y": 1810,
+   "w": 12,
+   "h": 140
+  },
+  {
+   "id": "ts-snacks",
+   "type": "console",
+   "x": 2150,
+   "y": 1350,
+   "w": 140,
+   "h": 40
+  },
+  {
+   "id": "ts-snack-1",
+   "type": "food",
+   "variant": "pizza",
+   "x": 2160,
+   "y": 1354,
+   "w": 30,
+   "h": 32
+  },
+  {
+   "id": "ts-snack-2",
+   "type": "food",
+   "variant": "donuts",
+   "x": 2204,
+   "y": 1354,
+   "w": 30,
+   "h": 32
+  },
+  {
+   "id": "ts-snack-3",
+   "type": "tray",
+   "variant": "coffee",
+   "x": 2246,
+   "y": 1354,
+   "w": 36,
+   "h": 32
+  },
+  {
+   "id": "ts-cooler",
+   "type": "cooler",
+   "x": 2100,
+   "y": 1350,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "coo-1",
+   "type": "rug",
+   "color": "#2f5a45",
+   "variant": "border",
+   "x": 630,
+   "y": 150,
+   "w": 200,
+   "h": 170
+  },
+  {
+   "id": "coo-2",
+   "type": "armchair",
+   "color": "#c9a77a",
+   "r": 180,
+   "x": 666,
+   "y": 256,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "coo-3",
+   "type": "armchair",
+   "color": "#c9a77a",
+   "r": 180,
+   "x": 738,
+   "y": 256,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "coo-4",
+   "type": "tree",
+   "variant": "autumn",
+   "x": 584,
+   "y": 104,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "coo-5",
+   "type": "plantTall",
+   "x": 804,
+   "y": 316,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "coo-6",
+   "type": "bookshelf",
+   "x": 770,
+   "y": 102,
+   "w": 90,
+   "h": 24
+  },
+  {
+   "id": "coo-7",
+   "type": "pet",
+   "variant": "cat",
+   "x": 590,
+   "y": 330,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "coo-8",
+   "type": "desk",
+   "variant": "wood",
+   "x": 658,
+   "y": 169,
+   "w": 140,
+   "h": 58
+  },
+  {
+   "id": "coo-9",
+   "type": "laptop",
+   "r": 180,
+   "x": 706,
+   "y": 180,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "coo-10",
+   "type": "deskLamp",
+   "x": 770,
+   "y": 173,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "coo-11",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 666,
+   "y": 180,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "coo-12",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 702,
+   "y": 121,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "ceo-1",
+   "type": "rug",
+   "color": "#9fa3a6",
+   "variant": "medallion",
+   "x": 940,
+   "y": 130,
+   "w": 200,
+   "h": 200
+  },
+  {
+   "id": "ceo-2",
+   "type": "armchair",
+   "color": "#8d9196",
+   "r": 180,
+   "x": 976,
+   "y": 258,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "ceo-3",
+   "type": "armchair",
+   "color": "#8d9196",
+   "r": 180,
+   "x": 1046,
+   "y": 258,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "ceo-4",
+   "type": "plantTall",
+   "variant": "fig",
+   "x": 904,
+   "y": 104,
+   "w": 60,
+   "h": 60
+  },
+  {
+   "id": "ceo-5",
+   "type": "plant",
+   "x": 1134,
+   "y": 326,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "ceo-6",
+   "type": "bookshelf",
+   "x": 1086,
+   "y": 102,
+   "w": 96,
+   "h": 24
+  },
+  {
+   "id": "ceo-7",
+   "type": "desk",
+   "variant": "dark",
+   "x": 965,
+   "y": 169,
+   "w": 150,
+   "h": 58
+  },
+  {
+   "id": "ceo-8",
+   "type": "laptop",
+   "r": 180,
+   "x": 1018,
+   "y": 180,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "ceo-9",
+   "type": "deskLamp",
+   "x": 1087,
+   "y": 173,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "ceo-10",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 973,
+   "y": 180,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "ceo-11",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 1014,
+   "y": 121,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "cro-1",
+   "type": "rug",
+   "color": "#a3a8ad",
+   "variant": "border",
+   "x": 1250,
+   "y": 140,
+   "w": 220,
+   "h": 180
+  },
+  {
+   "id": "cro-2",
+   "type": "beanbag",
+   "color": "#2f2f35",
+   "x": 1298,
+   "y": 260,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "cro-3",
+   "type": "beanbag",
+   "color": "#2f2f35",
+   "x": 1368,
+   "y": 260,
+   "w": 54,
+   "h": 54
+  },
+  {
+   "id": "cro-4",
+   "type": "plantTall",
+   "x": 1224,
+   "y": 104,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "cro-5",
+   "type": "plant",
+   "variant": "spider",
+   "x": 1456,
+   "y": 330,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "cro-6",
+   "type": "bookshelf",
+   "x": 1406,
+   "y": 102,
+   "w": 96,
+   "h": 24
+  },
+  {
+   "id": "cro-7",
+   "type": "desk",
+   "variant": "dark",
+   "x": 1285,
+   "y": 169,
+   "w": 150,
+   "h": 58
+  },
+  {
+   "id": "cro-8",
+   "type": "laptop",
+   "r": 180,
+   "x": 1338,
+   "y": 180,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "cro-9",
+   "type": "deskLamp",
+   "x": 1407,
+   "y": 173,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "cro-10",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1293,
+   "y": 180,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "cro-11",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 1334,
+   "y": 121,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "enterprise-1",
+   "type": "rug",
+   "color": "#7a8ea4",
+   "variant": "border",
+   "x": 120,
+   "y": 496,
+   "w": 200,
+   "h": 190
+  },
+  {
+   "id": "enterprise-2",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 164,
+   "y": 622,
+   "w": 50,
+   "h": 50
+  },
+  {
+   "id": "enterprise-3",
+   "type": "chair",
+   "color": "#8d9196",
+   "variant": "fabric",
+   "r": 180,
+   "x": 226,
+   "y": 622,
+   "w": 50,
+   "h": 50
+  },
+  {
+   "id": "enterprise-4",
+   "type": "plantTall",
+   "x": 310,
+   "y": 440,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "enterprise-5",
+   "type": "plant",
+   "x": 104,
+   "y": 656,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "enterprise-6",
+   "type": "desk",
+   "variant": "wood",
+   "x": 150,
+   "y": 539,
+   "w": 140,
+   "h": 58
+  },
+  {
+   "id": "enterprise-7",
+   "type": "laptop",
+   "r": 180,
+   "x": 198,
+   "y": 550,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "enterprise-8",
+   "type": "deskLamp",
+   "x": 262,
+   "y": 543,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "enterprise-9",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 158,
+   "y": 550,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "enterprise-10",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 194,
+   "y": 491,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "revops-1",
+   "type": "rug",
+   "color": "#8f3a2c",
+   "variant": "kilim",
+   "x": 106,
+   "y": 756,
+   "w": 252,
+   "h": 150
+  },
+  {
+   "id": "revops-2",
+   "type": "aquarium",
+   "x": 104,
+   "y": 956,
+   "w": 124,
+   "h": 56
+  },
+  {
+   "id": "revops-3",
+   "type": "armchair",
+   "color": "#7a5236",
+   "x": 266,
+   "y": 926,
+   "w": 64,
+   "h": 64
+  },
+  {
+   "id": "revops-4",
+   "type": "sideTable",
+   "x": 230,
+   "y": 936,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "revops-5",
+   "type": "plantTall",
+   "x": 330,
+   "y": 916,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "revops-6",
+   "type": "pet",
+   "variant": "cat",
+   "x": 120,
+   "y": 916,
+   "w": 28,
+   "h": 28
+  },
+  {
+   "id": "revops-7",
+   "type": "desk",
+   "variant": "wood",
+   "x": 110,
+   "y": 761,
+   "w": 112,
+   "h": 58
+  },
+  {
+   "id": "revops-8",
+   "type": "laptop",
+   "r": 0,
+   "x": 144,
+   "y": 772,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "revops-9",
+   "type": "deskLamp",
+   "x": 194,
+   "y": 765,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "revops-10",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 118,
+   "y": 796,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "revops-11",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 180,
+   "x": 140,
+   "y": 815,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "revops-12",
+   "type": "desk",
+   "variant": "wood",
+   "x": 230,
+   "y": 761,
+   "w": 112,
+   "h": 58
+  },
+  {
+   "id": "revops-13",
+   "type": "laptop",
+   "r": 0,
+   "x": 264,
+   "y": 772,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "revops-14",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 238,
+   "y": 796,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "revops-15",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 180,
+   "x": 260,
+   "y": 815,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "kb-1",
+   "type": "rug",
+   "color": "#efe6d6",
+   "variant": "confetti",
+   "x": 440,
+   "y": 860,
+   "w": 160,
+   "h": 150
+  },
+  {
+   "id": "kb-2",
+   "type": "sofa",
+   "color": "#b8364a",
+   "x": 450,
+   "y": 952,
+   "w": 140,
+   "h": 52
+  },
+  {
+   "id": "kb-3",
+   "type": "ottoman",
+   "color": "#9dbf95",
+   "x": 496,
+   "y": 890,
+   "w": 46,
+   "h": 46
+  },
+  {
+   "id": "kb-4",
+   "type": "plant",
+   "x": 596,
+   "y": 906,
+   "w": 36,
+   "h": 36
+  },
+  {
+   "id": "kb-5",
+   "type": "desk",
+   "variant": "white",
+   "x": 452,
+   "y": 761,
+   "w": 120,
+   "h": 58
+  },
+  {
+   "id": "kb-6",
+   "type": "laptop",
+   "r": 0,
+   "x": 490,
+   "y": 772,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "kb-7",
+   "type": "deskLamp",
+   "x": 544,
+   "y": 765,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "kb-8",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 460,
+   "y": 796,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "kb-9",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 180,
+   "x": 486,
+   "y": 815,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "wl-services-1",
+   "type": "rug",
+   "color": "#eef3ef",
+   "variant": "leaves",
+   "x": 1430,
+   "y": 1000,
+   "w": 200,
+   "h": 170
+  },
+  {
+   "id": "wl-services-2",
+   "type": "cafe",
+   "x": 1490,
+   "y": 1044,
+   "w": 80,
+   "h": 80
+  },
+  {
+   "id": "wl-services-3",
+   "type": "plantTall",
+   "x": 1384,
+   "y": 824,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "wl-services-4",
+   "type": "plant",
+   "x": 1620,
+   "y": 1132,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "wl-services-5",
+   "type": "bookshelf",
+   "x": 1586,
+   "y": 822,
+   "w": 80,
+   "h": 24
+  },
+  {
+   "id": "wl-services-6",
+   "type": "desk",
+   "variant": "wood",
+   "x": 1486,
+   "y": 881,
+   "w": 140,
+   "h": 58
+  },
+  {
+   "id": "wl-services-7",
+   "type": "laptop",
+   "r": 180,
+   "x": 1534,
+   "y": 892,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "wl-services-8",
+   "type": "deskLamp",
+   "x": 1598,
+   "y": 885,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "wl-services-9",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 1494,
+   "y": 892,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "wl-services-10",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 1530,
+   "y": 833,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "sales-1",
+   "type": "rug",
+   "color": "#9a978f",
+   "variant": "border",
+   "x": 350,
+   "y": 1446,
+   "w": 260,
+   "h": 130
+  },
+  {
+   "id": "sales-2",
+   "type": "bookshelf",
+   "x": 346,
+   "y": 1302,
+   "w": 100,
+   "h": 24
+  },
+  {
+   "id": "sales-3",
+   "type": "plantTall",
+   "x": 344,
+   "y": 1340,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "sales-4",
+   "type": "plant",
+   "x": 570,
+   "y": 1340,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "sales-5",
+   "type": "desk",
+   "variant": "wood",
+   "x": 356,
+   "y": 1503,
+   "w": 120,
+   "h": 58
+  },
+  {
+   "id": "sales-6",
+   "type": "laptop",
+   "r": 180,
+   "x": 394,
+   "y": 1514,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "sales-7",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 364,
+   "y": 1514,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "sales-8",
+   "type": "trinket",
+   "variant": "globe",
+   "x": 364,
+   "y": 1510,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "sales-9",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 390,
+   "y": 1455,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "sales-10",
+   "type": "desk",
+   "variant": "wood",
+   "x": 476,
+   "y": 1503,
+   "w": 120,
+   "h": 58
+  },
+  {
+   "id": "sales-11",
+   "type": "laptop",
+   "r": 180,
+   "x": 514,
+   "y": 1514,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "sales-12",
+   "type": "deskLamp",
+   "x": 568,
+   "y": 1507,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "sales-13",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 484,
+   "y": 1514,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "sales-14",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 510,
+   "y": 1455,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "wl-implementation-1",
+   "type": "rug",
+   "color": "#c99b55",
+   "variant": "kilim",
+   "x": 676,
+   "y": 1448,
+   "w": 168,
+   "h": 130
+  },
+  {
+   "id": "wl-implementation-2",
+   "type": "plantTall",
+   "variant": "spider",
+   "x": 662,
+   "y": 1340,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "wl-implementation-3",
+   "type": "plant",
+   "x": 816,
+   "y": 1340,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "wl-implementation-4",
+   "type": "desk",
+   "variant": "white",
+   "x": 690,
+   "y": 1503,
+   "w": 140,
+   "h": 58
+  },
+  {
+   "id": "wl-implementation-5",
+   "type": "laptop",
+   "r": 180,
+   "x": 738,
+   "y": 1514,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "wl-implementation-6",
+   "type": "deskLamp",
+   "x": 802,
+   "y": 1507,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "wl-implementation-7",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 698,
+   "y": 1514,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "wl-implementation-8",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 734,
+   "y": 1455,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "wlo-management-1",
+   "type": "rug",
+   "color": "#7a6aa0",
+   "variant": "kilim",
+   "x": 2056,
+   "y": 520,
+   "w": 210,
+   "h": 150
+  },
+  {
+   "id": "wlo-management-2",
+   "type": "cafe",
+   "variant": "plain-wood",
+   "x": 2126,
+   "y": 560,
+   "w": 70,
+   "h": 70
+  },
+  {
+   "id": "wlo-management-3",
+   "type": "chair",
+   "color": "#9dbf95",
+   "variant": "fabric",
+   "r": 90,
+   "x": 2074,
+   "y": 572,
+   "w": 46,
+   "h": 46
+  },
+  {
+   "id": "wlo-management-4",
+   "type": "chair",
+   "color": "#e27c6a",
+   "variant": "fabric",
+   "r": 270,
+   "x": 2202,
+   "y": 572,
+   "w": 46,
+   "h": 46
+  },
+  {
+   "id": "wlo-management-5",
+   "type": "flowers",
+   "variant": "calla",
+   "x": 2148,
+   "y": 582,
+   "w": 26,
+   "h": 26
+  },
+  {
+   "id": "wlo-management-6",
+   "type": "armchair",
+   "color": "#7a5236",
+   "r": 90,
+   "x": 2084,
+   "y": 742,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "wlo-management-7",
+   "type": "sideTable",
+   "x": 2150,
+   "y": 754,
+   "w": 34,
+   "h": 34
+  },
+  {
+   "id": "wlo-management-8",
+   "type": "armchair",
+   "color": "#7a5236",
+   "r": 270,
+   "x": 2192,
+   "y": 742,
+   "w": 58,
+   "h": 58
+  },
+  {
+   "id": "wlo-management-9",
+   "type": "surfboard",
+   "variant": "01",
+   "x": 2282,
+   "y": 702,
+   "w": 24,
+   "h": 84
+  },
+  {
+   "id": "wlo-management-10",
+   "type": "surfboard",
+   "variant": "02",
+   "x": 2282,
+   "y": 792,
+   "w": 24,
+   "h": 84
+  },
+  {
+   "id": "wlo-management-11",
+   "type": "bookshelf",
+   "x": 2022,
+   "y": 716,
+   "w": 24,
+   "h": 96
+  },
+  {
+   "id": "wlo-management-12",
+   "type": "plantTall",
+   "x": 2250,
+   "y": 504,
+   "w": 50,
+   "h": 50
+  },
+  {
+   "id": "wlo-management-13",
+   "type": "plant",
+   "x": 2022,
+   "y": 830,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "wlo-management-14",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2040,
+   "y": 921,
+   "w": 120,
+   "h": 58
+  },
+  {
+   "id": "wlo-management-15",
+   "type": "laptop",
+   "r": 180,
+   "x": 2078,
+   "y": 932,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "wlo-management-16",
+   "type": "deskLamp",
+   "x": 2132,
+   "y": 925,
+   "w": 22,
+   "h": 22
+  },
+  {
+   "id": "wlo-management-17",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 2048,
+   "y": 932,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "wlo-management-18",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 2074,
+   "y": 873,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "wlo-management-19",
+   "type": "desk",
+   "variant": "wood",
+   "x": 2164,
+   "y": 921,
+   "w": 120,
+   "h": 58
+  },
+  {
+   "id": "wlo-management-20",
+   "type": "laptop",
+   "r": 180,
+   "x": 2202,
+   "y": 932,
+   "w": 44,
+   "h": 36
+  },
+  {
+   "id": "wlo-management-21",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 2172,
+   "y": 932,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "wlo-management-22",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 2198,
+   "y": 873,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "support-breakout-1",
+   "type": "cafe",
+   "variant": "plain-wood",
+   "x": 2056,
+   "y": 1084,
+   "w": 72,
+   "h": 72
+  },
+  {
+   "id": "support-breakout-2",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 90,
+   "x": 2010,
+   "y": 1096,
+   "w": 46,
+   "h": 46
+  },
+  {
+   "id": "support-breakout-3",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 270,
+   "x": 2128,
+   "y": 1096,
+   "w": 46,
+   "h": 46
+  },
+  {
+   "id": "support-breakout-4",
+   "type": "bookshelf",
+   "x": 2200,
+   "y": 1062,
+   "w": 96,
+   "h": 24
+  },
+  {
+   "id": "support-breakout-5",
+   "type": "plant",
+   "x": 2266,
+   "y": 1100,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "meeting-1",
+   "type": "rug",
+   "color": "#a8352e",
+   "variant": "border",
+   "x": 1730,
+   "y": 900,
+   "w": 220,
+   "h": 240
+  },
+  {
+   "id": "meeting-2",
+   "type": "table",
+   "variant": "plain-dark",
+   "x": 1796,
+   "y": 940,
+   "w": 88,
+   "h": 160
+  },
+  {
+   "id": "meeting-3",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 90,
+   "x": 1746,
+   "y": 938,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-4",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 270,
+   "x": 1890,
+   "y": 938,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-5",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 90,
+   "x": 1746,
+   "y": 988,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-6",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 270,
+   "x": 1890,
+   "y": 988,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-7",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 90,
+   "x": 1746,
+   "y": 1038,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-8",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 270,
+   "x": 1890,
+   "y": 1038,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-9",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "fabric",
+   "r": 0,
+   "x": 1818,
+   "y": 1106,
+   "w": 44,
+   "h": 44
+  },
+  {
+   "id": "meeting-10",
+   "type": "tv",
+   "x": 1790,
+   "y": 904,
+   "w": 100,
+   "h": 10
+  },
+  {
+   "id": "meeting-11",
+   "type": "plantTall",
+   "x": 1704,
+   "y": 824,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "meeting-12",
+   "type": "plant",
+   "x": 1940,
+   "y": 1140,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "breakout-1",
+   "type": "rug",
+   "color": "#f1ece3",
+   "variant": "triangles",
+   "x": 104,
+   "y": 1360,
+   "w": 192,
+   "h": 192
+  },
+  {
+   "id": "breakout-2",
+   "type": "sofa",
+   "color": "#e6bf55",
+   "r": 180,
+   "x": 126,
+   "y": 1516,
+   "w": 148,
+   "h": 56
+  },
+  {
+   "id": "breakout-3",
+   "type": "armchair",
+   "color": "#e6bf55",
+   "r": 270,
+   "x": 106,
+   "y": 1412,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "breakout-4",
+   "type": "armchair",
+   "color": "#e6bf55",
+   "r": 90,
+   "x": 238,
+   "y": 1412,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "breakout-5",
+   "type": "cafe",
+   "variant": "plain-dark",
+   "x": 172,
+   "y": 1420,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "breakout-6",
+   "type": "plantTall",
+   "x": 104,
+   "y": 1304,
+   "w": 52,
+   "h": 52
+  },
+  {
+   "id": "breakout-7",
+   "type": "lamp",
+   "x": 266,
+   "y": 1306,
+   "w": 30,
+   "h": 30
+  },
+  {
+   "id": "coo-c0",
+   "type": "sideTable",
+   "x": 584,
+   "y": 208,
+   "w": 40,
+   "h": 40
+  },
+  {
+   "id": "coo-c1",
+   "type": "flowers",
+   "x": 589,
+   "y": 213,
+   "w": 30,
+   "h": 30,
+   "variant": "sunflower"
+  },
+  {
+   "id": "coo-c2",
+   "type": "trinket",
+   "x": 680,
+   "y": 204,
+   "w": 22,
+   "h": 22,
+   "variant": "sailboat"
+  },
+  {
+   "id": "coo-c3",
+   "type": "frame",
+   "x": 660,
+   "y": 65,
+   "w": 40,
+   "h": 34
+  },
+  {
+   "id": "ceo-c0",
+   "type": "statue",
+   "x": 1138,
+   "y": 180,
+   "w": 42,
+   "h": 42
+  },
+  {
+   "id": "ceo-c1",
+   "type": "trinket",
+   "x": 980,
+   "y": 204,
+   "w": 22,
+   "h": 22,
+   "variant": "globe"
+  },
+  {
+   "id": "ceo-c2",
+   "type": "frame",
+   "x": 1010,
+   "y": 65,
+   "w": 44,
+   "h": 34
+  },
+  {
+   "id": "cro-c0",
+   "type": "trinket",
+   "x": 1300,
+   "y": 204,
+   "w": 22,
+   "h": 22,
+   "variant": "headphones"
+  },
+  {
+   "id": "enterprise-c0",
+   "type": "bookshelf",
+   "x": 102,
+   "y": 510,
+   "w": 24,
+   "h": 90
+  },
+  {
+   "id": "enterprise-c1",
+   "type": "trinket",
+   "x": 166,
+   "y": 572,
+   "w": 20,
+   "h": 20,
+   "variant": "pens"
+  },
+  {
+   "id": "wl-services-c0",
+   "type": "chair",
+   "x": 1444,
+   "y": 1062,
+   "w": 44,
+   "h": 44,
+   "color": "#6f9fd6",
+   "variant": "fabric",
+   "r": 90
+  },
+  {
+   "id": "wl-services-c1",
+   "type": "chair",
+   "x": 1574,
+   "y": 1062,
+   "w": 44,
+   "h": 44,
+   "color": "#6f9fd6",
+   "variant": "fabric",
+   "r": 270
+  },
+  {
+   "id": "wl-services-c2",
+   "type": "trinket",
+   "x": 1502,
+   "y": 916,
+   "w": 22,
+   "h": 22,
+   "variant": "globe"
+  },
+  {
+   "id": "revops-c0",
+   "type": "trinket",
+   "x": 130,
+   "y": 768,
+   "w": 22,
+   "h": 22,
+   "variant": "books"
+  },
+  {
+   "id": "revops-c1",
+   "type": "flowers",
+   "x": 233,
+   "y": 939,
+   "w": 24,
+   "h": 24,
+   "variant": "chamomile"
+  },
+  {
+   "id": "revops-c2",
+   "type": "frame",
+   "x": 170,
+   "y": 705,
+   "w": 40,
+   "h": 34
+  },
+  {
+   "id": "kb-c0",
+   "type": "bookshelf",
+   "x": 422,
+   "y": 870,
+   "w": 24,
+   "h": 96
+  },
+  {
+   "id": "kb-c1",
+   "type": "trinket",
+   "x": 460,
+   "y": 772,
+   "w": 22,
+   "h": 22,
+   "variant": "books"
+  },
+  {
+   "id": "sales-c0",
+   "type": "trinket",
+   "x": 484,
+   "y": 1536,
+   "w": 22,
+   "h": 22,
+   "variant": "headphones"
+  },
+  {
+   "id": "wl-implementation-c0",
+   "type": "trinket",
+   "x": 700,
+   "y": 1536,
+   "w": 22,
+   "h": 22,
+   "variant": "headphones"
+  },
+  {
+   "id": "wlo-management-c0",
+   "type": "trinket",
+   "x": 2250,
+   "y": 956,
+   "w": 22,
+   "h": 22,
+   "variant": "books"
+  },
+  {
+   "id": "lobby-1",
+   "type": "elevator",
+   "x": 1072,
+   "y": 1970,
+   "w": 96,
+   "h": 88
+  },
+  {
+   "id": "lobby-2",
+   "type": "mat",
+   "text": "WELCOME",
+   "x": 1064,
+   "y": 1908,
+   "w": 112,
+   "h": 52
+  },
+  {
+   "id": "lobby-3",
+   "type": "desk",
+   "variant": "white",
+   "x": 1196,
+   "y": 1756,
+   "w": 140,
+   "h": 56
+  },
+  {
+   "id": "lobby-4",
+   "type": "monitor",
+   "r": 180,
+   "x": 1240,
+   "y": 1762,
+   "w": 52,
+   "h": 26
+  },
+  {
+   "id": "lobby-5",
+   "type": "trinket",
+   "variant": "phone",
+   "x": 1204,
+   "y": 1778,
+   "w": 24,
+   "h": 24
+  },
+  {
+   "id": "lobby-6",
+   "type": "flowers",
+   "variant": "peony",
+   "x": 1304,
+   "y": 1776,
+   "w": 26,
+   "h": 26
+  },
+  {
+   "id": "lobby-7",
+   "type": "chair",
+   "color": "#2f2f35",
+   "variant": "office",
+   "r": 0,
+   "x": 1240,
+   "y": 1704,
+   "w": 50,
+   "h": 50
+  },
+  {
+   "id": "lobby-8",
+   "type": "rug",
+   "color": "#55779e",
+   "variant": "kilim",
+   "x": 904,
+   "y": 1918,
+   "w": 150,
+   "h": 138
+  },
+  {
+   "id": "lobby-9",
+   "type": "sofa",
+   "color": "#ece6da",
+   "variant": "cushions",
+   "x": 910,
+   "y": 2004,
+   "w": 136,
+   "h": 48
+  },
+  {
+   "id": "lobby-10",
+   "type": "coffeeTable",
+   "x": 942,
+   "y": 1942,
+   "w": 72,
+   "h": 38
+  },
+  {
+   "id": "lobby-11",
+   "type": "cup",
+   "variant": "coffee",
+   "x": 966,
+   "y": 1950,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "id": "lobby-12",
+   "type": "plantTall",
+   "variant": "fig",
+   "x": 904,
+   "y": 1704,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "lobby-13",
+   "type": "plantTall",
+   "x": 1276,
+   "y": 1996,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "lobby-14",
+   "type": "armchair",
+   "color": "#7a5236",
+   "r": 270,
+   "x": 1206,
+   "y": 1998,
+   "w": 56,
+   "h": 56
+  },
+  {
+   "id": "lobby-link-guide",
+   "type": "link",
+   "label": "Setup guide",
+   "url": "https://github.com/zakkonanz-creator/proximity-office#readme",
+   "x": 972,
+   "y": 1700,
+   "w": 96,
+   "h": 36
+  },
+  {
+   "id": "lobby-link-wiki",
+   "type": "link",
+   "label": "Team wiki",
+   "x": 972,
+   "y": 1744,
+   "w": 96,
+   "h": 36
+  }
+ ]
+}

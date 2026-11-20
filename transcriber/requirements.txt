@@ -1,0 +1,6 @@
+faster-whisper==1.2.1
+ctranslate2==4.8.3
+av==15.1.0
+fastapi==0.128.8
+uvicorn==0.39.0
+requests>=2.31

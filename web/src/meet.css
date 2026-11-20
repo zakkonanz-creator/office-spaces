@@ -1,0 +1,12 @@
+.meet-pill { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 60; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border-radius: 999px; background: var(--panel, #fff); color: var(--text, #222); box-shadow: 0 6px 20px rgba(0,0,0,.18); font-size: 13px; white-space: nowrap; max-width: calc(100vw - 32px); }
+.meet-pill span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; }
+.meet-dot { width: 9px; height: 9px; border-radius: 50%; background: #e0453a; box-shadow: 0 0 0 0 rgba(224,69,58,.5); animation: meet-pulse 1.6s infinite; flex: none; }
+@keyframes meet-pulse { 70% { box-shadow: 0 0 0 7px rgba(224,69,58,0); } 100% { box-shadow: 0 0 0 0 rgba(224,69,58,0); } }
+@media (max-width: 520px) { .meet-pill { top: 56px; font-size: 12px; } }
+.meet-frame { position: absolute; top: 56px; right: 64px; bottom: 84px; width: min(760px, calc(100% - 88px)); z-index: 55; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; background: var(--panel, #fff); box-shadow: 0 10px 32px rgba(0,0,0,.25); }
+.meet-frame header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,.08); }
+.meet-frame header .grow { flex: 1; }
+.meet-frame iframe { flex: 1; width: 100%; border: 0; background: #111; }
+@media (max-width: 520px) { .meet-frame { top: 48px; right: 0; left: 0; bottom: 0; width: auto; border-radius: 0; } .meet-frame header .muted { display: none; } }
+.ghl-link-form { display: flex; gap: 6px; align-items: center; }
+.ghl-link-form input { width: 340px; max-width: 50vw; font-size: 13px; padding: 4px 8px; border: 1px solid var(--line, #ddd); border-radius: 8px; }
