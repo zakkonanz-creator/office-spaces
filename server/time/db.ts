@@ -12,11 +12,11 @@ export async function migrateTime() {
   for (const sql of [
     // Each person's normal working days (0 = Sunday … 6). Acme runs 24/7, so it's per person; leave counts against it.
     `ALTER TABLE time_members ADD COLUMN IF NOT EXISTS work_days INTEGER[] NOT NULL DEFAULT '{1,2,3,4,5}'`,
-    // People (Deputy's People screen): the day they joined, and their regular week —
+    // People: the day they joined, and their regular week —
     // each working day's start, end and break, in their own timezone.
     `ALTER TABLE time_members ADD COLUMN IF NOT EXISTS start_date DATE`,
     `ALTER TABLE time_members ADD COLUMN IF NOT EXISTS regular_hours JSONB`,
-    // Locations (Deputy's word for departments): the teams people, shifts and manager grants hang off.
+    // Locations (departments): the teams people, shifts and manager grants hang off.
     `CREATE TABLE IF NOT EXISTS locations (
       name TEXT PRIMARY KEY,
       description TEXT,

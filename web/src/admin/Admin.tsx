@@ -134,7 +134,7 @@ function Members() {
               </td>
               <td>
                 <input type="date" className={`started${u.started_guessed ? " guessed" : ""}`} defaultValue={u.started_on ?? ""} key={u.started_on ?? ""} disabled={u.removed} max={new Date().toISOString().slice(0, 10)}
-                  title={u.started_guessed ? "Not found in Slack: this is the day they first signed in to Space. Set their real first day." : "First day at Acme"}
+                  title={u.started_guessed ? "No start date set: this is the day they first signed in to the office. Set their real first day." : "First day at Acme"}
                   onBlur={(e) => { const v = e.target.value; if (/^\d{4}-\d{2}-\d{2}$/.test(v) && v !== u.started_on) patch(u.id, { started_on: v }); }} />
               </td>
               <td>{u.slack_id ? "✓" : <span className="muted">—</span>}</td>
@@ -220,7 +220,7 @@ function Preassign() {
         <label className="field">Email
           <input type="email" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} placeholder={`name@${data.domains[0] ?? "example.com"}`} required />
         </label>
-        <label className="field">Space role
+        <label className="field">Office role
           <select value={f.role} onChange={(e) => setF({ ...f, role: e.target.value })}>
             <option value="member">Member</option>
             <option value="admin">Admin — this page, the Designer, guest links</option>
@@ -552,7 +552,7 @@ function Settings() {
       </div>
       <div className="panel" data-tour="settings-transcription">
         <h3>Room transcription</h3>
-        <p className="hint">Any teammate in a room can press <b>Transcribe</b>. Each teammate's own mic is sent in short clips; guests' mics are never recorded. Our own Whisper service on Railway turns them into text, the audio is deleted, and Claude writes the notes for the people who were in the room. In Space, admins don't see other rooms' transcripts.</p>
+        <p className="hint">Any teammate in a room can press <b>Transcribe</b>. Each teammate's own mic is sent in short clips; guests' mics are never recorded. Our own Whisper service on Railway turns them into text, the audio is deleted, and Claude writes the notes for the people who were in the room. Admins don't see other rooms' transcripts.</p>
         <p>{s.transcriberConfigured ? "Transcriber connected." : <span className="bad-line">TRANSCRIBER_URL / TRANSCRIBER_KEY not set: the Transcribe button says it isn't set up.</span>}</p>
         <p>This month: <b>{s.transcription.hours.toFixed(1)}</b> of {s.transcription.cap} hours of audio sent.</p>
         <form className="row" onSubmit={async (e) => {
@@ -571,7 +571,7 @@ function Settings() {
       </div>
       <div className="panel" data-tour="settings-meetings">
         <h3>Shared meeting rooms</h3>
-        <p className="hint"><b>Start meeting</b> in a room opens a GHL Meeting Room inside the office and asks everyone in the room to join. People who saved their own room use it; everyone else gets the first free room below. Make these rooms in GHL just for Space and don't share their links elsewhere: Space can only tell a room is busy when Space started the meeting in it.</p>
+        <p className="hint"><b>Start meeting</b> in a room opens a GHL Meeting Room inside the office and asks everyone in the room to join. People who saved their own room use it; everyone else gets the first free room below. Make these rooms in GHL just for the office and don't share their links elsewhere: the office can only tell a room is busy when the office started the meeting in it.</p>
         <form onSubmit={async (e) => {
           e.preventDefault();
           try {
@@ -580,7 +580,7 @@ function Settings() {
             setMsg(`${j.ghlRooms.length} shared meeting room${j.ghlRooms.length === 1 ? "" : "s"} saved.`);
           } catch (err) { setMsg((err as Error).message); }
         }}>
-          <p className="hint"><b>Only rooms nobody owns</b> (spare GHL users made for Space). Never put someone's personal room here: Space hands these out to anyone.</p>
+          <p className="hint"><b>Only rooms nobody owns</b> (spare GHL users made for the office). Never put someone's personal room here: the office hands these out to anyone.</p>
           <textarea name="rooms" rows={4} style={{ width: "100%", fontFamily: "monospace", fontSize: 12 }}
             defaultValue={(s.ghlRooms ?? []).map((r: { label: string; url: string }) => `${r.label} | ${r.url}`).join("\n")}
             placeholder={"Team room 1 | https://crm.example.com/meet/team-1?pwd=…\nTeam room 2 | https://crm.example.com/meet/team-2?pwd=…"} />
@@ -590,7 +590,7 @@ function Settings() {
       </div>
       <div className="panel" data-tour="settings-own-rooms">
         <h3>Each person's own meeting room</h3>
-        <p className="hint">Not shared: these are people's personal GHL rooms. One per line: <code>email | link</code>. Start meeting opens that person's own room (a link they save themselves with <b>My room</b> wins). Works before they've signed in to Space.</p>
+        <p className="hint">Not shared: these are people's personal GHL rooms. One per line: <code>email | link</code>. Start meeting opens that person's own room (a link they save themselves with <b>My room</b> wins). Works before they've signed in to the office.</p>
         <form onSubmit={async (e) => {
           e.preventDefault();
           try {

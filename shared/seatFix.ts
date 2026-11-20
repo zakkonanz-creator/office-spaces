@@ -1,7 +1,6 @@
 // Moves imported seats (and their chairs) to where a seated avatar fits: just off its own
-// table, inside the walls, clear of the next person. Kumospace's chairs were drawn tucked
-// under tables, so a 64px bubble landed on the table, through a wall or on a neighbour
-// (pilot feedback, 2026-11-03).
+// table, inside the walls, clear of the next person. Imported chairs are often drawn tucked
+// under tables, so a 64px bubble landed on the table, through a wall or on a neighbour.
 //
 // checkFloor's SEAT_* rules define "fits"; only seats they'd flag move, so a floor that
 // already fits comes back untouched. Coordinates are room-relative throughout, so it works

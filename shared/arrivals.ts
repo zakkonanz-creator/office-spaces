@@ -1,5 +1,5 @@
 // "Ana is in": a quiet note (no sound) every time a teammate comes into the office, not only the
-// first time (the owner, 2026-11-16). The first-ever visit keeps its own "Say hi" welcome instead.
+// first time. The first-ever visit keeps its own "Say hi" welcome instead.
 
 /** Back within this long of leaving = a reload or a network blip, not an arrival. */
 export const BLIP_MS = 3 * 60e3;

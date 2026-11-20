@@ -1,4 +1,4 @@
-// A screenshot posted in #wins shows as the picture itself (the owner, 2026-11-16): on the jumbotron, in
+// A screenshot posted in #wins shows as the picture itself: on the jumbotron, in
 // its full view and in the bell banner, not "posted a win". Guests can't fetch it.
 //   npm run dev   (in another terminal)
 //   BASE=http://localhost:5173 npx tsx scripts/e2e-wins.ts [--shots dir]
@@ -25,9 +25,9 @@ async function person(browser: Browser, email: string, name: string) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.log(`  [${name}] page error: ${e.message}`));
   await page.goto(`${BASE}/auth/dev?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`);
-  await page.getByRole("button", { name: "Join Space" }).waitFor({ timeout: 15000 });
+  await page.getByRole("button", { name: "Join the office" }).waitFor({ timeout: 15000 });
   await page.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
   return page;
 }

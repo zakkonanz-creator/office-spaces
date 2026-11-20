@@ -39,11 +39,11 @@ async function person(browser: Browser, email: string, name: string, opts: { cam
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.log(`  [${name}] page error: ${e.message}`));
   await page.goto(`${BASE}/auth/dev?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`);
-  await page.getByRole("button", { name: "Join Space" }).waitFor({ timeout: 15000 });
+  await page.getByRole("button", { name: "Join the office" }).waitFor({ timeout: 15000 });
   if (opts.cam === false) await page.getByRole("button", { name: "Camera off" }).click();
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
   await page.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
   // A rerun within 90 s resumes people where the last run left them; start from desks.
   await page.evaluate(() => {
@@ -70,7 +70,7 @@ const browser = await chromium.launch({
 
 try {
   const alex = await person(browser, "admin@example.com", "Alex Admin");
-  const andrew = await person(browser, "morgan@example.com", "Morgan Lee");
+  const morgan = await person(browser, "morgan@example.com", "Morgan Lee");
   const victor = await person(browser, "victor@example.org", "Victor Stone", { cam: false });
   await sleep(1500);
 
@@ -87,7 +87,7 @@ try {
   const until = (page: Page, expr: string, ms = 10000) => page.waitForFunction(expr, null, { timeout: ms, polling: 200 }).then(() => true, () => false);
   // Earlier runs (or the UI suite) may have moved people to other desks: put
   // everyone back on their roster seat so the run starts from a known layout.
-  for (const [page, owner] of [[alex, "Alex Admin"], [andrew, "Morgan Lee"], [victor, "Victor Stone"]] as const) {
+  for (const [page, owner] of [[alex, "Alex Admin"], [morgan, "Morgan Lee"], [victor, "Victor Stone"]] as const) {
     const d = deskOf(owner);
     if (!d) continue;
     const id = await es<string>(page, "__es.state.me.id");
@@ -99,7 +99,7 @@ try {
   ok(await es<number>(alex, "__es.state.people.size") === 2, "Alex sees the other two on the floor");
   const alexDesk = await es<string | null>(alex, "__es.state.me.deskId");
   ok(alexDesk === deskOf("Alex Admin").id && deskOf("Alex Admin").roomId === "office-3", `Alex was seated at the COO desk from the roster (${alexDesk})`);
-  ok((await es<string | null>(andrew, "__es.state.me.deskId")) === deskOf("Morgan Lee").id && deskOf("Morgan Lee").roomId === "team-south", "Morgan was seated in Enterprise");
+  ok((await es<string | null>(morgan, "__es.state.me.deskId")) === deskOf("Morgan Lee").id && deskOf("Morgan Lee").roomId === "team-south", "Morgan was seated in Enterprise");
   await shot(alex, "01-alex-at-desk");
 
   // Far apart: nobody is subscribed to anybody.
@@ -118,114 +118,114 @@ try {
   ok(await alex.evaluate(() => document.hidden), "Alex's office tab is in the background");
 
   // Morgan walks to Alex (Find → Enter).
-  await andrew.bringToFront();
-  await andrew.keyboard.press("f");
-  await andrew.keyboard.type("Alex");
-  await andrew.keyboard.press("Enter");
+  await morgan.bringToFront();
+  await morgan.keyboard.press("f");
+  await morgan.keyboard.type("Alex");
+  await morgan.keyboard.press("Enter");
   await sleep(2500);
   const heard = await es<number>(alex, `__es.state.hearing.get(String(__es.state.people.keys().next().value)) ?? 0`);
-  const alexHearsAndrew = await es<number>(alex, `(() => { for (const [id,p] of __es.state.people) if (p.name === "Morgan Lee") return __es.state.hearing.get(id) ?? 0; return -1 })()`);
-  ok(alexHearsAndrew > 0, `Morgan walked over; Alex hears him at volume ${alexHearsAndrew.toFixed(2)}`);
+  const alexHearsMorgan = await es<number>(alex, `(() => { for (const [id,p] of __es.state.people) if (p.name === "Morgan Lee") return __es.state.hearing.get(id) ?? 0; return -1 })()`);
+  ok(alexHearsMorgan > 0, `Morgan walked over; Alex hears him at volume ${alexHearsMorgan.toFixed(2)}`);
   ok((await subs(alex)) >= 2, "Alex subscribed to Morgan's mic + camera — with his tab in the background");
   await setHidden(alex, false);
-  await shot(alex, "02-andrew-walked-over");
+  await shot(alex, "02-morgan-walked-over");
   void heard;
 
   // Cameras reach fewer people than voices: in a big open team room you hear
   // everyone, but only get the camera of whoever is close.
   const alexGets = (src: string) => es<boolean>(alex, `(() => { for (const p of __es.state.people.values()) if (p.name === "Morgan Lee") return !!__es.room().remoteParticipants.get(p.lk)?.getTrackPublication("${src}")?.isSubscribed; return false })()`);
   await es(alex, `__es.jump(${at(centre("engineering", -40))})`);
-  await es(andrew, `__es.jump(${at(centre("engineering", 40))})`);
+  await es(morgan, `__es.jump(${at(centre("engineering", 40))})`);
   ok(await until(alex, `(() => { for (const p of __es.state.people.values()) if (p.name === "Morgan Lee") return !!__es.room().remoteParticipants.get(p.lk)?.getTrackPublication("camera")?.isSubscribed })()`), "Tech Support, a desk apart: Alex gets Morgan's camera");
   await es(alex, `__es.jump(${at(centre("engineering", -300))})`);
-  await es(andrew, `__es.jump(${at(centre("engineering", 300))})`);
+  await es(morgan, `__es.jump(${at(centre("engineering", 300))})`);
   await sleep(3000);
   ok((await alexGets("microphone")) && !(await alexGets("camera")), "Tech Support, across the room: Alex still hears Morgan but doesn't stream his camera");
 
   // A camera nobody is in front of pauses, and comes back by itself.
-  await es(andrew, `__es.sock().emit("status", { status: "away" })`);
-  ok(await until(andrew, `!__es.room().localParticipant.isCameraEnabled && __es.state.me.cam === false`), "Morgan goes Away: his camera pauses");
-  ok(await until(andrew, `!__es.officeAudio() && !__es.state.me.mic`), "…his mic mutes and the office goes silent for him (pilot feedback)");
-  await es(andrew, `__es.sock().emit("status", { status: "available" })`);
-  ok(await until(andrew, `__es.room().localParticipant.isCameraEnabled && __es.state.me.cam === true`), "…and comes back when he's Available");
-  await es(andrew, `__es.sock().emit("status", { status: "away" })`);
-  await until(andrew, `!__es.room().localParticipant.isCameraEnabled`);
-  await andrew.bringToFront();
-  await andrew.keyboard.press("1");
-  ok(await until(andrew, `__es.room().localParticipant.isCameraEnabled`), "Turning the camera on while Away keeps it on");
-  await es(andrew, `__es.sock().emit("status", { status: "available" })`);
+  await es(morgan, `__es.sock().emit("status", { status: "away" })`);
+  ok(await until(morgan, `!__es.room().localParticipant.isCameraEnabled && __es.state.me.cam === false`), "Morgan goes Away: his camera pauses");
+  ok(await until(morgan, `!__es.officeAudio() && !__es.state.me.mic`), "…his mic mutes and the office goes silent for him");
+  await es(morgan, `__es.sock().emit("status", { status: "available" })`);
+  ok(await until(morgan, `__es.room().localParticipant.isCameraEnabled && __es.state.me.cam === true`), "…and comes back when he's Available");
+  await es(morgan, `__es.sock().emit("status", { status: "away" })`);
+  await until(morgan, `!__es.room().localParticipant.isCameraEnabled`);
+  await morgan.bringToFront();
+  await morgan.keyboard.press("1");
+  ok(await until(morgan, `__es.room().localParticipant.isCameraEnabled`), "Turning the camera on while Away keeps it on");
+  await es(morgan, `__es.sock().emit("status", { status: "available" })`);
   await sleep(800);
 
-  // Focusing mutes the mic and turns the camera off; Available brings both back (the owner, 2026-11-05).
-  if (!(await es<boolean>(andrew, `__es.state.me.mic`))) { await andrew.bringToFront(); await andrew.keyboard.press("2"); await until(andrew, `__es.state.me.mic`); }
-  await until(andrew, `__es.room().localParticipant.isCameraEnabled`);
-  await andrew.bringToFront();
-  await andrew.keyboard.press("5");
-  ok(await until(andrew, `__es.state.me.status === "focusing" && !__es.room().localParticipant.isMicrophoneEnabled && !__es.room().localParticipant.isCameraEnabled && !__es.state.me.mic && !__es.state.me.cam`), "Focusing: Morgan's mic mutes and his camera turns off");
+  // Focusing mutes the mic and turns the camera off; Available brings both back.
+  if (!(await es<boolean>(morgan, `__es.state.me.mic`))) { await morgan.bringToFront(); await morgan.keyboard.press("2"); await until(morgan, `__es.state.me.mic`); }
+  await until(morgan, `__es.room().localParticipant.isCameraEnabled`);
+  await morgan.bringToFront();
+  await morgan.keyboard.press("5");
+  ok(await until(morgan, `__es.state.me.status === "focusing" && !__es.room().localParticipant.isMicrophoneEnabled && !__es.room().localParticipant.isCameraEnabled && !__es.state.me.mic && !__es.state.me.cam`), "Focusing: Morgan's mic mutes and his camera turns off");
   ok(await until(alex, `[...__es.state.people.values()].some(p => p.name === "Morgan Lee" && !p.mic && !p.cam)`), "…and Alex sees him muted with no camera");
-  ok(await until(andrew, `!__es.officeAudio()`), "…and Morgan stops hearing the office");
-  await andrew.keyboard.press("3");
-  ok(await until(andrew, `__es.room().localParticipant.isMicrophoneEnabled && __es.room().localParticipant.isCameraEnabled && __es.state.me.mic && __es.state.me.cam`), "…Available again: mic and camera come back");
-  ok(await until(andrew, `__es.officeAudio()`), "…and he hears the office again");
+  ok(await until(morgan, `!__es.officeAudio()`), "…and Morgan stops hearing the office");
+  await morgan.keyboard.press("3");
+  ok(await until(morgan, `__es.room().localParticipant.isMicrophoneEnabled && __es.room().localParticipant.isCameraEnabled && __es.state.me.mic && __es.state.me.cam`), "…Available again: mic and camera come back");
+  ok(await until(morgan, `__es.officeAudio()`), "…and he hears the office again");
   // Unmuting yourself while Focusing sticks: going Available doesn't touch it again.
-  await andrew.keyboard.press("5");
-  await until(andrew, `!__es.state.me.mic`);
-  await andrew.keyboard.press("2");
-  ok(await until(andrew, `__es.state.me.mic && __es.state.me.status === "focusing"`), "Morgan can unmute himself while Focusing");
-  ok(await until(andrew, `__es.officeAudio()`), "…and unmuting brings the office sound back");
-  await andrew.keyboard.press("3");
-  ok(await until(andrew, `__es.state.me.mic && __es.state.me.cam`), "…and going Available leaves his mic on and brings the camera back");
+  await morgan.keyboard.press("5");
+  await until(morgan, `!__es.state.me.mic`);
+  await morgan.keyboard.press("2");
+  ok(await until(morgan, `__es.state.me.mic && __es.state.me.status === "focusing"`), "Morgan can unmute himself while Focusing");
+  ok(await until(morgan, `__es.officeAudio()`), "…and unmuting brings the office sound back");
+  await morgan.keyboard.press("3");
+  ok(await until(morgan, `__es.state.me.mic && __es.state.me.cam`), "…and going Available leaves his mic on and brings the camera back");
   await sleep(500);
 
-  // Reloading while Focusing keeps the mic and camera off; Available brings them back (the owner, 2026-11-09).
-  await until(andrew, `__es.room().localParticipant.isCameraEnabled && __es.state.me.mic`);
-  await andrew.bringToFront();
-  await andrew.keyboard.press("5");
-  await until(andrew, `!__es.state.me.mic && !__es.state.me.cam`);
+  // Reloading while Focusing keeps the mic and camera off; Available brings them back.
+  await until(morgan, `__es.room().localParticipant.isCameraEnabled && __es.state.me.mic`);
+  await morgan.bringToFront();
+  await morgan.keyboard.press("5");
+  await until(morgan, `!__es.state.me.mic && !__es.state.me.cam`);
   await sleep(500);
-  await andrew.reload();
-  await andrew.getByRole("button", { name: "Join Space" }).click();
-  await andrew.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
+  await morgan.reload();
+  await morgan.getByRole("button", { name: "Join the office" }).click();
+  await morgan.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
   await sleep(1500);
-  ok(await es<boolean>(andrew, `__es.state.me.status === "focusing" && !__es.room().localParticipant.isMicrophoneEnabled && !__es.room().localParticipant.isCameraEnabled && !__es.state.me.mic && !__es.state.me.cam`), "Reload while Focusing: still Focusing, mic and camera stay off");
+  ok(await es<boolean>(morgan, `__es.state.me.status === "focusing" && !__es.room().localParticipant.isMicrophoneEnabled && !__es.room().localParticipant.isCameraEnabled && !__es.state.me.mic && !__es.state.me.cam`), "Reload while Focusing: still Focusing, mic and camera stay off");
   ok(await until(alex, `[...__es.state.people.values()].some(p => p.name === "Morgan Lee" && p.status === "focusing" && !p.mic && !p.cam)`), "…and Alex sees him muted with no camera");
-  await andrew.bringToFront();
-  await andrew.keyboard.press("3");
-  ok(await until(andrew, `__es.room().localParticipant.isMicrophoneEnabled && __es.room().localParticipant.isCameraEnabled && __es.state.me.mic && __es.state.me.cam`), "…Available after the reload: mic and camera come on");
+  await morgan.bringToFront();
+  await morgan.keyboard.press("3");
+  ok(await until(morgan, `__es.room().localParticipant.isMicrophoneEnabled && __es.room().localParticipant.isCameraEnabled && __es.state.me.mic && __es.state.me.cam`), "…Available after the reload: mic and camera come on");
   await sleep(500);
 
-  // Anyone can change the name everyone sees; admins can change anyone's (the owner, 2026-11-09).
+  // Anyone can change the name everyone sees; admins can change anyone's.
   const put = (page: Page, url: string, method: string, body: object) => page.evaluate(([u, m, b]) => fetch(u, { method: m, headers: { "content-type": "application/json" }, body: b }).then(async (r) => ({ status: r.status, j: await r.json().catch(() => ({})) })), [url, method, JSON.stringify(body)] as const);
   const sees = (page: Page, name: string) => until(page, `[...__es.state.people.values()].some(p => p.name === ${JSON.stringify(name)})`);
-  const r1 = await put(andrew, "/api/me/name", "PUT", { name: "  Mo   L. " });
+  const r1 = await put(morgan, "/api/me/name", "PUT", { name: "  Mo   L. " });
   ok(r1.status === 200 && r1.j.name === "Mo L.", `Morgan renames himself; spaces tidied (${JSON.stringify(r1.j)})`);
-  ok(await sees(alex, "Mo L.") && await until(andrew, `__es.state.me.name === "Mo L."`), "…Alex sees the new name live, and so does Morgan");
-  ok((await put(andrew, "/api/me/name", "PUT", { name: "   " })).status === 400 && (await put(andrew, "/api/me/name", "PUT", { name: "x".repeat(61) })).status === 400, "An empty or 61-character name is refused");
+  ok(await sees(alex, "Mo L.") && await until(morgan, `__es.state.me.name === "Mo L."`), "…Alex sees the new name live, and so does Morgan");
+  ok((await put(morgan, "/api/me/name", "PUT", { name: "   " })).status === 400 && (await put(morgan, "/api/me/name", "PUT", { name: "x".repeat(61) })).status === 400, "An empty or 61-character name is refused");
   const moId = await alex.evaluate(() => fetch("/api/admin/members").then((r) => r.json()).then((j) => j.users.find((u: any) => u.name === "Mo L.").id));
   ok((await put(victor, `/api/admin/members/${moId}`, "PATCH", { name: "Hacked" })).status === 403, "A member can't rename someone else");
   ok((await put(alex, `/api/admin/members/${moId}`, "PATCH", { name: "Morgan Lee" })).status === 200 && await sees(victor, "Morgan Lee"), "An admin can rename anyone (Morgan's name back), live");
 
   // Conference room with the door shut.
   await es(alex, `__es.jump(${at(centre("conference", -60))})`);
-  await es(andrew, `__es.jump(${at(centre("conference", 60))})`);
+  await es(morgan, `__es.jump(${at(centre("conference", 60))})`);
   await sleep(1200);
   await alex.keyboard.press("o");
   await sleep(800);
   ok(await es<boolean>(victor, `__es.state.rooms.conference.closed`) === true, "Door closed (Victor sees it shut)");
   await shot(alex, "03-conference-door-closed");
 
-  // Sounds (pilot feedback): the door you're behind thuds shut; someone who turned sounds off hears nothing.
+  // Sounds: the door you're behind thuds shut; someone who turned sounds off hears nothing.
   const played = (p: Page, what: string, since = 0) => es<boolean>(p, `__es.sounds.slice(${since}).includes(${JSON.stringify(what)})`);
   const logLen = (p: Page) => es<number>(p, `__es.sounds.length`);
-  ok(await played(andrew, "door:closed"), "Sounds: Morgan, in the room, hears the door shut");
-  await es(andrew, `localStorage.setItem("es.sounds", "0")`);
-  const [alexAt, andrewAt] = [await logLen(alex), await logLen(andrew)];
+  ok(await played(morgan, "door:closed"), "Sounds: Morgan, in the room, hears the door shut");
+  await es(morgan, `localStorage.setItem("es.sounds", "0")`);
+  const [alexAt, morganAt] = [await logLen(alex), await logLen(morgan)];
   await alex.bringToFront();
   await alex.keyboard.press("o");
   await sleep(800);
   ok(await played(alex, "door:open", alexAt), "Sounds: Alex hears his door open");
-  ok(!(await played(andrew, "door:open", andrewAt)), "Sounds: …and Morgan, who turned sounds off, doesn't");
-  await es(andrew, `localStorage.removeItem("es.sounds")`);
+  ok(!(await played(morgan, "door:open", morganAt)), "Sounds: …and Morgan, who turned sounds off, doesn't");
+  await es(morgan, `localStorage.removeItem("es.sounds")`);
   await alex.keyboard.press("o");
   await sleep(800);
   ok(await es<boolean>(victor, `__es.state.rooms.conference.closed`) === true, "Door shut again");
@@ -233,14 +233,14 @@ try {
 
   // Leaving through your own closed door works (and re-entering within a few seconds).
   const outside = byDoor("conference", 40);
-  await es(andrew, `__es.walk(${at(outside)})`);
-  await until(andrew, `(() => { const p = __es.live.get(__es.state.me.id); return Math.hypot(p.x - ${outside.x}, p.y - ${outside.y}) < 30 })()`);
-  const aPos = await es<{ x: number; y: number }>(andrew, `__es.live.get(__es.state.me.id)`);
-  // Out through the door: the hallway, or the next room when the door opens into it (as in Kumospace).
-  ok(await es<string | null>(andrew, `__es.state.me.roomId`) !== "conference" && Math.hypot(aPos.x - outside.x, aPos.y - outside.y) < 30, "Morgan walks out through the closed door without getting stuck in it");
+  await es(morgan, `__es.walk(${at(outside)})`);
+  await until(morgan, `(() => { const p = __es.live.get(__es.state.me.id); return Math.hypot(p.x - ${outside.x}, p.y - ${outside.y}) < 30 })()`);
+  const aPos = await es<{ x: number; y: number }>(morgan, `__es.live.get(__es.state.me.id)`);
+  // Out through the door: the hallway, or the next room when the door opens into it.
+  ok(await es<string | null>(morgan, `__es.state.me.roomId`) !== "conference" && Math.hypot(aPos.x - outside.x, aPos.y - outside.y) < 30, "Morgan walks out through the closed door without getting stuck in it");
   ok(await until(alex, `__es.sounds.slice(${alexBefore}).includes("leave")`), "Sounds: Alex hears Morgan leave the room");
-  await es(andrew, `__es.walk(${at(centre("conference", 60))})`);
-  ok(await until(andrew, `__es.state.me.roomId === "conference"`), "…and straight back in");
+  await es(morgan, `__es.walk(${at(centre("conference", 60))})`);
+  ok(await until(morgan, `__es.state.me.roomId === "conference"`), "…and straight back in");
 
   // Victor tries to walk in: blocked. He knocks; Alex lets him in.
   await es(victor, `__es.jump(${at(byDoor("conference", 40))})`);
@@ -277,34 +277,34 @@ try {
   ok(forced === 0, `A tampered client outside the closed door receives none of Alex's tracks (got ${forced})`);
 
   // Interactions: react, nudge, follow, status text, typing doesn't trigger shortcuts.
-  const andrewId = await es<string>(andrew, "__es.state.me.id");
-  await es(andrew, `__es.walk(${at(centre("conference", 0))})`);
+  const morganId = await es<string>(morgan, "__es.state.me.id");
+  await es(morgan, `__es.walk(${at(centre("conference", 0))})`);
   await sleep(1500);
   await alex.keyboard.press(":"); // opens the emoji panel
   await alex.getByRole("button", { name: "🎉" }).click();
   await sleep(400);
-  ok(await andrew.locator(".avatar .reaction").filter({ hasText: "🎉" }).count() === 1, "Alex's 🎉 reaction floats over his avatar on Morgan's screen");
-  await es(alex, `__es.sock().emit("nudge", {to: "${andrewId}"})`);
+  ok(await morgan.locator(".avatar .reaction").filter({ hasText: "🎉" }).count() === 1, "Alex's 🎉 reaction floats over his avatar on Morgan's screen");
+  await es(alex, `__es.sock().emit("nudge", {to: "${morganId}"})`);
   await sleep(500);
-  ok(await andrew.getByText("Alex Admin nudged you").isVisible(), "Morgan gets the nudge");
-  await andrew.locator(".tool.status-btn").click();
-  await andrew.getByPlaceholder(/What's your status/).fill("Heads down on the KES proposal");
-  await andrew.keyboard.press("Enter");
+  ok(await morgan.getByText("Alex Admin nudged you").isVisible(), "Morgan gets the nudge");
+  await morgan.locator(".tool.status-btn").click();
+  await morgan.getByPlaceholder(/What's your status/).fill("Heads down on the Q3 proposal");
+  await morgan.keyboard.press("Enter");
   await sleep(500);
-  ok(await es<string>(alex, `__es.state.people.get("${andrewId}").statusText`) === "Heads down on the KES proposal", "Morgan's status message reaches Alex");
-  ok(await es<string>(andrew, "__es.state.me.status") === "available", "Typing '5' or 'g' in the status box didn't trigger shortcuts");
+  ok(await es<string>(alex, `__es.state.people.get("${morganId}").statusText`) === "Heads down on the Q3 proposal", "Morgan's status message reaches Alex");
+  ok(await es<string>(morgan, "__es.state.me.status") === "available", "Typing '5' or 'g' in the status box didn't trigger shortcuts");
 
-  await es(andrew, `__es.sock().emit("follow", {to: "${await es<string>(alex, "__es.state.me.id")}"})`);
+  await es(morgan, `__es.sock().emit("follow", {to: "${await es<string>(alex, "__es.state.me.id")}"})`);
   await es(alex, `__es.walk(${at(F.spawn)})`);
   await sleep(6000);
   // Give the follower time to catch up after Alex stops (a longer walk on some layouts).
-  await until(andrew, `(() => { const es = __es; const a = es.live.get(es.state.me.id); const z = es.live.get(es.state.me.following); return Math.hypot(a.x - z.tx, a.y - z.ty) < 200 })()`);
-  const gap = await andrew.evaluate(`(() => { const es = __es; const a = es.live.get(es.state.me.id); const z = es.live.get(es.state.me.following); return Math.round(Math.hypot(a.x - z.tx, a.y - z.ty)) })()`);
+  await until(morgan, `(() => { const es = __es; const a = es.live.get(es.state.me.id); const z = es.live.get(es.state.me.following); return Math.hypot(a.x - z.tx, a.y - z.ty) < 200 })()`);
+  const gap = await morgan.evaluate(`(() => { const es = __es; const a = es.live.get(es.state.me.id); const z = es.live.get(es.state.me.following); return Math.round(Math.hypot(a.x - z.tx, a.y - z.ty)) })()`);
   ok((gap as number) < 200, `Morgan follows Alex out of the room and down the hall (${gap}px behind)`);
-  await es(andrew, `__es.sock().emit("follow", {to: null})`);
+  await es(morgan, `__es.sock().emit("follow", {to: null})`);
 
   // Only admins name rooms.
-  const renameStatus = await andrew.evaluate(`fetch("/api/admin/rooms/sales/name", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Hacked" }) }).then((r) => r.status)`);
+  const renameStatus = await morgan.evaluate(`fetch("/api/admin/rooms/sales/name", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Hacked" }) }).then((r) => r.status)`);
   ok(renameStatus === 403 || renameStatus === 401, `A member can't rename rooms (${renameStatus})`);
 
   // Present: nearby people see the share, far people don't.
@@ -313,7 +313,7 @@ try {
   });
   ok(shared === true, `Alex can present (${shared})`);
   await sleep(2500);
-  ok(await andrew.locator(".share-mini").isVisible(), "Morgan, next to Alex, sees 'Alex is presenting'");
+  ok(await morgan.locator(".share-mini").isVisible(), "Morgan, next to Alex, sees 'Alex is presenting'");
   ok(!(await victor.locator(".share-mini").isVisible()), "Victor, across the floor, doesn't get Alex's screen");
   await alex.evaluate(async () => { await (window as any).__es.room().localParticipant.setScreenShareEnabled(false); (window as any).__es.sock().emit("media", { sharing: false }); });
 
@@ -327,16 +327,16 @@ try {
   ok(await alex.getByText(/isn't set up|Transcribing/).first().isVisible(), "Transcribe either starts or says plainly that it isn't set up");
 
   // Status → analytics.
-  await andrew.keyboard.press("5");
+  await morgan.keyboard.press("5");
   await sleep(500);
   ok(await es<string>(alex, `(() => { for (const p of __es.state.people.values()) if (p.name === "Morgan Lee") return p.status })()`) === "focusing", "Morgan set Focusing (key 5); Alex sees it");
 
   // Profile card.
-  const andrewPos = await es<{ x: number; y: number }>(alex, `(() => { for (const [id,p] of __es.state.people) if (p.name === "Morgan Lee") return __es.live.get(id) })()`);
-  void andrewPos;
+  const morganPos = await es<{ x: number; y: number }>(alex, `(() => { for (const [id,p] of __es.state.people) if (p.name === "Morgan Lee") return __es.live.get(id) })()`);
+  void morganPos;
   // Bring Morgan on screen next to Alex so his avatar can be clicked.
   const zp = await es<{ x: number; y: number }>(alex, `__es.live.get(__es.state.me.id)`);
-  await es(andrew, `__es.jump(${at({ x: Math.round(zp.x + 90), y: Math.round(zp.y) })})`);
+  await es(morgan, `__es.jump(${at({ x: Math.round(zp.x + 90), y: Math.round(zp.y) })})`);
   await sleep(1200);
   await alex.locator(".avatar:not(.me)").filter({ hasText: "Morgan" }).first().locator(".bubble").click();
   await sleep(400);
@@ -369,22 +369,22 @@ try {
   ok(csv.split("\n").length >= 4 && csv.startsWith("date,name"), "CSV export has a row per person");
 
   // Reconnect: a network blip must not send Morgan back to his desk.
-  const before = await es<{ x: number; y: number }>(andrew, `(() => { const p = __es.live.get(__es.state.me.id); return { x: Math.round(p.x), y: Math.round(p.y) } })()`);
-  await es(andrew, `(__es.sock().io.engine.close(), 0)`);
+  const before = await es<{ x: number; y: number }>(morgan, `(() => { const p = __es.live.get(__es.state.me.id); return { x: Math.round(p.x), y: Math.round(p.y) } })()`);
+  await es(morgan, `(__es.sock().io.engine.close(), 0)`);
   await sleep(3500);
-  const after = await es<{ x: number; y: number }>(andrew, `(() => { const p = __es.live.get(__es.state.me.id); return { x: Math.round(p.x), y: Math.round(p.y) } })()`);
+  const after = await es<{ x: number; y: number }>(morgan, `(() => { const p = __es.live.get(__es.state.me.id); return { x: Math.round(p.x), y: Math.round(p.y) } })()`);
   ok(Math.hypot(before.x - after.x, before.y - after.y) < 5, `After a reconnect Morgan is where he was (${before.x},${before.y} → ${after.x},${after.y})`);
-  ok(await es<string>(andrew, "__es.state.me.status") === "focusing", "…and still Focusing");
+  ok(await es<string>(morgan, "__es.state.me.status") === "focusing", "…and still Focusing");
 
   // A second tab replaces the first.
-  const andrew2 = await andrew.context().newPage();
-  await andrew2.goto(BASE);
+  const morgan2 = await morgan.context().newPage();
+  await morgan2.goto(BASE);
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
-  await andrew2.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await andrew2.getByRole("button", { name: "Join Space" }).click();
-  await andrew2.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 15000 });
+  await morgan2.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
+  await morgan2.getByRole("button", { name: "Join the office" }).click();
+  await morgan2.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 15000 });
   await sleep(1000);
-  ok(await andrew.getByText("You opened Office Spaces in another tab").isVisible(), "Opening a second tab ends the first one with a clear message");
+  ok(await morgan.getByText("You opened Office Spaces in another tab").isVisible(), "Opening a second tab ends the first one with a clear message");
   ok(await es<number>(alex, `[...__es.state.people.values()].filter(p => p.name === "Morgan Lee").length`) === 1, "…and Morgan appears once, not twice");
 
   // Make sure nobody is in the Meeting Room before the guest arrives.
@@ -402,7 +402,7 @@ try {
   await guest.getByRole("button", { name: "Continue" }).click();
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
   await guest.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await guest.getByRole("button", { name: "Join Space" }).click();
+  await guest.getByRole("button", { name: "Join the office" }).click();
   await guest.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
   ok(await es<string | null>(guest, "__es.state.me.roomId") === "meeting", "The guest lands in the Meeting Room");
   ok(!(await es<boolean>(guest, `__es.walk(${at(F.spawn)})`)), "The guest can't walk out of the room");
@@ -417,7 +417,7 @@ try {
   ok(guestAdmin === 401, "Guests can't reach admin APIs");
   const guestView = await guest.evaluate(`(() => { const ps = [...__es.state.people.values()]; return { n: ps.length, outside: ps.filter(p => p.roomId !== "meeting").length, emails: ps.filter(p => p.email || p.slackId || p.tz).length, rooms: Object.keys(__es.state.rooms).length } })()`) as any;
   ok(guestView.outside === 0 && guestView.emails === 0 && guestView.rooms === 1, `A guest sees only people in their room, with no emails/Slack/timezones (${JSON.stringify(guestView)})`);
-  // QA 2026-11-06: points, levels, streaks and since-dates are for the team; a guest's menu is just the day-one emotes.
+  // Points, levels, streaks and since-dates are for the team; a guest's menu is just the day-one emotes.
   await es(alex, `__es.walk(${at(centre("meeting"))})`);
   await sleep(4000);
   const leak = await es<any>(guest, `(() => { const ps = [...__es.state.people.values()]; return { points: ps.filter(p => p.points != null).length, since: ps.filter(p => p.since).length, streak: ps.filter(p => p.streak).length, eggs: ps.filter(p => p.eggs).length, n: ps.length } })()`);

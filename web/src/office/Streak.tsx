@@ -1,5 +1,5 @@
 // The office streak, chess.com style: a flame and how many days in a row someone has been in
-// Space (server/streaks.ts). Yours sits in the bottom bar beside the clock; teammates' show in the
+// the office (server/streaks.ts). Yours sits in the bottom bar beside the clock; teammates' show in the
 // People list and on their card. Grey until today counts.
 
 import type { Person } from "../../../shared/protocol";

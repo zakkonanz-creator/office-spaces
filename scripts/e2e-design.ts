@@ -28,7 +28,7 @@ async function person(email: string, name: string) {
   await page.goto(`${BASE}/auth/dev?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`);
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
   await page.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForFunction(() => (window as any).__es?.state?.me);
   return page;
 }
@@ -40,7 +40,7 @@ const api = (p: Page, url: string, body?: unknown) => p.evaluate(async ([u, b]) 
 
 try {
   const alex = await person("admin@example.com", "Alex Admin");
-  const andrew = await person("morgan@example.com", "Morgan Lee");
+  const morgan = await person("morgan@example.com", "Morgan Lee");
   const startVersion = (await api(alex, "/api/admin/floor/versions")).body.live as number;
 
   // ── Hand editing ──
@@ -63,41 +63,41 @@ try {
   await alex.mouse.up();
   const moved = await es<{ x: number; y: number }>(alex, `__es.state.previewFloor.objects.find(o => o.id === "${plant.id}")`);
   ok(moved.x !== plant.x || moved.y !== plant.y, `Dragging the plant moves it in Alex's preview (${plant.x},${plant.y} → ${moved.x},${moved.y})`);
-  ok((await es<any>(andrew, `__es.state.floor.objects.find(o => o.id === "${plant.id}")`)).x === plant.x, "…and only Alex sees that so far");
+  ok((await es<any>(morgan, `__es.state.floor.objects.find(o => o.id === "${plant.id}")`)).x === plant.x, "…and only Alex sees that so far");
   await alex.keyboard.press("ArrowRight");
   const nudged = await es<{ x: number }>(alex, `__es.state.previewFloor.objects.find(o => o.id === "${plant.id}")`);
   ok(nudged.x === moved.x + 1, "The arrow key nudges the selection, not Alex's avatar");
   await alex.getByRole("button", { name: "Check it" }).click();
   await alex.getByRole("button", { name: "Apply for everyone" }).click();
-  ok(await andrew.waitForFunction(`__es.state.floor.objects.find(o => o.id === "${plant.id}").x === ${nudged.x}`, null, { timeout: 8000 }).then(() => true, () => false), "After Apply, Morgan sees the plant where Alex put it");
+  ok(await morgan.waitForFunction(`__es.state.floor.objects.find(o => o.id === "${plant.id}").x === ${nudged.x}`, null, { timeout: 8000 }).then(() => true, () => false), "After Apply, Morgan sees the plant where Alex put it");
 
   // ── Growing the building ──
-  const before = await es<{ h: number; y: number; me: number }>(andrew, `({ h: __es.state.floor.height, y: __es.state.floor.rooms[0].y, me: __es.live.get(__es.state.me.id).ty })`);
+  const before = await es<{ h: number; y: number; me: number }>(morgan, `({ h: __es.state.floor.height, y: __es.state.floor.rooms[0].y, me: __es.live.get(__es.state.me.id).ty })`);
   const draft = await api(alex, "/api/admin/designer/hand", { edits: [{ op: "grow_building", side: "n", by: 200 }] });
   ok(draft.status === 200 && !draft.body.problems.length, `Growing the building 200px on top checks clean (${draft.body?.problems?.[0] ?? "ok"})`);
   const applied = await api(alex, `/api/admin/designer/${draft.body.id}/apply`, {});
   ok(applied.status === 200, "…and applies");
-  ok(await andrew.waitForFunction(`__es.state.floor.height === ${before.h + 200} && __es.state.floor.rooms[0].y === ${before.y + 200}`, null, { timeout: 8000 }).then(() => true, () => false), "Morgan's office is 200px taller with every room 200px lower");
-  ok(await andrew.waitForFunction(`Math.abs(__es.live.get(__es.state.me.id).ty - ${before.me + 200}) < 2`, null, { timeout: 8000 }).then(() => true, () => false), "…and Morgan moved down with the floor instead of ending up in a wall");
+  ok(await morgan.waitForFunction(`__es.state.floor.height === ${before.h + 200} && __es.state.floor.rooms[0].y === ${before.y + 200}`, null, { timeout: 8000 }).then(() => true, () => false), "Morgan's office is 200px taller with every room 200px lower");
+  ok(await morgan.waitForFunction(`Math.abs(__es.live.get(__es.state.me.id).ty - ${before.me + 200}) < 2`, null, { timeout: 8000 }).then(() => true, () => false), "…and Morgan moved down with the floor instead of ending up in a wall");
   const bad = await api(alex, "/api/admin/designer/hand", { edits: [{ op: "update_room", id: "office-3", name: "x" }] });
   ok(bad.status === 200 && bad.body.problems.some((p: string) => /by hand/.test(p)), "Renaming a room isn't a hand edit — it says to use the Designer");
 
   // ── Jumbotron editing ──
   const add = await api(alex, "/api/admin/jumbotron/edit", { op: "add", section: "dates", item: { date: "2099-12-31", label: "E2E test date" } });
   ok(add.status === 200, "Alex adds a key date from the jumbotron");
-  const seen = await api(andrew, "/api/jumbotron");
+  const seen = await api(morgan, "/api/jumbotron");
   const key = seen.body.dates.find((d: any) => d.label === "E2E test date")?.key;
   ok(key, "…and Morgan sees it");
-  const nope = await api(andrew, "/api/admin/jumbotron/edit", { op: "hide", key });
+  const nope = await api(morgan, "/api/admin/jumbotron/edit", { op: "hide", key });
   ok(nope.status === 403, "Morgan (not an admin) can't edit the jumbotron");
   await api(alex, "/api/admin/jumbotron/edit", { op: "remove", key });
-  ok(!(await api(andrew, "/api/jumbotron")).body.dates.some((d: any) => d.label === "E2E test date"), "Alex deletes it again");
+  ok(!(await api(morgan, "/api/jumbotron")).body.dates.some((d: any) => d.label === "E2E test date"), "Alex deletes it again");
 
   // ── Put the office back ──
   const back = await api(alex, "/api/admin/floor/revert", { version: startVersion });
   ok(back.status === 200, `Restoring version ${startVersion} works`);
-  ok(await andrew.waitForFunction(`__es.state.floor.height === ${before.h} && __es.state.floor.objects.find(o => o.id === "${plant.id}").x === ${plant.x}`, null, { timeout: 8000 }).then(() => true, () => false), "…the building shrinks back and the plant is home");
-  ok(await andrew.waitForFunction(`Math.abs(__es.live.get(__es.state.me.id).ty - ${before.me}) < 2`, null, { timeout: 8000 }).then(() => true, () => false), "…and Morgan moved back up with it");
+  ok(await morgan.waitForFunction(`__es.state.floor.height === ${before.h} && __es.state.floor.objects.find(o => o.id === "${plant.id}").x === ${plant.x}`, null, { timeout: 8000 }).then(() => true, () => false), "…the building shrinks back and the plant is home");
+  ok(await morgan.waitForFunction(`Math.abs(__es.live.get(__es.state.me.id).ty - ${before.me}) < 2`, null, { timeout: 8000 }).then(() => true, () => false), "…and Morgan moved back up with it");
 } finally {
   await browser.close();
 }

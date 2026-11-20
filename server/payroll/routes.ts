@@ -1,6 +1,6 @@
-// Access for time tracking: who is a time admin and who manages which team. The pay screens
-// (profiles, adjustments, pay runs, exports) are not part of this edition; the paths keep the
-// /api/payroll prefix so the time screens and grants stay as they were.
+// Access for time tracking: who is a payroll (time) admin and who manages which team, plus
+// the audit log. Pay itself (pay profiles, pay runs, payroll export) is out of scope; the routes
+// keep the /api/payroll prefix because the grants and the time screens share it.
 
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { one, q } from "../db";
@@ -49,7 +49,7 @@ export async function registerPayroll(app: FastifyInstance) {
       const b = (req.body ?? {}) as Record<string, any>;
       const uid = b.userId ?? b.user_id;
       const user = uid ? await one<{ id: number }>(`SELECT id FROM users WHERE id = $1`, [Number(uid)]) : await one<{ id: number }>(`SELECT id FROM users WHERE lower(email) = $1`, [String(b.email ?? "").toLowerCase()]);
-      if (!user) return reply.code(400).send({ error: "they need to have signed in to Space once" });
+      if (!user) return reply.code(400).send({ error: "they need to have signed in to the office once" });
       b.grant = b.grant ?? b.grant_kind;
       if (b.grant !== "payroll_admin" && b.grant !== "manager") return reply.code(400).send({ error: "grant must be payroll_admin or manager" });
       const team = b.grant === "manager" ? String(b.team ?? "").trim() : "";

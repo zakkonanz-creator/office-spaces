@@ -144,7 +144,7 @@ export function WinBanner() {
   );
 }
 
-/** Everything points unlock, with its emoji, in order (the owner, 2026-11-06: "so it's clear what people get"). */
+/** Everything points unlock, with its emoji, in order. */
 function Unlocks({ points }: { points: number }) {
   const [all, setAll] = useState(false);
   const got = REWARDS.filter((r) => r.points <= points).length;

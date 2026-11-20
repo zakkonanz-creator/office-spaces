@@ -6,10 +6,10 @@ import { shiftInZone } from "../../../shared/time";
 import { addDays, api, dayLabel, flagLabel, hm, leaveLabel, listOf, NotAvailable, post, shiftSpan, shortTz, teamHue, wallToInstant, timeOf, todayYmd, viewerTz, weekStart, WEEKDAYS } from "./api";
 import { evLabel, Msg, StatusPill, Unavailable, useLoad } from "./TimeApp";
 import { LeaveCalendar, PublishBar, Today } from "./TeamExtras";
-import { DayView, Locations, OffRow, Overview, People, type Coverage } from "./Deputy";
+import { DayView, Locations, OffRow, Overview, People, type Coverage } from "./TeamViews";
 import { announceTab, useTabRequests } from "./TimeTour";
 
-// The tabs follow how teams use Deputy: what's waiting on me,
+// The tabs: what's waiting on me,
 // approvals, timesheets, the schedule (day / week / month), who's on now, people, locations.
 type Tab = "overview" | "approvals" | "timesheets" | "projects" | "schedule" | "today" | "people" | "locations";
 const TAB_LABEL: Record<Tab, string> = { overview: "Overview", approvals: "Approvals", timesheets: "Timesheets", projects: "Project time", schedule: "Schedule", today: "Who's on now", people: "People", locations: "Locations" };
@@ -417,7 +417,7 @@ interface Unavail { kind: "weekly" | "date"; dow?: number | null; date?: string 
 interface Template { id: number; team: string; name: string; start_local: string; end_local: string; days_of_week: number[] | string }
 
 function Schedule({ teams }: { teams: string[] }) {
-  // Deputy's schedule: one day, the week, or the month (who's off, and why).
+  // The schedule: one day, the week, or the month (who's off, and why).
   const [view, setView] = useState<"day" | "week" | "month">("week");
   const [day, setDay] = useState(todayYmd());
   const [week, setWeek] = useState(weekStart());

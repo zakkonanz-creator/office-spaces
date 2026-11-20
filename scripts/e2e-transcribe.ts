@@ -26,11 +26,11 @@ async function person(email: string, name: string, wav?: string) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.log(`  [${name}] page error: ${e.message}`));
   await page.goto(`${BASE}/auth/dev?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`);
-  await page.getByRole("button", { name: "Join Space" }).waitFor({ timeout: 15000 });
+  await page.getByRole("button", { name: "Join the office" }).waitFor({ timeout: 15000 });
   await page.getByRole("button", { name: "Camera off" }).click();
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
   await page.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForFunction(() => (window as any).__es?.state?.me && (window as any).__es.room()?.state === "connected", null, { timeout: 20000 });
   return { page, browser };
 }

@@ -1,8 +1,8 @@
 // "Start meeting" on GHL Meeting Rooms. GHL has no API for them, so a room is
 // just its permanent link (crm.example.com/meet/<name>?pwd=…): each person
 // may save their own, and admins keep a small pool of shared team rooms for
-// everyone else. Space can't see who is in a GHL room, so a pool room counts
-// as busy only while a meeting Space started in it is running.
+// everyone else. The office can't see who is in a GHL room, so a pool room counts
+// as busy only while a meeting the office started in it is running.
 
 export interface PoolRoom { label: string; url: string }
 

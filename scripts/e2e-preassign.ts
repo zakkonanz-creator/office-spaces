@@ -43,12 +43,12 @@ ok((await them.get("/api/admin/members")).ok(), "…so the admin pages open for 
 list = await (await alex.get("/api/admin/preassigned")).json();
 ok(list.rows.some((x: any) => x.email === fresh && x.claimed_at), "The row is kept, marked applied");
 
-// A Space admin who isn't a payroll admin can't hand out manager or pay access.
+// An office admin who isn't a payroll admin can't hand out manager or pay access.
 const plainAdminEmail = `pre-admin-${Date.now()}@example.com`;
 await alex.post("/api/admin/preassigned", { data: { email: plainAdminEmail, role: "admin" } });
 const plainAdmin = await login(plainAdminEmail, "Plain Admin");
 r = await plainAdmin.post("/api/admin/preassigned", { data: { email: `x-${Date.now()}@example.com`, role: "member", payrollAdmin: true } });
-ok(r.status() === 403, "A Space admin without payroll access can't pre-assign payroll admin");
+ok(r.status() === 403, "An office admin without payroll access can't pre-assign payroll admin");
 r = await plainAdmin.post("/api/admin/preassigned", { data: { email: `y-${Date.now()}@example.com`, role: "admin" } });
 ok(r.ok(), "…but can pre-assign Admin");
 

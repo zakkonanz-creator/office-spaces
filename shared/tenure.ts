@@ -1,7 +1,7 @@
-// How long someone has been at Acme (the owner, 2026-11-05). It unlocks emotes (shared/emotes.ts)
-// and puts a small service pin on their avatar's shirt. The start date is users.started_on (from
-// Slack: the day their account was created; an admin can correct it), else the day they first
-// signed in to Space, which for a new hire is their first day.
+// How long someone has been at Acme. It unlocks emotes (shared/emotes.ts)
+// and puts a small service pin on their avatar's shirt. The start date is users.started_on (set by an
+// admin in Admin → Members), else the day they first signed in to the office, which for a
+// new hire is their first day.
 
 export type PinTier = "new" | "bronze" | "silver" | "gold" | "diamond";
 

@@ -1,6 +1,6 @@
-// Payroll tables, beside Space's own.
+// Payroll tables, beside the office's own.
 // Money is integer cents; dates are 'YYYY-MM-DD' text so no timezone ever shifts a day.
-// People are keyed by email, so a pay profile can exist before they first sign in to Space.
+// People are keyed by email, so a pay profile can exist before they first sign in to the office.
 
 import { q } from "../db";
 import { migrateGrants } from "./grants";

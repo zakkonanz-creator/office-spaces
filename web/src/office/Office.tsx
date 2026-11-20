@@ -1,5 +1,5 @@
 // The office screen: the floor, the bottom bar, the side panel, and every
-// overlay. Keyboard shortcuts match Kumospace's so muscle memory carries over.
+// overlay. Keyboard shortcuts follow common virtual-office conventions.
 
 import { useCallback, useEffect, useState } from "react";
 import { RoomEvent, Track } from "livekit-client";
@@ -143,7 +143,7 @@ function Floor() {
   // Stable handlers, so the floor's memoised furniture doesn't redraw on every store change.
   const onPerson = useCallback((id: string, at: { x: number; y: number }) => setOverlay({ kind: "person", id, at }), []);
   const onObject = useCallback((obj: Obj, at: { x: number; y: number }) => {
-    // The chess board opens a game straight from the click (the owner, 2026-11-11): no popover to close.
+    // The chess board opens a game straight from the click: no popover to close.
     if (obj.type === "chess") return void window.open(obj.url ?? CHESS_URL, "_blank", "noopener");
     setOverlay({ kind: "object", obj, at });
   }, []);
@@ -323,7 +323,7 @@ function Toasts() {
     <>
     {s.updateReady ? (
       <div className="update-banner" role="alert">
-        <span><b>Space was just updated.</b> Refresh to get the latest{inMeet() ? " (when your meeting's done)" : ""}.</span>
+        <span><b>The office was just updated.</b> Refresh to get the latest{inMeet() ? " (when your meeting's done)" : ""}.</span>
         <button className="primary small" onClick={() => location.reload()}>Refresh</button>
         <button className="ghost small" onClick={() => { s.updateReady = false; bump(); }} aria-label="Later">Later</button>
       </div>

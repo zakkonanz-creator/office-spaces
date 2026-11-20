@@ -1,9 +1,8 @@
-// Emotes, Fortnite style (the owner, 2026-11-05: "make them funny"). Played on your avatar for everyone
-// who can see you; quick (the owner, 2026-11-05: "make it quick"): a few seconds, or until you move. The animation for each is in styles.css under
+// Emotes, Fortnite style. Played on your avatar for everyone
+// who can see you; quick: a few seconds, or until you move. The animation for each is in styles.css under
 // `[data-emote="…"]`; `prop` floats above the head while it plays.
 //
-// Unlocked by points (shared/points.ts). Twenty levels (the owner, 2026-11-06: "make them a little harder
-// to get, more emotes, like 20 levels"): Level 1 is the day-one four, and each level after unlocks
+// Unlocked by points (shared/points.ts). Twenty levels: Level 1 is the day-one four, and each level after unlocks
 // one more emote. Sized for someone active in the office (~20 points a day): Level 5 in about three
 // weeks, the first epic (Level 11) in about three months, Legend (Level 20) in about a year.
 // An epic emote also plays `fx` once across the screen of everyone near you (web/src/office/screenFx.ts).

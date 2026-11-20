@@ -23,7 +23,7 @@ import { VideoTile } from "./VideoTile";
 import { JumbotronScreen } from "./Jumbotron";
 import { HandLayer } from "./HandLayer";
 import { useHand, select } from "./handEdit";
-import { kumoArt } from "./kumoSprites";
+import { furnitureArt } from "./furnitureSprites";
 import { roomChanged } from "./meet";
 import {
   SpriteDefs, Desk, Plant, Rug, Sofa, Armchair, Beanbag, MeetingTable, CoffeeTable, CafeTable, Tv, Bookshelf,
@@ -367,7 +367,7 @@ export function World({ onPerson, onObject, onDesk }: Props) {
     };
   };
   const drag = useRef<{ x: number; y: number; px: number; py: number; moved: boolean } | null>(null);
-  // Two fingers pinch to zoom on phones (the owner, 2026-11-09), toward the point between them, like a map.
+  // Two fingers pinch to zoom on phones, toward the point between them, like a map.
   const touches = useRef(new Map<number, { x: number; y: number }>());
   const pinch = useRef<{ dist: number; zoom: number } | null>(null);
   const zoomAt = (cx: number, cy: number, next: number) => {
@@ -396,7 +396,7 @@ export function World({ onPerson, onObject, onDesk }: Props) {
     const onWheel = (e: WheelEvent) => {
       if ((e.target as HTMLElement).closest(".popover, .modal, .side, .toolbar-wrap")) return;
       e.preventDefault();
-      // Like Kumospace and maps: scrolling zooms toward the cursor (mouse wheel,
+      // Like a map: scrolling zooms toward the cursor (mouse wheel,
       // trackpad scroll, pinch). Sideways scrolling or Shift+scroll pans, and so
       // does dragging. Telling a mouse from a trackpad by delta size is
       // unreliable — smooth-scrolling mice send small steps too.
@@ -594,7 +594,7 @@ const TABLETOP = new Set(["laptop", "monitor", "keyboard", "cup", "food", "tray"
 const Furniture = memo(function Furniture({ o, onClick }: { o: Obj; onClick: Props["onObject"] }) {
   const clickable = ["link", "music", "timer", "sign", "note", "jumbotron", "chess"].includes(o.type);
   const style: React.CSSProperties = { left: o.x, top: o.y, width: o.w, height: o.h, ...(o.color ? { ["--c" as any]: o.color } : {}) };
-  let art: ReactNode = kumoArt(o);
+  let art: ReactNode = furnitureArt(o);
   if (art === null) switch (o.type) {
     case "plant": art = <Plant w={o.w} id={o.id} />; break;
     case "plantTall": art = <Plant w={o.w} id={o.id} tall />; break;
@@ -717,7 +717,7 @@ function doorStyle(r: Room, g: Room["door"] = r.door): React.CSSProperties {
 
 // ── People ─────────────────────────────────────────────────────────────────
 
-/** An office in-joke (the owner, 2026-11-05): these people walk like a wacky inflatable tube man. */
+/** An office in-joke: these people walk like a wacky inflatable tube man. */
 const FLOPPY = new Set(["morgan@example.com"]);
 
 function Avatar({ person, onClick }: { person: Person; onClick: (at: { x: number; y: number }) => void }) {

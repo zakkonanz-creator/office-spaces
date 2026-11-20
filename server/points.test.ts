@@ -40,7 +40,7 @@ test("points: tenure + office time (capped, Away doesn't count) + awards, once p
 });
 
 test("#wins text comes through plain and short", () => {
-  assert.equal(plain("*Closed* <@U123|andrew> on <https://x.com|the Smith deal> :tada:"), "Closed @andrew on the Smith deal");
+  assert.equal(plain("*Closed* <@U123|morgan> on <https://x.com|the Smith deal> :tada:"), "Closed @morgan on the Smith deal");
   assert.equal(plain("x".repeat(300)).length, 140);
 });
 

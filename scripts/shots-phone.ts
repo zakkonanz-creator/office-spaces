@@ -1,5 +1,5 @@
 // Phone QA: every panel at phone sizes, plus an overflow check (anything poking past
-// the screen edge, or a page that scrolls sideways). the owner, 2026-11-09: "make this mobile friendly".
+// the screen edge, or a page that scrolls sideways).
 //   npx tsx scripts/shots-phone.ts /tmp/es-phone        (needs `npm run dev`, or BASE=…)
 // Prints one line per screen: ✓ or ✗ with what overflowed. Exit code 1 if anything did.
 import { chromium, type Page } from "playwright";
@@ -78,10 +78,10 @@ for (const [label, viewport] of sizes) {
   await page.waitForTimeout(600);
   await shot(page, label, "signin");
   await page.goto(`${BASE}/auth/dev?email=admin@example.com&name=Alex%20Admin`);
-  await page.getByRole("button", { name: "Join Space" }).waitFor();
+  await page.getByRole("button", { name: "Join the office" }).waitFor();
   await page.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
   await shot(page, label, "prejoin");
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 20000 });
   await page.waitForTimeout(2500);
   // Into a room so the room bar shows its buttons.

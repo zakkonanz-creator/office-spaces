@@ -1,4 +1,4 @@
-// The Kumospace "Analytics" page, rebuilt: for a day or a week, each person's
+// Presence analytics: for a day or a week, each person's
 // timeline of Available / Focusing / Away while they were in the office, with
 // totals and a CSV export. Built from status_events stretches, clipped to the
 // window. The window boundaries come from the browser so they're in the

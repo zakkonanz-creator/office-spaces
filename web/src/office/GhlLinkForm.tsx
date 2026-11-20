@@ -6,7 +6,7 @@ import { toast } from "./store";
 export function GhlLinkForm({ onSaved, onCancel }: { onSaved: () => void; onCancel: () => void }) {
   const [url, setUrl] = useState("");
   const [busy, setBusy] = useState(false);
-  // Changing your room: start from the one Space uses now.
+  // Changing your room: start from the one the office uses now.
   useEffect(() => { fetch("/api/me/ghl-room").then((r) => (r.ok ? r.json() : null)).then((j) => { if (j?.url) setUrl((u) => u || j.url); }).catch(() => {}); }, []);
   const save = async () => {
     setBusy(true);

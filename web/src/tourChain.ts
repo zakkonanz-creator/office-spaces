@@ -1,5 +1,5 @@
 // The tours run one into the next, by what each person can open:
-//   office welcome + checklist → My time → Team (managers) → Payroll (payroll admins) → Admin (Space admins)
+//   office welcome + checklist → My time → Team (managers) → Payroll (payroll admins) → Admin (office admins)
 // Each tour's last step asks nextTour() for the following one and offers it as "Next".
 
 import { access } from "./time/api";

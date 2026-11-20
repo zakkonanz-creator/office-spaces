@@ -1,6 +1,6 @@
-// The win bell (the owner, 2026-11-05: "keep it not too loud"). Every minute, new top-level posts in
+// The win bell. Every minute, new top-level posts in
 // Slack #wins ring a soft bell in the office and show a banner with the poster's name; the
-// poster gets points (shared/points.ts). Needs the Space Slack app to have channels:read and
+// poster gets points (shared/points.ts). Needs the Slack app to have channels:read and
 // channels:history and to be added to #wins; until then it logs once and stays quiet.
 // The last message seen is kept in settings, so a restart never re-rings old wins.
 
@@ -35,7 +35,7 @@ export function plain(text: string): string {
 /** Slack's three special characters, so a reason can't become a mention or a link. */
 const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-/** The #wins post for points an admin awarded (the owner, 2026-11-06). Mentions them when we know their Slack id. */
+/** The #wins post for points an admin awarded. Mentions them when we know their Slack id. */
 export function awardText(a: { toName: string; toSlackId: string | null; byName: string; points: number; reason: string }): string {
   const who = a.toSlackId ? `<@${a.toSlackId}>` : `*${esc(a.toName)}*`;
   return `:star: ${who} got *+${a.points.toLocaleString("en-US")} points* from ${esc(firstName(a.byName))}: ${esc(a.reason)}`;
@@ -50,8 +50,8 @@ export async function postAward(a: Parameters<typeof awardText>[0]): Promise<boo
 }
 
 // Most #wins posts are a screenshot (a customer's kind words) or a video with little or no text, so
-// the jumbotron shows the picture itself, not "posted a win" (the owner, 2026-11-16). For a video, its still.
-// Downloading needs the Space Slack app's files:read scope; without it the win shows as text and
+// the jumbotron shows the picture itself, not "posted a win". For a video, its still.
+// Downloading needs the Slack app's files:read scope; without it the win shows as text and
 // fillWinImages adds the picture once the scope is there.
 
 /** The picture to show for a post: its first image, or a video's still. */
@@ -101,7 +101,7 @@ export async function fillWinImages(now = Date.now()): Promise<number> {
     if (!media) { await attachWinImage(msOf(m.ts), null, false); continue; } // no picture: stop asking
     const img = await storeWinImage(m.ts, media.url);
     if (img) { await attachWinImage(msOf(m.ts), img, media.video); n++; }
-    else if (!refusedOnce) { refusedOnce = true; console.warn("wins: Slack won't hand over #wins images (the Space Slack app needs the files:read scope)"); }
+    else if (!refusedOnce) { refusedOnce = true; console.warn("wins: Slack won't hand over #wins images (the Slack app needs the files:read scope)"); }
   }
   return n;
 }
@@ -138,7 +138,7 @@ export async function checkWins(): Promise<number> {
     ringWin(name, plain(m.text ?? ""), img);
     await addWin(name, plain(m.text ?? ""), msOf(m.ts), { img, video: media?.video, pending: Boolean(media && !img) });
     rung++;
-    // Points for the first few a day only (QA 2026-11-06: a top-level "congrats!" shouldn't farm points); the bell rings for every one.
+    // Points for the first few a day only (a top-level "congrats!" shouldn't farm points); the bell rings for every one.
     if (u && (await countToday(u.id, "win")) < POINTS.winsPerDay && (await award(u.id, "win", POINTS.win, "Posted a win in #wins", `win:${m.ts}`))) await pointsChanged(u.id, `🔔 +${POINTS.win} points for your win in #wins!`);
   }
   return rung;

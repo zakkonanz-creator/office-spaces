@@ -15,7 +15,7 @@ for (const scheme of ["light", "dark"] as const) {
   const errors: string[] = [];
   p.on("pageerror", (e) => errors.push(e.message));
   await p.goto(`${BASE}/auth/dev?email=admin@example.com&name=Alex%20Admin`);
-  await p.getByRole("button", { name: "Join Space" }).click();
+  await p.getByRole("button", { name: "Join the office" }).click();
   await p.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 20000 });
   await p.getByRole("button", { name: "Design" }).click();
   await p.waitForTimeout(600);

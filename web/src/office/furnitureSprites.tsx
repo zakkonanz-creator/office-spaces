@@ -1,5 +1,4 @@
-// The pieces the team's Kumospace floor uses that our first set of sprites
-// didn't have: laptops and monitors, coloured chairs, the chess board,
+// The second set of furniture sprites, beyond the basics in sprites.tsx: laptops and monitors, coloured chairs, the chess board,
 // mannequins, cabinets, drinks and snacks, frames, pets... Same rules as
 // sprites.tsx: top-down, lit from the top-left, each in its own w×h box.
 
@@ -568,7 +567,7 @@ function Microwave({ w, h }: { w: number; h: number }) {
 }
 
 function Stove({ w, h }: { w: number; h: number }) {
-  // The cosy wood stove Kumospace plays fireplace sounds from.
+  // The cosy wood stove.
   const r = Math.min(w, h) / 2, cx = w / 2, cy = h / 2;
   return (
     <Svg w={w} h={h} pad={12}>
@@ -628,7 +627,7 @@ function Aquarium({ w, h, id }: { w: number; h: number; id: string }) {
 }
 
 function Bicycle({ w, h }: { w: number; h: number }) {
-  // Side view, like Kumospace's: two spoked wheels, a blue diamond frame, saddle and bars.
+  // Side view: two spoked wheels, a blue diamond frame, saddle and bars.
   const L = Math.max(w, h), H = L * 0.5, cx = w / 2, cy = h / 2;
   const r = L * 0.2, back = { x: -L * 0.28, y: H * 0.18 }, front = { x: L * 0.28, y: H * 0.18 };
   const crank = { x: -L * 0.02, y: H * 0.18 }, seat = { x: -L * 0.1, y: -H * 0.38 }, head = { x: L * 0.17, y: -H * 0.36 };
@@ -734,8 +733,8 @@ function Basket({ w, h }: { w: number; h: number }) {
 }
 
 const RUG_STYLES = new Set(["border", "terrazzo", "kilim", "medallion", "dots", "cowhide", "confetti", "triangles", "leaves"]);
-/** Kumospace's rugs: richer colours and real patterns, round where theirs are round. */
-function KumoRug({ w, h, color, variant, id }: { w: number; h: number; color: string; variant: string; id: string }) {
+/** Patterned rugs: richer colours and real patterns, round or rectangular. */
+function FurnitureRug({ w, h, color, variant, id }: { w: number; h: number; color: string; variant: string; id: string }) {
   const dark = shade(color, 0.62), light = shade(color, 1.22);
   const cx = w / 2, cy = h / 2;
   if (variant === "leaves") {
@@ -851,10 +850,10 @@ function KumoRug({ w, h, color, variant, id }: { w: number; h: number; color: st
 }
 
 /** Art for the imported piece types; null if `o` isn't one of them. */
-export function kumoArt(o: Obj): ReactNode | null {
+export function furnitureArt(o: Obj): ReactNode | null {
   const { w, h, id } = o;
   switch (o.type) {
-    case "rug": return o.variant && RUG_STYLES.has(o.variant) ? <KumoRug w={w} h={h} color={o.color ?? "#c9b79c"} variant={o.variant} id={id} /> : null;
+    case "rug": return o.variant && RUG_STYLES.has(o.variant) ? <FurnitureRug w={w} h={h} color={o.color ?? "#c9b79c"} variant={o.variant} id={id} /> : null;
     case "chair": return <Chair w={w} h={h} color={o.color} variant={o.variant} r={o.r} />;
     case "ottoman": return <Ottoman w={w} h={h} color={o.color} variant={o.variant} />;
     case "desk": return <DeskTable w={w} h={h} variant={o.variant} id={id} />;

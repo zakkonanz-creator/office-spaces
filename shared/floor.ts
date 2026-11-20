@@ -3,7 +3,7 @@
 //
 // The model is deliberately small: rooms are rectangles with one door, walls are
 // the room edges minus the door gap, and everything that isn't a room is the open
-// floor. That covers every room on the team's Kumospace floor.
+// floor. That covers every room in a typical office layout.
 
 export type Side = "n" | "s" | "e" | "w";
 
@@ -30,7 +30,7 @@ export interface Room {
   closable: boolean;
   /**
    * More gaps in this room's walls, opened and shut with the room's own door
-   * state: the other side of a neighbour's door (Kumospace offices open into
+   * state: the other side of a neighbour's door (offices can open into
    * each other), or the extra open sides of an open-plan area.
    */
   openings?: Door[];
@@ -63,7 +63,7 @@ export type ObjType =
   | "tv" | "link" | "sign" | "note" | "timer" | "music" | "bookshelf" | "beanbag"
   | "plantTall" | "lamp" | "fridge" | "cafe" | "whiteboard" | "cooler" | "coffeeTable"
   | "pingpong" | "pool" | "piano" | "arcade" | "bench"
-  // Imported from Kumospace (2026-10-07):
+  // Workstation pieces, food and decor:
   | "chair" | "ottoman" | "desk" | "laptop" | "monitor" | "keyboard" | "chess" | "mannequin" | "cabinet"
   | "cup" | "food" | "tray" | "frame" | "plate" | "flowers" | "planter" | "plantWall" | "tree" | "trinket"
   | "deskLamp" | "sideTable" | "console" | "reception" | "microwave" | "stove" | "pet" | "coatRack"
@@ -355,8 +355,8 @@ function clearLine(floor: Floor, a: Pt, b: Pt, passable: (roomId: string) => boo
 // ── Who hears whom ─────────────────────────────────────────────────────────
 
 /** How far a voice carries on the open floor (px; a floor tile is 80). Full volume to 60% of it,
- *  silence at it. One tile further than before since 2026-11-05 (Alex: conversations cut out a
- *  little early): normal = full volume ~2.5 tiles out, gone at ~4.25. Inside a room it's moot. */
+ *  silence at it. Long enough that conversations don't cut out early:
+ *  normal = full volume ~2.5 tiles out, gone at ~4.25. Inside a room it's moot. */
 export const AUDIO_RANGES = { small: 260, normal: 340, large: 460 } as const;
 export type AudioRange = keyof typeof AUDIO_RANGES;
 
@@ -368,7 +368,7 @@ export interface Hearer extends Pt {
  * Volume (0–1) at which `a` hears `b`. Symmetric by construction.
  *
  *  - A closed door is a hard wall for sound: same closed room = 1, otherwise 0.
- *  - Same open room = room audio, everyone at full volume (Kumospace's "Room audio").
+ *  - Same open room = room audio, everyone at full volume.
  *  - Two different rooms never hear each other.
  *  - Open floor ↔ open floor, or open floor ↔ someone just inside an open door:
  *    full volume up to 60% of the range, fading to silence at the range.

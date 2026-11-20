@@ -75,7 +75,7 @@ function slides(all: Board): Slide[] {
   const vis = <T extends { hidden?: boolean }>(k: Section, xs: T[]) => (all.off?.includes(k) ? [] : xs.filter((x) => !x.hidden));
   const b = { ...all, sales: vis("sales", all.sales), onboarding: vis("onboarding", all.onboarding), priorities: vis("priorities", all.priorities), dates: vis("dates", all.dates), reviews: vis("reviews", all.reviews), values: vis("values", all.values) };
   const wins = vis("wins", all.wins ?? []);
-  // A win with a picture (most #wins posts are a screenshot) gets its own slide showing it (the owner, 2026-11-16).
+  // A win with a picture (most #wins posts are a screenshot) gets its own slide showing it.
   // The newest win's slide comes first, so a fresh one is what the screen jumps to.
   const pics: Slide[] = wins.filter((w) => w.img).slice(0, 4).map((w) => ({ title: `🔔 Wins · ${firstName(w.name)}`, lines: w.text ? [w.text] : [], img: winImg(w.img!), video: w.video }));
   const words = wins.filter((w) => !w.img && w.text);

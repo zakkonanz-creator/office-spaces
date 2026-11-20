@@ -1,5 +1,4 @@
-// Outfits, Fortnite style (the owner, 2026-11-06: "make it so outfits can be unlocked, make it cool like
-// fortnite"). Each has a rarity (the colour of its card in the Locker) and unlocks with points like
+// Outfits, Fortnite style. Each has a rarity (the colour of its card in the Locker) and unlocks with points like
 // emotes and pets. Worn on your avatar for everyone to see; the look is in styles.css under
 // `[data-outfit="…"]`. Without one you wear your own colours (World.tsx `look`).
 

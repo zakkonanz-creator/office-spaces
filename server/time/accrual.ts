@@ -1,6 +1,5 @@
-// Leave accrual: a yearly entitlement is earned the way the team's Deputy policies
-// earn it (read from Deputy's leave settings, 2026-10-16), so the two-month
-// parallel run reconciles balance for balance:
+// Leave accrual: a yearly entitlement is earned the same way Deputy's leave policies
+// earn it, so balances imported from Deputy (server/time/deputy.ts) carry on unchanged:
 //
 //   monthly — Standard PTO: a twelfth of the year is released every month on the
 //             person's hire-date day (the 31st falls back to the month's last day),
@@ -15,26 +14,26 @@
 //             hand those days back on Jan 1.
 //             Someone who joins mid-year gets the rest of the year, prorated by day.
 //
-// Releases happen on dates in Deputy's business timezone. Each release is written
-// to leave_accruals once (keyed by its date), so a restart or a second server never
-// pays it twice. And at most one per period (a month for monthly, a year for yearly):
-// a corrected hire date moves the release day, and must not pay a month again. A person's releases start after the Deputy snapshot their balance
-// came from: Deputy already paid everything up to the moment it was exported. For
-// someone with no Deputy snapshot, releases start with the month accrual was
-// switched on.
+// Releases happen on dates in the business timezone (BUSINESS_TZ). Each release is written
+// to leave_accruals once (keyed by its date), so a restart or a second server never pays
+// it twice. And at most one per period (a month for monthly, a year for yearly): a
+// corrected hire date moves the release day, and must not pay a month again. A person's
+// releases start after the Deputy snapshot their balance came from, if it was imported:
+// Deputy already paid everything up to the moment it was exported. For someone with no
+// Deputy snapshot, releases start with the month accrual was switched on.
 
 import { one, q } from "../db";
 import { addDays, localDate, workingDays } from "../../shared/time";
 import { workDaysOf } from "./hours";
 
-/** Deputy's business timezone: its releases happen just after midnight here. */
+/** The business timezone releases are dated in (matches Deputy's, for imported balances). */
 const BUSINESS_TZ = "America/Los_Angeles";
 
 export type AccrualKind = "monthly" | "yearly";
 
 export async function migrateAccrual() {
   for (const sql of [
-    // `month` is the release date (it held the first of the month before releases followed Deputy's dates).
+    // `month` is the release date (it held the first of the month in an earlier schema).
     `CREATE TABLE IF NOT EXISTS leave_accruals (
       user_id INTEGER NOT NULL REFERENCES users(id),
       code TEXT NOT NULL REFERENCES leave_types(code),
@@ -136,7 +135,7 @@ export function accrualNote(kind: AccrualKind | null, daysPerYear: number | null
 }
 
 /**
- * A Deputy balance as of its export, brought forward by the releases Space has
+ * A Deputy balance as of its export, brought forward by the releases the office has
  * already posted since (applying a snapshot late mustn't wipe them). A reset since
  * the export makes the snapshot irrelevant: only what came after it counts.
  */

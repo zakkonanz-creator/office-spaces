@@ -1,5 +1,7 @@
 # Office Spaces
 
+[![CI](https://github.com/zakkonanz-creator/office-spaces/actions/workflows/ci.yml/badge.svg)](https://github.com/zakkonanz-creator/office-spaces/actions/workflows/ci.yml)
+
 ![Three people on the floor plan: walk up to someone and their video appears, walk away and it fades](docs/demo.gif)
 
 A virtual office you host yourself. Everyone is a little figure on a 2D floor plan: walk up to someone and you hear them, walk away and you don't. Close a door to meet privately, knock to get in, invite a guest into one room. It also has room transcription with AI notes, time tracking, and an AI floor designer.
@@ -11,6 +13,7 @@ It runs on your own Railway account, so you pay for hosting instead of buying a 
 - **Guests**: an expiring or permanent link that keeps a guest in one room.
 - **Transcribe this room**: each teammate's browser records only their own mic, a Whisper service you host turns it into text, and Claude writes notes. The notes go only to the people who were in the room. Guests are never recorded.
 - **Time tracking** (`/time`): clock in/out with breaks, weekly timesheets, schedules (overnight shifts too), leave balances and requests, shift swaps, and managers for each team.
+  Moving from Deputy? An all-team manager can import a Deputy export from Team → People (**Import from Deputy…**): people, locations, start dates, regular weeks, leave balances and entitlements, upcoming shifts and leave. It previews first, and people who haven't signed in yet get their data on first sign-in.
 - **Office Designer** (admins): describe a change ("add a ping-pong corner to reception") and Claude draws it, or edit by hand. Every change is saved as a version you can undo.
 - **Admin**: members and roles, an availability timeline for each person with CSV export, guest links and settings.
 - **Fun stuff**: points, streaks, outfits, pets, hidden easter eggs, an optional wall screen (the "jumbotron") for wins, reviews and priorities.

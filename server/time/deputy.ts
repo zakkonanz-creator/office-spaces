@@ -1,15 +1,16 @@
-// Import from Deputy.
+// Import people, schedules and leave from Deputy (optional migration for teams
+// moving off Deputy; nothing else depends on it).
 //
-// The file is an export of the team's Deputy, read from a logged-in browser:
+// The file is a JSON export (DeputyExport below) read from a logged-in Deputy tab:
 // everyone active, their location, start date, regular week (Deputy's "regular
 // working hours"), leave balances, the upcoming roster and upcoming leave.
 //
 // Preview first; nothing is written until commit=1. Each person is kept in
-// deputy_import by email and applied to their Space account — now if they've
+// deputy_import by email and applied to their office account — now if they've
 // signed in, otherwise the moment they first do. Deputy's times are wall-clock
 // times in Deputy's business timezone; a regular week is turned into the
-// person's own timezone, so it waits until Space knows that timezone.
-// Re-importing a newer file updates everything Space hasn't decided itself.
+// person's own timezone, so it waits until the office knows that timezone.
+// Re-importing a newer file updates everything the office hasn't decided itself.
 
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { one, q } from "../db";
@@ -41,10 +42,10 @@ export interface DeputyPerson {
 export interface DeputyShift { id: number; emp: number | null; date: string; start: string; end: string; breakMinutes: number; area: string | null; location: string | null; published: boolean }
 export interface DeputyLeave { id: number; emp: number; ruleId: number | null; start: string; end: string; days: number; hours: number; status: "approved" | "pending" }
 
-/** Deputy shows balances in hours; Space keeps days. Deputy's own standard day is 8h ("1 standard day is 8h 0m"). */
+/** Deputy shows balances in hours; the office keeps days. Deputy's own standard day is 8h ("1 standard day is 8h 0m"). */
 const HOURS_PER_DAY = 8;
 
-/** Deputy leave rule → Space leave type. Anything not here is reported and skipped. */
+/** Deputy leave rule → office leave type. Anything not here is reported and skipped. */
 export function leaveCodeFor(ruleName: string): string | null {
   const n = ruleName.toLowerCase();
   if (n === "standard pto") return "vacation";
@@ -54,7 +55,7 @@ export function leaveCodeFor(ruleName: string): string | null {
   return null;
 }
 
-/** Deputy's leave policies per person: days per year by Space leave type, 0 when they aren't on it. */
+/** Deputy's leave policies per person: days per year by office leave type, 0 when they aren't on it. */
 export interface LeavePolicyFile {
   source: "deputy-leave-policy"; version: 1; readAt: string;
   people: { email: string; name: string; entitlements: Record<string, number> }[];
@@ -92,7 +93,7 @@ export function parseExport(body: unknown): DeputyExport {
 }
 
 /**
- * A Deputy regular week (in Deputy's timezone) as Space regular hours in the
+ * A Deputy regular week (in Deputy's timezone) as regular hours in the
  * person's own timezone. Converted at the offsets of `refDate`'s week, so a
  * timezone pair with different daylight-saving dates drifts by an hour across
  * the change — the preview says so.
@@ -149,7 +150,7 @@ const dayWord = (deputyDay: number) => ["", "Monday", "Tuesday", "Wednesday", "T
 /**
  * Days of leave in a Deputy request. Deputy fills these in once a request is
  * decided; a pending one has none yet, so count their working days (by their
- * Deputy week, else Monday–Friday) the way Space does for a new request.
+ * Deputy week, else Monday–Friday) the way the office does for a new request.
  */
 export function leaveDays(l: DeputyLeave, p: DeputyPerson): number {
   if (l.days > 0) return l.days;
@@ -180,7 +181,7 @@ export async function migrateDeputy() {
     // Rows that came from Deputy carry its id, so a re-import updates instead of duplicating.
     `ALTER TABLE shifts ADD COLUMN IF NOT EXISTS external_id TEXT`,
     `CREATE UNIQUE INDEX IF NOT EXISTS shifts_external_id ON shifts (external_id) WHERE external_id IS NOT NULL`,
-    // When Deputy last wrote the shift. A claim or swap in Space after that (updated_at later) wins over a re-import.
+    // When Deputy last wrote the shift. A claim or swap in the office after that (updated_at later) wins over a re-import.
     `ALTER TABLE shifts ADD COLUMN IF NOT EXISTS deputy_synced_at TIMESTAMPTZ`,
     `ALTER TABLE leave_requests ADD COLUMN IF NOT EXISTS external_id TEXT`,
     `CREATE UNIQUE INDEX IF NOT EXISTS leave_requests_external_id ON leave_requests (external_id) WHERE external_id IS NOT NULL`,
@@ -194,7 +195,7 @@ export async function migrateDeputy() {
 export interface PreviewRow {
   deputyId: number; name: string; email: string; location: string | null; startDate: string | null;
   userId: number | null; matchedBy: "email" | "name" | null;
-  /** In Space now, or applied on their first sign-in. */
+  /** In the office now, or applied on their first sign-in. */
   status: "ready" | "waits-for-sign-in" | "skipped";
   timezone: string | null;
   regular: RegularDay[] | null; regularNote: string | null;
@@ -205,7 +206,7 @@ export interface PreviewRow {
 
 const normName = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z ]/g, " ").replace(/\s+/g, " ").trim();
 
-/** Their timezone if Space knows it (their pay profile's, else what their browser reported) — never a guess. Same order as tzOf. */
+/** Their timezone if the office knows it (their pay profile's, else what their browser reported) — never a guess. Same order as tzOf. */
 async function knownTz(userId: number): Promise<string | null> {
   const r = await one<{ tz: string | null; profile_tz: string | null }>(
     `SELECT u.tz, (SELECT p.timezone FROM pay_profiles p WHERE p.user_id = u.id OR p.email = lower(u.email) ORDER BY p.effective_from DESC, p.id DESC LIMIT 1) AS profile_tz
@@ -233,9 +234,9 @@ export async function previewDeputy(x: DeputyExport, today: string): Promise<{ r
     let matchedBy: PreviewRow["matchedBy"] = user ? "email" : null;
     if (!user) {
       const byName = users.filter((u) => normName(u.name) === normName(p.name));
-      if (byName.length === 1) { user = byName[0]; matchedBy = "name"; notes.push(`matched by name: Space has them as ${byName[0].email}`); }
+      if (byName.length === 1) { user = byName[0]; matchedBy = "name"; notes.push(`matched by name: the office has them as ${byName[0].email}`); }
     }
-    if (user?.removed) { problems.push("their Space account is removed"); }
+    if (user?.removed) { problems.push("their office account is removed"); }
     const balances: PreviewRow["balances"] = [];
     for (const b of p.balances ?? []) {
       const rule = rules.get(b.ruleId);
@@ -255,7 +256,7 @@ export async function previewDeputy(x: DeputyExport, today: string): Promise<{ r
       const cur = await one<{ team: string | null; start_date: string | null; regular_hours: unknown }>(`SELECT team, start_date::text AS start_date, regular_hours FROM time_members WHERE user_id = $1`, [user.id]);
       if (cur?.team && p.location && cur.team !== p.location) changes.push(`location ${cur.team} → ${p.location}`);
       if (cur?.start_date && p.startDate && cur.start_date !== p.startDate) changes.push(`start date ${cur.start_date} → ${p.startDate}`);
-      if (cur && Array.isArray(cur.regular_hours) && cur.regular_hours.length && p.regular) changes.push("replaces the regular week already set in Space");
+      if (cur && Array.isArray(cur.regular_hours) && cur.regular_hours.length && p.regular) changes.push("replaces the regular week already set in the office");
     }
     if (p.regular?.length) {
       if (tz) {
@@ -263,7 +264,7 @@ export async function previewDeputy(x: DeputyExport, today: string): Promise<{ r
         regular = conv.hours;
         notes.push(...conv.notes);
       } else {
-        regularNote = "regular week waits until Space knows their timezone (their first visit sets it)";
+        regularNote = "regular week waits until the office knows their timezone (their first visit sets it)";
       }
     } else {
       regularNote = "no regular hours in Deputy";
@@ -328,7 +329,7 @@ export async function commitDeputy(x: DeputyExport, actor: number, today: string
   return { staged, applied };
 }
 
-/** A Deputy shift removed since the last import goes from Space too — unless Space has changed it since. */
+/** A Deputy shift removed since the last import goes from the office too — unless the office has changed it since. */
 async function pruneShifts(x: DeputyExport, today: string) {
   const keep = x.shifts.map((s) => `deputy:${s.id}`);
   await q(
@@ -346,13 +347,13 @@ async function upsertShift(s: DeputyShift, userId: number | null, tz: string) {
      VALUES ($1, $2, $3, $4, $5, $6, $7, CASE WHEN $8 THEN now() END, $9, now(), now())
      ON CONFLICT (external_id) WHERE external_id IS NOT NULL DO UPDATE SET user_id = $1, team = $2, date = $3, start_local = $4, end_local = $5,
        timezone = $6, note = $7, published_at = CASE WHEN $8 THEN COALESCE(shifts.published_at, now()) END, updated_at = now(), deputy_synced_at = now()
-     -- Claimed or swapped in Space since Deputy last wrote it: Space's version stays.
+     -- Claimed or swapped in the office since Deputy last wrote it: the office's version stays.
      WHERE shifts.deputy_synced_at IS NULL OR shifts.updated_at <= shifts.deputy_synced_at`,
     [userId, s.location, s.date, s.start, s.end, tz, note, s.published, `deputy:${s.id}`],
   );
 }
 
-/** Apply whatever is waiting for people who now have a Space account. Safe to call any time. */
+/** Apply whatever is waiting for people who now have an office account. Safe to call any time. */
 export async function applyPendingDeputy(actor: number | null = null, onlyUserId?: number): Promise<number> {
   // Link rows to accounts that have appeared since the import.
   await q(`UPDATE deputy_import d SET user_id = u.id FROM users u WHERE d.user_id IS NULL AND lower(u.email) = d.email`);
@@ -377,10 +378,10 @@ export async function applyPendingDeputy(actor: number | null = null, onlyUserId
 }
 
 /**
- * Shifts published in Deputy are already visible in Space, so record that as the
+ * Shifts published in Deputy are already visible in the office, so record that as the
  * week's publication. Otherwise the schedule says "not published", and the first
  * "Publish week" re-DMs everyone and publishes Deputy's drafts with it. Once a
- * manager has published a week in Space, their publication stands.
+ * manager has published a week in the office, their publication stands.
  */
 export async function recordDeputyPublications(today = localDate(Date.now(), "UTC")) {
   const weeks = await q<{ team: string; date: string }>(
@@ -417,10 +418,10 @@ async function applyPerson(userId: number, p: Payload, actor: number | null) {
     );
   }
   const beforeBal = await q(`SELECT code, days::float AS days FROM leave_balances WHERE user_id = $1`, [userId]);
-  // Once a manager has decided leave in Space, Space's balance is the running one: a
+  // Once a manager has decided leave in the office, the office's balance is the running one: a
   // re-import would wipe that deduction. Until then, Deputy's figure is the truth.
   const spaceDecided = new Set((await q<{ code: string }>(`SELECT DISTINCT code FROM leave_requests WHERE user_id = $1 AND decided_by IS NOT NULL`, [userId])).map((r) => r.code));
-  // The balance is Deputy's as of the export; releases Space posted since then are added back.
+  // The balance is Deputy's as of the export; releases the office posted since then are added back.
   const exportedAt = (await one<{ exported_at: string | null }>(`SELECT exported_at::text AS exported_at FROM deputy_import WHERE user_id = $1`, [userId]))?.exported_at ?? null;
   for (const b of p.balances) {
     if (spaceDecided.has(b.code)) continue;
@@ -430,7 +431,7 @@ async function applyPerson(userId: number, p: Payload, actor: number | null) {
   for (const s of p.shifts) await upsertShift(s, userId, s.timezone);
   for (const l of p.leave) {
     const days = l.days;
-    // Leave already decided in Space stays as Space decided it.
+    // Leave already decided in the office stays as the office decided it.
     await q(
       `INSERT INTO leave_requests (user_id, code, start_date, end_date, days, status, decided_at, note, external_id)
        VALUES ($1, $2, $3, $4, $5, $6, CASE WHEN $6 = 'approved' THEN now() END, 'From Deputy', $7)
@@ -448,7 +449,7 @@ async function applyPerson(userId: number, p: Payload, actor: number | null) {
 async function applyHours(userId: number, p: Payload, actor: number | null) {
   if (!p.regular?.length) { await q(`UPDATE deputy_import SET hours_applied_at = now() WHERE user_id = $1`, [userId]); return; }
   const tz = await knownTz(userId);
-  if (!tz) return; // waits: their first visit to Space sets their timezone
+  if (!tz) return; // waits: their first visit to the office sets their timezone
   if (!(await one(`SELECT 1 FROM time_members WHERE user_id = $1`, [userId]))) return; // needs a location first
   const { hours } = toRegularHours(p.regular, p.timezone, tz, localDate(Date.now(), tz));
   if (hours.length) {
@@ -525,7 +526,7 @@ export function registerDeputyRoutes(app: FastifyInstance, member: Member) {
   });
 
   /**
-   * Add everyone imported from Deputy who has no Space account yet, instead of
+   * Add everyone imported from Deputy who has no office account yet, instead of
    * waiting for their first sign-in. Each goes through the same first-sign-in
    * setup (desk, Slack photo and title, pre-assigned access, their Deputy data).
    * Their regular week still waits for their real timezone (first visit): Slack's
@@ -541,7 +542,7 @@ export function registerDeputyRoutes(app: FastifyInstance, member: Member) {
     const left: { name: string; email: string; why: string }[] = [];
     for (const r of rows) {
       if (/\badmin\b/i.test(r.name)) { left.push({ ...r, why: "a shared admin login, not a person" }); continue; }
-      if (!domainAllowed(r.email)) { left.push({ ...r, why: "email isn't on a Space domain" }); continue; }
+      if (!domainAllowed(r.email)) { left.push({ ...r, why: "email isn't on an allowed domain" }); continue; }
       const user = await upsertUser(r.email, r.name);
       await audit(u.id, "create", "user", user.id, null, { email: r.email, name: r.name, source: "deputy" });
       added.push(r.name);
@@ -551,7 +552,7 @@ export function registerDeputyRoutes(app: FastifyInstance, member: Member) {
     return { added: added.length, left, waitingForTimezone: noTz.map((r) => r.name) };
   });
 
-  /** What's still waiting: people who haven't signed in, or whose timezone Space doesn't know yet. */
+  /** What's still waiting: people who haven't signed in, or whose timezone the office doesn't know yet. */
   app.get("/api/time/deputy/status", async (req, reply) => {
     if (!(await allTeams(req, reply))) return;
     const last = await one<{ exported_at: string | null; imported_at: string }>(`SELECT exported_at, imported_at FROM deputy_import ORDER BY imported_at DESC LIMIT 1`);

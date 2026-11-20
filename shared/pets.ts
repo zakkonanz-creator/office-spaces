@@ -1,4 +1,4 @@
-// Pets (the owner, 2026-11-05): a little animal that trots after your avatar. Teammates can pet it.
+// Pets: a little animal that trots after your avatar. Teammates can pet it.
 // Unlocked by points (shared/points.ts); two for everyone from day one.
 
 export const PETS = [

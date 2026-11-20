@@ -1,5 +1,5 @@
 // Deputy import on a throwaway embedded database: the timezone turn of a regular
-// week, preview without writes, commit for someone already in Space, and the
+// week, preview without writes, commit for someone already in the office, and the
 // wait-then-apply for someone who hasn't signed in or whose timezone isn't known.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -54,7 +54,7 @@ const file: DeputyExport = {
   ],
 };
 
-test("Deputy leave rules map onto Space leave types", () => {
+test("Deputy leave rules map onto office leave types", () => {
   assert.equal(leaveCodeFor("Standard PTO"), "vacation");
   assert.equal(leaveCodeFor("National Holiday PTO"), "holiday");
   assert.equal(leaveCodeFor("Sick (Deduct From PTO)"), "sick");
@@ -81,7 +81,7 @@ test("a pending Deputy request has no days yet: count their working days", () =>
   assert.equal(leaveDays({ id: 1, emp: 2, ruleId: 1, start: "2026-11-30", end: "2026-11-30", days: 0, hours: 4, status: "approved" }, p), 0.5);
 });
 
-test("preview writes nothing and says who's in Space", async () => {
+test("preview writes nothing and says who's in the office", async () => {
   const p = await previewDeputy(file, TODAY);
   const [ana, ben, none] = p.rows;
   assert.equal(ana.status, "ready");
@@ -96,7 +96,7 @@ test("preview writes nothing and says who's in Space", async () => {
   assert.equal((await one<{ n: number }>(`SELECT count(*)::int AS n FROM deputy_import`))!.n, 0);
 });
 
-test("commit applies to people in Space and keeps the rest for their first sign-in", async () => {
+test("commit applies to people in the office and keeps the rest for their first sign-in", async () => {
   const r = await commitDeputy(file, admin, TODAY);
   assert.equal(r.staged, 2);
   const m = await one<{ team: string; start_date: string; regular_hours: unknown; work_days: number[] }>(`SELECT team, start_date::text AS start_date, regular_hours, work_days FROM time_members WHERE user_id = $1`, [manila]);
@@ -117,14 +117,14 @@ test("commit applies to people in Space and keeps the rest for their first sign-
   assert.ok((await one(`SELECT 1 FROM time_audit WHERE entity = 'deputy'`)), "the import is in the audit log");
 });
 
-test("a week published in Deputy counts as published in Space, without its drafts", async () => {
+test("a week published in Deputy counts as published in the office, without its drafts", async () => {
   await recordDeputyPublications(TODAY);
   await recordDeputyPublications(TODAY);
   const pubs = await q<{ published_by: number | null; snapshot: { user_id: number | null }[] }>(`SELECT published_by, snapshot FROM shift_publications`);
   assert.equal(pubs.length, 1, "one publication, and a second sync with nothing new adds none");
   assert.equal(pubs[0].published_by, null);
   assert.deepEqual(pubs[0].snapshot.map((s) => s.user_id), [manila], "the open draft isn't in it");
-  // Once a manager publishes in Space, Deputy stops writing that week's publication.
+  // Once a manager publishes in the office, Deputy stops writing that week's publication.
   await q(`UPDATE shift_publications SET published_by = $1`, [admin]);
   await q(`UPDATE shifts SET published_at = now() WHERE user_id IS NULL`);
   await recordDeputyPublications(TODAY);
@@ -133,22 +133,22 @@ test("a week published in Deputy counts as published in Space, without its draft
   await q(`DELETE FROM shift_publications`);
 });
 
-test("re-importing doesn't duplicate, and keeps what Space has decided", async () => {
+test("re-importing doesn't duplicate, and keeps what the office has decided", async () => {
   await q(`UPDATE leave_requests SET status = 'cancelled', decided_by = $1 WHERE external_id = 'deputy:50'`, [admin]);
   await commitDeputy(file, admin, TODAY);
   assert.equal((await one<{ n: number }>(`SELECT count(*)::int AS n FROM shifts`))!.n, 2);
   assert.equal((await one<{ status: string }>(`SELECT status FROM leave_requests WHERE external_id = 'deputy:50'`))!.status, "cancelled");
-  // A shift claimed in Space after the import stays claimed when Deputy is re-imported.
+  // A shift claimed in the office after the import stays claimed when Deputy is re-imported.
   await q(`UPDATE shifts SET user_id = $1, updated_at = now() + interval '1 second' WHERE external_id = 'deputy:902'`, [manila]);
   await commitDeputy(file, admin, TODAY);
   assert.equal((await one<{ user_id: number }>(`SELECT user_id FROM shifts WHERE external_id = 'deputy:902'`))!.user_id, manila, "the claim survives a re-import");
   await q(`UPDATE shifts SET user_id = NULL, updated_at = deputy_synced_at WHERE external_id = 'deputy:902'`);
-  // A shift gone from Deputy goes from Space.
+  // A shift gone from Deputy goes from the office.
   await commitDeputy({ ...file, shifts: file.shifts.filter((s) => s.id !== 902) }, admin, TODAY);
   assert.equal((await one<{ n: number }>(`SELECT count(*)::int AS n FROM shifts WHERE external_id = 'deputy:902'`))!.n, 0);
 });
 
-test("someone who signs in later gets their Deputy data, and their week once Space knows their timezone", async () => {
+test("someone who signs in later gets their Deputy data, and their week once the office knows their timezone", async () => {
   const ben = (await one<{ id: number }>(`INSERT INTO users (email, name, role) VALUES ('ben@example.org', 'Ben Cruz', 'member') RETURNING id`))!.id;
   await applyPendingDeputy(null, ben);
   const m = await one<{ team: string; regular_hours: unknown }>(`SELECT team, regular_hours FROM time_members WHERE user_id = $1`, [ben]);

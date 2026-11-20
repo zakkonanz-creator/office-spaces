@@ -43,7 +43,7 @@ test("every desk and the spawn point are reachable from the spawn", () => {
 
 test("walls stop you; the door lets you through; a closed door doesn't", () => {
   assert.ok(roomAt(floor, inside)?.id === "conference");
-  // Outside the door: the hallway, or the next room when the door opens into it (as in Kumospace).
+  // Outside the door: the hallway, or the next room when the door opens into it.
   assert.notEqual(roomAt(floor, outside)?.id, "conference");
   // Straight at a wall without the door in it.
   const wallSide = conf.door.side === "w" ? "e" : "w";

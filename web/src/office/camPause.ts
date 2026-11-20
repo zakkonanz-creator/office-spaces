@@ -9,11 +9,11 @@
 // floating over Slack, still in use) and while you're in a room with someone
 // you can hear — a meeting in another window is still a meeting.
 //
-// Focusing also mutes the mic (the owner, 2026-11-05): heads-down means nobody walking
+// Focusing also mutes the mic: heads-down means nobody walking
 // past hears you either. Same deal: it comes back when you're Available, unless
 // you turned it on (or off) yourself in the meantime.
 //
-// Focusing and Away also silence the office for you (pilot feedback): you
+// Focusing and Away also silence the office for you: you
 // stop hearing the floor, and Away mutes your mic too so nobody hears a desk
 // you've left. Turn your mic on yourself and the office sound comes back —
 // someone walked up and you're talking to them.
@@ -52,7 +52,7 @@ async function pause(reason: "status" | "hidden") {
 
 /**
  * Coming back (a reload, a new tab) while Focusing or Away: don't start the mic or
- * camera at all, but remember them so going Available turns them on (the owner, 2026-11-09).
+ * camera at all, but remember them so going Available turns them on.
  * Returns what to actually connect with.
  */
 export function holdForStatus(want: { mic: boolean; cam: boolean }): { mic: boolean; cam: boolean } {

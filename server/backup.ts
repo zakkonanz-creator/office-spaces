@@ -1,5 +1,5 @@
 // Nightly export of the whole database to Google Drive, on top of Railway's own volume
-// backups (daily/weekly/monthly, set 2026-10-08). If Railway — or the account — ever goes,
+// backups (daily/weekly/monthly). If Railway — or the account — ever goes,
 // pay history, timesheets and analytics are still in the team's Drive.
 //
 // Each night at ~03:00 UTC: every table → one gzipped JSON file, uploaded to

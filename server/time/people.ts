@@ -1,6 +1,6 @@
-// Deputy parity:
+// Team screens:
 //   dashboard   what's waiting on me: leave requests, timesheets to approve, swaps
-//   locations   departments (Deputy's "locations") that people, shifts and managers hang off
+//   locations   departments ("locations") that people, shifts and managers hang off
 //   people      each person's start date, regular week (hours + break) and leave entitlements
 //   coverage    who's expected on a day / week / month, and who's off and why
 // Managers see hours, never pay.
@@ -146,7 +146,7 @@ export function registerPeopleRoutes(app: FastifyInstance, { member, manager, pe
     return { rows, balances };
   };
   const shape = (p: ProfileRow, ent: { rows: { user_id: number; code: string; days_per_year: number }[]; balances: { user_id: number; code: string; days: number }[] }) => ({
-    // The zone their hours are split in (tzOf's order), or null if Space doesn't know one yet.
+    // The zone their hours are split in (tzOf's order), or null if the office doesn't know one yet.
     id: p.id, name: p.name, email: p.email, team: p.team, timezone: isTz(p.profile_tz) ? p.profile_tz : isTz(p.tz) ? p.tz : null,
     startDate: p.start_date ?? p.profile_start ?? null,
     workDays: isWorkDays(p.work_days) ? p.work_days : MON_FRI,

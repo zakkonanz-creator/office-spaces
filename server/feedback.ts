@@ -1,4 +1,4 @@
-// Report a bug or an idea (the owner, 2026-11-11): the Report button in the office → this table.
+// Report a bug or an idea: the Report button in the office → this table.
 //
 // Teammates only (never guests). Nothing here posts anywhere. Admins read reports on
 // Admin → Reports. Optionally, a bot of your own can poll /api/agent/feedback with

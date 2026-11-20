@@ -1,4 +1,4 @@
-// Report a bug or suggest an idea (the owner, 2026-11-11). The bug button on the right-hand rail.
+// Report a bug or suggest an idea. The bug button on the right-hand rail.
 // Saved in the office (server/feedback.ts) for admins to read on Admin → Reports.
 // Nothing here promises a fix or a date.
 

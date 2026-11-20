@@ -1,5 +1,5 @@
 # The transcriber: Whisper (faster-whisper, CPU, int8) behind one HTTP endpoint.
-# Space sends one person's audio clip at a time and gets the words back with
+# The office sends one person's audio clip at a time and gets the words back with
 # timings. It keeps nothing: the clip lives in memory for the length of the call.
 #
 # Runs as its own Railway service (`transcriber`) so a long
@@ -25,7 +25,7 @@ KEY = os.environ.get("TRANSCRIBER_KEY", "")
 # e.g. WHISPER_PROMPT="Acme, HighLevel, sub-account, Slack".
 PROMPT = os.environ.get("WHISPER_PROMPT", "") or None
 MAX_BYTES = 4 * 1024 * 1024  # ~30 s clips are ~100 KB; this is a generous ceiling
-MAX_SECONDS = 100  # Space sends ~30 s clips; a long one could tie the service up for everyone
+MAX_SECONDS = 100  # The office sends ~30 s clips; a long one could tie the service up for everyone
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)  # nothing to browse here
 _model: WhisperModel | None = None
@@ -60,12 +60,12 @@ async def transcribe(request: Request, x_transcriber_key: str = Header(default="
 
 def _run(body: bytes):
     with _lock:
-        m = model()  # a load failure stays a 500: Space keeps the audio and tries again later
+        m = model()  # a load failure stays a 500: the office keeps the audio and tries again later
         try:
             return _decode(m, body)
         except HTTPException:
             raise
-        except Exception as e:  # a clip that can't be decoded won't get better: 422, Space drops just that clip
+        except Exception as e:  # a clip that can't be decoded won't get better: 422, the office drops just that clip
             raise HTTPException(422, f"can't read this clip: {str(e)[:120]}")
 
 

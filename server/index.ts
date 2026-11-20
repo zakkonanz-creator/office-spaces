@@ -2,7 +2,7 @@
 // office, and the Fathom webhook. LiveKit (the media server) is separate.
 
 import "./env";
-import { seedStartDates, sinceOf } from "./tenure";
+import { sinceOf } from "./tenure";
 import { postAward, checkWins, fillWinImages } from "./wins";
 import { backfillWelcome, award, breakdown, eggsFound, leaderboard, recentLedger } from "./points";
 import { existsSync } from "node:fs";
@@ -54,7 +54,7 @@ process.on("uncaughtException", (e) => console.error("uncaught exception:", e));
 assertConfig();
 await openDb();
 await loadFloor();
-// The layout file can change between releases (e.g. the Kumospace import):
+// The layout file can change between releases (e.g. a re-imported floor):
 // seats that no longer exist are cleared, and their people re-seated at their
 // roster desk in the new layout.
 await unseatMissingDesks();
@@ -67,16 +67,14 @@ await migrateTranscripts(); // "Transcribe this room": clips, transcripts, notes
 // Deputy imports waiting on a timezone: the office sets it on join too, so sweep now and hourly.
 const deputySweep = () => applyPendingDeputy().catch((e) => console.error("deputy apply", e));
 void deputySweep();
-// Slack photos and ids for anyone added before Space had a Slack token (and new Slack joiners).
+// Slack photos and ids for anyone added before the office had a Slack token (and new Slack joiners).
 const slackFill = () => fillSlackProfiles().then((n) => n && console.log(`slack: filled ${n} profiles`)).catch((e) => console.error("slack fill", e));
 void slackFill();
 // The win bell: new #wins posts ring softly in the office (server/wins.ts).
 const winsTick = () => checkWins().then(() => fillWinImages()).catch((e) => console.error("wins", e));
 setInterval(winsTick, 60_000).unref();
 void winsTick();
-// Start dates (shared/tenure.ts) for emote unlocks and the service pin: before the first sign-in fills in.
-void seedStartDates().then((n) => n && console.log(`tenure: seeded ${n} start dates`)).catch((e) => console.error("tenure seed", e));
-// After the migrations have run: the pilot's welcome bonus (once each; see backfillWelcome).
+// After the migrations have run: the welcome bonus for people who arrived before it existed (once each; see backfillWelcome).
 setTimeout(() => void backfillWelcome().then((n) => n && console.log(`points: welcome bonus backfilled for ${n}`)).catch((e) => console.error("welcome backfill", e)), 20_000).unref();
 setInterval(slackFill, 6 * 3600_000).unref();
 setInterval(deputySweep, 3600_000).unref();
@@ -104,7 +102,7 @@ declare module "fastify" {
   interface FastifyRequest { viewer: Viewer | null }
 }
 app.decorateRequest("viewer", null);
-// One address: anything reaching Space on another host (the old *.up.railway.app one,
+// One address: anything reaching the office on another host (the old *.up.railway.app one,
 // once PUBLIC_BASE_URL is the custom domain) is sent to the same path there. The
 // office only accepts sockets from its own host, so without this old links would
 // load a page that can't connect. /health (the watchdog) and webhooks are left alone.
@@ -601,7 +599,7 @@ app.get("/api/admin/points", async (req, reply) => {
 });
 
 // Award (or take back) points for anything work-related. Shows up in their total right away.
-// Only the givers (config.pointGivers), never to yourself (the owner, 2026-11-06, after self-awards on day one).
+// Only the givers (config.pointGivers), never to yourself.
 async function givePoints(req: FastifyRequest, reply: FastifyReply) {
   const admin = needGiver(req, reply);
   if (!admin) return;
@@ -615,7 +613,7 @@ async function givePoints(req: FastifyRequest, reply: FastifyReply) {
   if (target.id === admin.id) return reply.code(400).send({ error: "You can't give points to yourself." });
   await award(target.id, "grant", pts, reason, null, admin.id);
   await pointsChanged(target.id, pts > 0 ? `⭐ +${pts} points from ${admin.name.split(" ")[0]}: ${reason}` : `${pts} points (${reason})`);
-  // An award goes up in #wins, like any win: the post, the office bell, the jumbotron (the owner, 2026-11-06).
+  // An award goes up in #wins, like any win: the post, the office bell, the jumbotron.
   // Not a deduction, and not when the admin unticks "Post in #wins".
   let posted = false;
   if (pts > 0 && b.post !== false) {
@@ -686,7 +684,7 @@ app.patch("/api/admin/members/:id", async (req, reply) => {
   if (!admin) return;
   const id = Number((req.params as any).id);
   const b = (req.body ?? {}) as { name?: string; role?: string; desk_id?: string | null; title?: string; removed?: boolean; replayOnboarding?: boolean; started_on?: string | null };
-  // Show someone the first-day welcome and checklist again (for a pilot group who were here before it existed).
+  // Show someone the first-day welcome and checklist again (for people who were here before it existed).
   if (b.name !== undefined) {
     const r = await rename(id, b.name);
     if (!r) return reply.code(404).send({ error: "no such member" });

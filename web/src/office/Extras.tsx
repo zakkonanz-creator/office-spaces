@@ -1,4 +1,4 @@
-// The fun layer on the floor (the owner, 2026-11-05): pets trotting after their people, easter-egg
+// The fun layer on the floor: pets trotting after their people, easter-egg
 // glints you only see up close, and the season (pumpkins in October, snow in December).
 // Positions are moved by World's frame loop through `petEls` / `eggEls` (no React per frame).
 

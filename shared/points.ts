@@ -1,11 +1,11 @@
-// Points (the owner, 2026-11-05): one number per teammate that tenure, time in the office, streaks,
+// Points: one number per teammate that tenure, time in the office, streaks,
 // high-fives, easter eggs, anniversaries, #wins and admin awards all add to. Points unlock emotes
 // (shared/emotes.ts) and pets (shared/pets.ts). Tenure and office time are counted from what's
 // already recorded; everything else is a row in points_ledger (server/points.ts).
 
 export const POINTS = {
-  /** Every day at Acme (from the Slack start date, shared/tenure.ts). Kept small on purpose
-   *  (the owner, 2026-11-05: "the points overindex on tenure"): what you do counts more than how long. */
+  /** Every day at Acme (from their start date, shared/tenure.ts). Kept small on purpose:
+   * what you do counts more than how long. */
   tenurePerDay: 1,
   /** On top: each full year at Acme. Counted with tenure, so it's there for past years too. */
   perYear: 250,
@@ -26,7 +26,7 @@ export const POINTS = {
   firstFinder: 100,
   /** Posting in #wins. */
   win: 50,
-  /** Your very first time in the office (the owner, 2026-11-05). */
+  /** Your very first time in the office. */
   welcome: 100,
 } as const;
 
@@ -51,7 +51,7 @@ export interface PointsBreakdown {
 }
 
 /** Tenure points for someone `days` in: a point a day, and `perYear` for each full year. */
-/** Whole years since `since` ("YYYY-MM-DD"), counted by the calendar: the bonus lands on the anniversary itself, not a day or two early (QA 2026-11-06). */
+/** Whole years since `since` ("YYYY-MM-DD"), counted by the calendar: the bonus lands on the anniversary itself, not a day or two early. */
 export function fullYears(since: string | null | undefined, now = Date.now()): number {
   if (!since || since.length < 10) return 0;
   const today = new Date(now).toISOString().slice(0, 10);

@@ -1,4 +1,4 @@
-// Time & Payroll — the Deputy parts beyond clocking: publishing the schedule,
+// Time tracking beyond clocking in: publishing the schedule,
 // shift reminders and lateness, availability, who's on today, the leave
 // calendar, and timesheet/hours exports. Managers see hours, never pay.
 

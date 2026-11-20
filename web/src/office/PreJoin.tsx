@@ -1,5 +1,5 @@
-// "You're joining Acme": camera preview, devices, then in. Same shape as
-// Kumospace's join screen so nobody has to learn a new door.
+// "You're joining Acme": camera preview, devices, then in. The usual
+// pre-join shape so nobody has to learn a new door.
 
 import { useEffect, useRef, useState } from "react";
 import type { LocalTrack } from "livekit-client";
@@ -11,7 +11,7 @@ export interface JoinChoice {
   cam: boolean;
 }
 
-/** What went wrong with the camera/mic, and where to allow it on this device (Alex's phone test, 2026-11-09). */
+/** What went wrong with the camera/mic, and where to allow it on this device. */
 function allowHow(what: string): string {
   if (noDevices()) return `This address isn't secure (https), so the browser can't offer your ${what}. You can still join without them.`;
   return `Your ${what} is blocked. To use it, ${allowWhere()}, then reload.`;
@@ -127,7 +127,7 @@ export function PreJoin({ name, onJoin }: { name: string; onJoin: (c: JoinChoice
               </label>
             ) : null}
             {error ? <p className="error">{error}</p> : null}
-            <button className="primary big" onClick={join}>Join Space</button>
+            <button className="primary big" onClick={join}>Join the office</button>
             <label className="check">
               <input type="checkbox" checked={skip} onChange={(e) => setSkip(e.target.checked)} />
               Skip this page next time

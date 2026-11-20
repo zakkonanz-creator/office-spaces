@@ -33,7 +33,7 @@ test("ghl rooms: your own room wins, then the first free shared room", () => {
 
 test("ghl rooms: the admin import maps emails to links and reports bad lines", async () => {
   const { parseRoomLinks } = await import("./ghlRooms");
-  const r = parseRoomLinks("Jay@example.com | crm.example.com/meet/jay?pwd=1\nnot an email | https://crm.example.com/meet/x\nann@x.com | https://example.com/nope");
-  assert.deepEqual(r.links, { "jay@example.com": "https://crm.example.com/meet/jay?pwd=1" });
+  const r = parseRoomLinks("Kit@example.com | crm.example.com/meet/kit?pwd=1\nnot an email | https://crm.example.com/meet/x\nann@x.com | https://example.com/nope");
+  assert.deepEqual(r.links, { "kit@example.com": "https://crm.example.com/meet/kit?pwd=1" });
   assert.equal(r.bad.length, 2);
 });

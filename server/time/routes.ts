@@ -426,7 +426,7 @@ export function registerTimeRoutes(app: FastifyInstance, needUser: NeedUser) {
     const rows = [];
     for (const p of people) {
       const s = await weekSummary(p.id, week);
-      // What they were supposed to work (Deputy: "did they work the 8 hours they're meant to?").
+      // What they were supposed to work (did they work the hours they're meant to?).
       const exp = await expectedByDay(p.id, s.days.map((d) => d.date));
       rows.push({
         userId: p.id, name: p.name, team: p.team, timezone: s.timezone,

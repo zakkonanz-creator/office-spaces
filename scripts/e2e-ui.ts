@@ -28,7 +28,7 @@ async function join_(email: string, name: string) {
   await p.goto(`${BASE}/auth/dev?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`);
   // Test people skip the first-day welcome: these suites test the office, not onboarding.
   await p.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-  await p.getByRole("button", { name: "Join Space" }).click();
+  await p.getByRole("button", { name: "Join the office" }).click();
   await p.waitForFunction(() => (window as any).__es?.room()?.state === "connected", null, { timeout: 20000 });
   await p.evaluate(() => {
     const es = (window as any).__es;
@@ -41,7 +41,7 @@ const es = <T>(p: Page, f: string) => p.evaluate(f) as Promise<T>;
 
 try {
   const alex = await join_("admin@example.com", "Alex Admin");
-  const tiana = await join_("riley@example.com", "Riley Park");
+  const riley = await join_("riley@example.com", "Riley Park");
 
   // Positions come from the live floor plan, so the suite follows layout changes.
   const F = await es<Floor>(alex, "__es.state.floor");
@@ -58,7 +58,7 @@ try {
     return { x: Math.round(o.x + o.w / 2), y: Math.round(y) };
   };
   // Start everyone at their roster desk (earlier runs may have moved them).
-  for (const [page, owner] of [[alex, "Alex Admin"], [tiana, "Riley Park"]] as const) {
+  for (const [page, owner] of [[alex, "Alex Admin"], [riley, "Riley Park"]] as const) {
     const d = F.desks.find((x) => x.owner === owner);
     if (!d) continue;
     const id = await es<string>(page, "__es.state.me.id");
@@ -82,31 +82,31 @@ try {
   // Camera + mic toggles from the bar, mirrored to others.
   await alex.keyboard.press("1");
   await sleep(600);
-  ok(await es<boolean>(tiana, `(() => { for (const p of __es.state.people.values()) if (p.name === "Alex Admin") return p.cam === false })()`), "Key 1 turns Alex's camera off and Riley sees it");
+  ok(await es<boolean>(riley, `(() => { for (const p of __es.state.people.values()) if (p.name === "Alex Admin") return p.cam === false })()`), "Key 1 turns Alex's camera off and Riley sees it");
   await alex.keyboard.press("1");
   await alex.keyboard.press("2");
   await sleep(600);
-  ok(await es<boolean>(tiana, `(() => { for (const p of __es.state.people.values()) if (p.name === "Alex Admin") return p.mic === false })()`), "Key 2 mutes Alex and Riley sees the muted badge state");
+  ok(await es<boolean>(riley, `(() => { for (const p of __es.state.people.values()) if (p.name === "Alex Admin") return p.mic === false })()`), "Key 2 mutes Alex and Riley sees the muted badge state");
   ok(await es<boolean>(alex, `!__es.room().localParticipant.isMicrophoneEnabled`), "…and the mic really stopped publishing");
   await alex.keyboard.press("2");
 
   // Knock with the UI: Alex shuts his office door; Riley walks up and presses Knock.
   await alex.keyboard.press("o");
   await sleep(500);
-  await es(tiana, `__es.jump(${at(byDoor("office-3", 40))})`); // just outside the COO door
+  await es(riley, `__es.jump(${at(byDoor("office-3", 40))})`); // just outside the COO door
   await sleep(1200);
-  await tiana.getByRole("button", { name: "Knock" }).click();
+  await riley.getByRole("button", { name: "Knock" }).click();
   await sleep(700);
   ok(await alex.getByText(/Riley Park is knocking/).isVisible(), "The Knock button in the room bar reaches Alex");
   await alex.getByRole("button", { name: "Let in" }).click();
   await sleep(400);
-  ok(await tiana.getByText(/You've been let in/).isVisible(), "Riley is told she's been let in");
+  ok(await riley.getByText(/You've been let in/).isVisible(), "Riley is told she's been let in");
 
   // Minimap click walks.
-  await tiana.keyboard.press("m");
-  await tiana.locator(".minimap-floor").click({ position: { x: 300, y: 260 } });
+  await riley.keyboard.press("m");
+  await riley.locator(".minimap-floor").click({ position: { x: 300, y: 260 } });
   await sleep(300);
-  ok(!(await tiana.locator(".minimap").isVisible()), "Clicking the map closes it and walks there");
+  ok(!(await riley.locator(".minimap").isVisible()), "Clicking the map closes it and walks there");
 
   // Objects: timer, music, empty link, real link.
   await es(alex, `__es.jump(${at(nextTo((o) => o.type === "timer"))})`);
@@ -141,22 +141,22 @@ try {
   await popup?.close();
 
   // Claim a free desk (Riley's roster desk is in KB; claim a spare).
-  const free = await es<string>(tiana, `__es.state.floor.desks.find(d => !d.owner && !__es.state.desks.has(d.id)).id`);
+  const free = await es<string>(riley, `__es.state.floor.desks.find(d => !d.owner && !__es.state.desks.has(d.id)).id`);
   const freeDesk = F.desks.find((d) => d.id === free)!;
   // Stand a little away from the desk so Riley's own figure doesn't cover it.
-  await es(tiana, `__es.jump(${at({ x: freeDesk.x + 120, y: freeDesk.y })})`);
+  await es(riley, `__es.jump(${at({ x: freeDesk.x + 120, y: freeDesk.y })})`);
   await sleep(900);
-  const box = await tiana.evaluate(`(() => { const d = __es.state.floor.desks.find(x => x.id === "${free}"); const el = document.querySelector('.desk[data-desk="${free}"]'); const r = el.getBoundingClientRect(); return d.bare ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : { x: r.x + r.width - 8, y: r.y + r.height - 6 } })()`) as { x: number; y: number };
-  await tiana.mouse.click(box.x, box.y);
-  await tiana.getByRole("button", { name: "Make this my desk" }).click();
+  const box = await riley.evaluate(`(() => { const d = __es.state.floor.desks.find(x => x.id === "${free}"); const el = document.querySelector('.desk[data-desk="${free}"]'); const r = el.getBoundingClientRect(); return d.bare ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : { x: r.x + r.width - 8, y: r.y + r.height - 6 } })()`) as { x: number; y: number };
+  await riley.mouse.click(box.x, box.y);
+  await riley.getByRole("button", { name: "Make this my desk" }).click();
   await sleep(500);
-  ok(await es<string>(tiana, "__es.state.me.deskId") === free, `Riley claims free desk ${free}`);
-  await es(tiana, `__es.jump(${at(F.spawn)})`);
+  ok(await es<string>(riley, "__es.state.me.deskId") === free, `Riley claims free desk ${free}`);
+  await es(riley, `__es.jump(${at(F.spawn)})`);
   await sleep(600);
-  await tiana.keyboard.press("h");
+  await riley.keyboard.press("h");
   // It's a walk, not a teleport: give a cross-floor trip time to arrive.
-  await tiana.waitForFunction(`(() => { const d = __es.state.floor.desks.find(x => x.id === __es.state.me.deskId); const s = d.seat ?? { x: d.x, y: d.y + (d.facing === "s" ? -40 : 40) }; const p = __es.live.get(__es.state.me.id); return Math.hypot(p.x - s.x, p.y - s.y) < 30 })()`, null, { timeout: 30000, polling: 250 }).catch(() => {});
-  const near = await es<number>(tiana, `(() => { const d = __es.state.floor.desks.find(x => x.id === __es.state.me.deskId); const s = d.seat ?? { x: d.x, y: d.y + (d.facing === "s" ? -40 : 40) }; const p = __es.live.get(__es.state.me.id); return Math.round(Math.hypot(p.x - s.x, p.y - s.y)) })()`);
+  await riley.waitForFunction(`(() => { const d = __es.state.floor.desks.find(x => x.id === __es.state.me.deskId); const s = d.seat ?? { x: d.x, y: d.y + (d.facing === "s" ? -40 : 40) }; const p = __es.live.get(__es.state.me.id); return Math.hypot(p.x - s.x, p.y - s.y) < 30 })()`, null, { timeout: 30000, polling: 250 }).catch(() => {});
+  const near = await es<number>(riley, `(() => { const d = __es.state.floor.desks.find(x => x.id === __es.state.me.deskId); const s = d.seat ?? { x: d.x, y: d.y + (d.facing === "s" ? -40 : 40) }; const p = __es.live.get(__es.state.me.id); return Math.round(Math.hypot(p.x - s.x, p.y - s.y)) })()`);
   ok(near < 30, `H walks Riley home to her new desk (${near}px away)`);
 
   // Panels.
@@ -174,7 +174,7 @@ try {
   const row = admin.locator("tr", { hasText: "riley@example.com" });
   await row.locator("select").first().selectOption("admin");
   await sleep(700);
-  ok(await es<string>(tiana, "__es.state.me.role") === "admin", "Promoting Riley in Members updates her live session");
+  ok(await es<string>(riley, "__es.state.me.role") === "admin", "Promoting Riley in Members updates her live session");
   await row.locator("select").first().selectOption("member");
   await admin.close();
 
@@ -188,16 +188,16 @@ try {
     await alex.getByRole("button", { name: "Design it" }).click();
     await alex.getByRole("button", { name: "Apply for everyone" }).waitFor({ timeout: 180000 });
     ok(await es<string>(alex, `(__es.state.previewFloor ?? __es.state.floor).rooms.find(r => r.id === "kitchen").name`) === "Café", "Alex sees the redesign as a preview");
-    ok(await es<string>(tiana, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) !== "Café", "…and Riley doesn't, until it's applied");
+    ok(await es<string>(riley, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) !== "Café", "…and Riley doesn't, until it's applied");
     await alex.getByRole("button", { name: "Apply for everyone" }).click();
     await sleep(1500);
-    ok(await es<string>(tiana, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) === "Café", "After Apply, Riley's office shows the Café");
-    ok(await tiana.getByText("The office was just redesigned.").isVisible(), "…with a heads-up");
+    ok(await es<string>(riley, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) === "Café", "After Apply, Riley's office shows the Café");
+    ok(await riley.getByText("The office was just redesigned.").isVisible(), "…with a heads-up");
     await alex.locator("details.versions summary").click();
     alex.once("dialog", (d) => d.accept());
     await alex.locator(`details.versions li[data-version="0"]`).getByRole("button", { name: "Restore" }).click();
     await sleep(1500);
-    ok(await es<string>(tiana, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) === "Café", "A Designer rename sticks as the room's name, even after restoring the layout");
+    ok(await es<string>(riley, `__es.state.floor.rooms.find(r => r.id === "kitchen").name`) === "Café", "A Designer rename sticks as the room's name, even after restoring the layout");
     await alex.evaluate(async () => fetch("/api/admin/rooms/kitchen/name", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "" }) }));
   }
 
@@ -208,87 +208,87 @@ try {
   await alex.locator(".roombar-rename").fill("Sales Floor");
   await alex.locator(".roombar-rename").press("Enter");
   await sleep(1200);
-  ok(await es<string>(tiana, `__es.state.floor.rooms.find(r => r.id === "sales").name`) === "Sales Floor", "An admin names a room from the room bar, and Riley sees the new name");
-  ok(await tiana.locator(".room-plaque", { hasText: "Sales Floor" }).count() === 1, "…on the room's sign too");
+  ok(await es<string>(riley, `__es.state.floor.rooms.find(r => r.id === "sales").name`) === "Sales Floor", "An admin names a room from the room bar, and Riley sees the new name");
+  ok(await riley.locator(".room-plaque", { hasText: "Sales Floor" }).count() === 1, "…on the room's sign too");
   await alex.evaluate(async () => fetch("/api/admin/rooms/sales/name", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "" }) }));
 
   // Fathom hand-off: Alex "starts" a recorded meeting in the conference room; Riley, in the room, is asked to join;
   // while her Meet tab is open the office is muted for her, and closing it brings her back.
   await es(alex, `__es.jump(${at(centre("conference", -60))})`);
-  await es(tiana, `__es.jump(${at(centre("conference", 60))})`);
+  await es(riley, `__es.jump(${at(centre("conference", 60))})`);
   await sleep(1200);
-  await tiana.evaluate(() => (window as any).__es.sock().emit("media", { mic: true }));
+  await riley.evaluate(() => (window as any).__es.sock().emit("media", { mic: true }));
   await alex.evaluate(async () => fetch("/api/dev/recording", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ roomId: "conference", meetUrl: "about:blank#meet" }) }));
-  const joinBtn = tiana.getByRole("button", { name: "Join Meet" }).first();
+  const joinBtn = riley.getByRole("button", { name: "Join Meet" }).first();
   await joinBtn.waitFor({ timeout: 5000 });
   ok(true, "Riley, in the room, is asked to join the recorded meeting");
-  const [meetTab] = await Promise.all([tiana.context().waitForEvent("page"), joinBtn.click()]);
+  const [meetTab] = await Promise.all([riley.context().waitForEvent("page"), joinBtn.click()]);
   await sleep(1200);
-  ok(await es<boolean>(tiana, `!__es.room().localParticipant.isMicrophoneEnabled`), "While she's in the Meet, her office mic is off");
+  ok(await es<boolean>(riley, `!__es.room().localParticipant.isMicrophoneEnabled`), "While she's in the Meet, her office mic is off");
   ok(await es<boolean>(alex, `[...__es.state.people.values()].find(p => p.name === "Riley Park")?.inMeeting === true`), "…and Alex sees her as 'in a recorded meeting'");
   await sleep(2500);
-  ok(await es<boolean>(tiana, `!__es.room().localParticipant.isMicrophoneEnabled`), "She stays in meeting mode (Meet's security cuts the tab link, so we don't guess from it)");
+  ok(await es<boolean>(riley, `!__es.room().localParticipant.isMicrophoneEnabled`), "She stays in meeting mode (Meet's security cuts the tab link, so we don't guess from it)");
   await meetTab.close();
-  await tiana.getByRole("button", { name: "I'm back" }).click();
+  await riley.getByRole("button", { name: "I'm back" }).click();
   await sleep(1200);
-  ok(await es<boolean>(tiana, `__es.room().localParticipant.isMicrophoneEnabled`), "Pressing “I'm back” turns her office mic back on");
+  ok(await es<boolean>(riley, `__es.room().localParticipant.isMicrophoneEnabled`), "Pressing “I'm back” turns her office mic back on");
   ok(await es<boolean>(alex, `[...__es.state.people.values()].find(p => p.name === "Riley Park")?.inMeeting === false`), "…and she's back in the office for everyone");
 
   // Start meeting on GHL Meeting Rooms: Alex starts one in Sales and gets the first shared room inside
   // the office; Riley is asked to join; the office mutes for both; leaving frees the room.
-  // (example.com stands in for GHL: the test checks Space's side, not GHL's page.)
+  // (example.com stands in for GHL: the test checks the office's side, not GHL's page.)
   const POOL = "Huddle | https://example.com/meet/space-e2e-1\nhttps://example.com/meet/space-e2e-2";
   await alex.evaluate(async (p) => fetch("/api/admin/settings", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ghlRooms: p }) }), POOL);
-  for (const p of [alex, tiana]) await p.evaluate(async () => fetch("/api/me/ghl-room", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: "" }) }));
+  for (const p of [alex, riley]) await p.evaluate(async () => fetch("/api/me/ghl-room", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: "" }) }));
   await es(alex, `__es.jump(${at(centre("sales", -60))})`);
-  await es(tiana, `__es.jump(${at(centre("sales", 60))})`);
+  await es(riley, `__es.jump(${at(centre("sales", 60))})`);
   await sleep(1200);
-  await tiana.evaluate(() => (window as any).__es.sock().emit("media", { mic: true }));
+  await riley.evaluate(() => (window as any).__es.sock().emit("media", { mic: true }));
   await alex.getByRole("button", { name: "Start meeting" }).click();
   await alex.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
   ok(await alex.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/space-e2e-1", "Start meeting opens the first free shared room inside the office");
   ok(await alex.locator(".meet-frame header", { hasText: "Huddle" }).count() === 1, "…under its name");
   ok((await alex.locator(".meet-frame iframe").getAttribute("allow"))?.includes("microphone"), "…with the camera and mic passed to it");
-  const ghlJoin = tiana.getByRole("button", { name: "Join", exact: true }).first();
+  const ghlJoin = riley.getByRole("button", { name: "Join", exact: true }).first();
   await ghlJoin.waitFor({ timeout: 5000 });
   ok(true, "Riley, in the room, is asked to join");
   await ghlJoin.click();
-  await tiana.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
-  ok(await tiana.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/space-e2e-1", "…and lands in the same room");
+  await riley.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
+  ok(await riley.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/space-e2e-1", "…and lands in the same room");
   await sleep(1000);
-  ok(await es<boolean>(tiana, `!__es.room().localParticipant.isMicrophoneEnabled`), "Her office mic is off while she's in the meeting");
+  ok(await es<boolean>(riley, `!__es.room().localParticipant.isMicrophoneEnabled`), "Her office mic is off while she's in the meeting");
   ok(await es<boolean>(alex, `[...__es.state.people.values()].find(p => p.name === "Riley Park")?.inMeeting === true`), "…and Alex sees her in the meeting");
   ok(await es<number>(alex, `__es.state.rooms.sales.recording?.pool`) === 0, "The shared room is marked in use");
-  await tiana.getByRole("button", { name: "Leave meeting" }).click();
+  await riley.getByRole("button", { name: "Leave meeting" }).click();
   await sleep(1200);
-  ok(await es<boolean>(tiana, `__es.room().localParticipant.isMicrophoneEnabled`) && (await tiana.locator(".meet-frame").count()) === 0, "Leave meeting closes the panel and turns her office mic back on");
-  ok(await es<boolean>(tiana, `__es.state.rooms.sales.recording?.kind === "ghl"`), "…while Alex is still in it, the meeting stays open");
+  ok(await es<boolean>(riley, `__es.room().localParticipant.isMicrophoneEnabled`) && (await riley.locator(".meet-frame").count()) === 0, "Leave meeting closes the panel and turns her office mic back on");
+  ok(await es<boolean>(riley, `__es.state.rooms.sales.recording?.kind === "ghl"`), "…while Alex is still in it, the meeting stays open");
   await alex.getByRole("button", { name: "Leave meeting" }).click();
   await sleep(1500);
   ok(await es<boolean>(alex, `__es.state.rooms.sales.recording === null`), "When the last person leaves, the meeting ends and the shared room is free again");
   // No shared rooms left: Start meeting asks for your own link, then uses it.
   const quietFrom = errors.length; // the 409 (no room) and 400 (bad link) below are the point of these steps
   await alex.evaluate(async () => fetch("/api/admin/settings", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ghlRooms: "" }) }));
-  await tiana.getByRole("button", { name: "Start meeting" }).click();
-  await tiana.getByLabel("Your GHL Meeting Room link").fill("not a link");
-  await tiana.getByRole("button", { name: "Save" }).click();
+  await riley.getByRole("button", { name: "Start meeting" }).click();
+  await riley.getByLabel("Your GHL Meeting Room link").fill("not a link");
+  await riley.getByRole("button", { name: "Save" }).click();
   await sleep(600);
-  ok(await tiana.locator(".meet-frame").count() === 0, "With no rooms set up, a bad link is refused");
-  await tiana.getByLabel("Your GHL Meeting Room link").fill("https://example.com/meet/tiana?pwd=e2e");
-  await tiana.getByRole("button", { name: "Save" }).click();
+  ok(await riley.locator(".meet-frame").count() === 0, "With no rooms set up, a bad link is refused");
+  await riley.getByLabel("Your GHL Meeting Room link").fill("https://example.com/meet/riley?pwd=e2e");
+  await riley.getByRole("button", { name: "Save" }).click();
   await sleep(600);
-  await tiana.getByRole("button", { name: "Start meeting" }).click();
-  await tiana.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
-  ok(await tiana.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/tiana?pwd=e2e", "…and her own room, once saved, is what Start meeting opens");
-  await tiana.getByRole("button", { name: "Leave meeting" }).click();
-  await tiana.evaluate(async () => fetch("/api/me/ghl-room", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: "" }) }));
+  await riley.getByRole("button", { name: "Start meeting" }).click();
+  await riley.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
+  ok(await riley.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/riley?pwd=e2e", "…and her own room, once saved, is what Start meeting opens");
+  await riley.getByRole("button", { name: "Leave meeting" }).click();
+  await riley.evaluate(async () => fetch("/api/me/ghl-room", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: "" }) }));
   await sleep(800);
   // An admin imports people's rooms by email; Start meeting opens yours without you pasting anything.
-  await alex.evaluate(async () => fetch("/api/admin/settings", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ghlRoomLinks: "riley@example.com | crm.example.com/meet/tiana-imported?pwd=1" }) }));
-  await tiana.getByRole("button", { name: "Start meeting" }).click();
-  await tiana.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
-  ok(await tiana.locator(".meet-frame iframe").getAttribute("src") === "https://crm.example.com/meet/tiana-imported?pwd=1", "A room an admin imported for your email is what Start meeting opens");
-  await tiana.getByRole("button", { name: "Leave meeting" }).click();
+  await alex.evaluate(async () => fetch("/api/admin/settings", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ghlRoomLinks: "riley@example.com | crm.example.com/meet/riley-imported?pwd=1" }) }));
+  await riley.getByRole("button", { name: "Start meeting" }).click();
+  await riley.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
+  ok(await riley.locator(".meet-frame iframe").getAttribute("src") === "https://crm.example.com/meet/riley-imported?pwd=1", "A room an admin imported for your email is what Start meeting opens");
+  await riley.getByRole("button", { name: "Leave meeting" }).click();
   await alex.evaluate(async () => fetch("/api/admin/settings", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ghlRoomLinks: "" }) }));
   await sleep(800);
   errors.splice(quietFrom, errors.length - quietFrom, ...errors.slice(quietFrom).filter((e) => !/status of (409|400)/.test(e)));
@@ -298,12 +298,12 @@ try {
   await put({ ghlRooms: "https://example.com/meet/space-e2e-door" });
   await put({ autoMeetOnClose: "meeting" });
   await es(alex, `__es.jump(${at(centre("breakout", -40))})`);
-  await es(tiana, `__es.jump(${at(centre("breakout", 40))})`);
+  await es(riley, `__es.jump(${at(centre("breakout", 40))})`);
   await sleep(1200);
   await alex.getByRole("button", { name: "Close door" }).click();
   await alex.locator(".meet-frame iframe").waitFor({ timeout: 5000 });
   ok(await alex.locator(".meet-frame iframe").getAttribute("src") === "https://example.com/meet/space-e2e-door", "Closing a meeting room's door starts its meeting, and the closer is in it");
-  await tiana.getByRole("button", { name: "Join", exact: true }).first().waitFor({ timeout: 5000 });
+  await riley.getByRole("button", { name: "Join", exact: true }).first().waitFor({ timeout: 5000 });
   ok(true, "…and Riley, inside, is asked to join");
   await alex.getByRole("button", { name: "Leave meeting" }).click();
   await sleep(1500);

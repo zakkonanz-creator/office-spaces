@@ -12,7 +12,7 @@ const browser = await chromium.launch({ executablePath: dir ? join(cache, dir, "
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, permissions: ["camera", "microphone"] });
 const p = await ctx.newPage();
 await p.goto(`${BASE}/auth/dev?email=admin@example.com&name=Alex%20Admin`);
-await p.getByRole("button", { name: "Join Space" }).click();
+await p.getByRole("button", { name: "Join the office" }).click();
 await p.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 20000 });
 await p.keyboard.press("c"); // hide panel for a clean view
 // Every room at working zoom, plus the whole floor.

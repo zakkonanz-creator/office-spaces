@@ -21,10 +21,10 @@ for (const [label, viewport, scheme] of [["desk", { width: 1360, height: 860 }, 
   await page.waitForTimeout(800);
   await page.screenshot({ path: `${OUT}/${label}-signin.png` });
   await page.goto(`${BASE}/auth/dev?email=admin@example.com&name=Alex%20Admin`);
-  await page.getByRole("button", { name: "Join Space" }).waitFor();
+  await page.getByRole("button", { name: "Join the office" }).waitFor();
   await page.waitForTimeout(1200);
   await page.screenshot({ path: `${OUT}/${label}-prejoin.png` });
-  await page.getByRole("button", { name: "Join Space" }).click();
+  await page.getByRole("button", { name: "Join the office" }).click();
   await page.waitForTimeout(3500);
   await page.screenshot({ path: `${OUT}/${label}-office.png` });
   await page.locator(".tool.status-btn").click();

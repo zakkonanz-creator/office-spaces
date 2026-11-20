@@ -17,7 +17,7 @@ import type { UserRow } from "./auth";
 
 export const MEMBER_STEPS = ["move", "desk", "status", "talk", "door", "find", "clock"] as const;
 export const ADMIN_STEPS = ["members", "guests", "analytics", "settings", "designer", "rules"] as const;
-// Time & Payroll (the Deputy replacement): one tour per screen, for whoever can open it.
+// Time tracking: one tour per screen, for whoever can open it.
 export const TIME_STEPS = ["clock", "week", "leave", "shifts", "unavailable"] as const;
 export const MANAGER_STEPS = ["overview", "approvals", "timesheets", "schedule", "people", "rules"] as const;
 export const PAYROLL_STEPS = ["runs", "adjustments", "profiles", "access", "rules"] as const;

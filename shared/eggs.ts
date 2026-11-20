@@ -1,4 +1,4 @@
-// Hidden easter eggs (the owner, 2026-11-05). Each sits at a spot in a room; stand on it to find it.
+// Hidden easter eggs. Each sits at a spot in a room; stand on it to find it.
 // A faint glint shows only when you're close. Found once per person, for points (shared/points.ts);
 // the first person ever to find each one gets a bonus and the office hears about it.
 

@@ -261,9 +261,9 @@ export function workingDays(start: string, end: string, workDays: number[] = MON
 }
 
 /**
- * One day of someone's regular week, in their own timezone (Deputy: "regular work schedule").
+ * One day of someone's regular week, in their own timezone.
  * A break is either set times (break_start–break_end) or just a length (break_minutes),
- * which is how Deputy holds most breaks: "1h meal", taken whenever.
+ * which is how most rosters hold breaks: "1h meal", taken whenever.
  */
 /**
  * Days a leave request charges: its working days, or 0.5 for a half day. A half day

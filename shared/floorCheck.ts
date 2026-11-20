@@ -89,7 +89,7 @@ export function checkFloor(floor: Floor): string[] {
       }
       for (const b of floor.desks) if (b.bare && a.id < b.id && Math.hypot(seatOf(b).x - seat.x, seatOf(b).y - seat.y) < 20) problems.push(`desks ${a.id} and ${b.id} share a seat`);
       // Whoever sits here is drawn as a 64px bubble around the seat: it shouldn't land on the
-      // table, poke through a wall, or sit on the next person (pilot feedback, 2026-11-03).
+      // table, poke through a wall, or sit on the next person.
       for (const o of floor.objects) {
         if (o.type !== "desk" && o.type !== "table") continue;
         const dx = Math.max(o.x - seat.x, 0, seat.x - (o.x + o.w)), dy = Math.max(o.y - seat.y, 0, seat.y - (o.y + o.h));

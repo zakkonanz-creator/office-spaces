@@ -1,4 +1,4 @@
-// The whole floor in one image (no UI), for comparing against Kumospace's map:  npx tsx scripts/floor-shot.ts out.png [scale]
+// The whole floor in one image (no UI), for checking the layout:  npx tsx scripts/floor-shot.ts out.png [scale]
 import { chromium } from "playwright";
 import { existsSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
@@ -14,7 +14,7 @@ const p = await ctx.newPage();
 await p.goto(`${BASE}/auth/dev?email=admin@example.com&name=Alex%20Admin`);
 // Test people skip the first-day welcome: these suites test the office, not onboarding.
 await p.evaluate(() => fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ track: "member", dismiss: true }) })).catch(() => {});
-await p.getByRole("button", { name: "Join Space" }).click();
+await p.getByRole("button", { name: "Join the office" }).click();
 await p.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 20000 });
 await p.keyboard.press("c");
 await p.waitForTimeout(500);

@@ -1,4 +1,4 @@
-// Who may see pay, and who manages which team. Separate from Space's own
+// Who may see pay, and who manages which team. Separate from the office's own
 // `users.role` on purpose: an analytics admin must never see pay
 //.
 //

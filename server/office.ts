@@ -153,7 +153,7 @@ export const onDoorClosed = (fn: (d: DoorClosed) => void) => { doorClosed = fn; 
 /** Send one person (all their tabs) an event. */
 export const tellPerson = <E extends keyof S2C>(personId: string, ev: E, ...args: Parameters<S2C[E]>) => emitTo(personId, ev, ...args);
 
-/** Shared GHL rooms in use by a meeting Space started (Space can't see inside GHL). */
+/** Shared GHL rooms in use by a meeting the office started (the office can't see inside GHL). */
 export function busyPool() {
   const busy = new Set<number>();
   for (const r of rooms.values()) if (r.recording?.kind === "ghl" && r.recording.pool != null) busy.add(r.recording.pool);
@@ -744,7 +744,7 @@ export function attach(server: Server<C2S, S2C>) {
     });
 
     // "Say hi" on a welcome: the newcomer comes to you, and both of you are told what's happening
-    // (the owner, 2026-11-05: being teleported to them with no explanation looked like a freeze).
+    // (being teleported to them with no explanation looked like a freeze).
     on("sayHi", ({ to }) => {
       if (!reachable(to) || me.guestRoom) return;
       const t = people.get(to)!;
@@ -752,7 +752,7 @@ export function attach(server: Server<C2S, S2C>) {
       const goToThem = (text: string) => void socket.emit("bring", { ...rounded(spotNear(t, me)), text });
       if (!w || Date.now() - w.at > WELCOME_MS) return goToThem(`Taking you to ${firstName(t.name)}.`);
       if (t.inMeeting) return void socket.emit("toast", { text: `${firstName(t.name)} is in a meeting right now. Say hi on Slack, or try again in a bit.` });
-      // Behind a closed door with someone (QA 2026-11-06): don't pull them out mid-conversation.
+      // Behind a closed door with someone: don't pull them out mid-conversation.
       if (t.roomId && t.roomId !== me.roomId && rooms.get(t.roomId)?.closed) return void socket.emit("toast", { text: `${firstName(t.name)} is behind a closed door right now. Knock, or say hi on Slack.` });
       // Someone got there first: join them rather than pull the newcomer back and forth.
       const first = w.by && w.by !== me.id ? people.get(w.by) : undefined;
@@ -885,7 +885,7 @@ async function refreshStreak(p: Live, arriving = false) {
   p.streak = st;
   if (changed) tellAll(p, "person", { id: p.id, streak: st });
   const today = dayIn(Date.now(), tz);
-  // Not only on arrival: someone online across midnight reaches the milestone in the 30-minute recount (QA 2026-11-06).
+  // Not only on arrival: someone online across midnight reaches the milestone in the 30-minute recount.
   if (st.today && MILESTONES.has(st.days) && cheered.get(p.userId) !== today) {
     cheered.set(p.userId, today);
     void award(p.userId, "streak", st.days * POINTS.streakPerDay, `${st.days}-day streak`, `streak:${st.days}:${today}`).then((n) => { if (n) return refreshPoints(p); }).catch(() => {});

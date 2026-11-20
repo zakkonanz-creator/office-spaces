@@ -1,5 +1,5 @@
-// Local testing only (DEV_LOGIN=1, never production): wipe what scripts/e2e-time.ts
-// creates, so the suite can run again from a clean slate. Only touches people whose
+// Local testing only (DEV_LOGIN=1, never production): wipe what a time-tracking test run
+// creates, so it can run again from a clean slate. Only touches people whose
 // email starts with "qa." and the test pay periods it's given.
 
 import type { FastifyInstance } from "fastify";

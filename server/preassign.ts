@@ -1,5 +1,5 @@
 // Roles waiting for someone's first sign-in. An admin adds an email with the
-// access it should get — Space admin, manager of a team, payroll admin, and the
+// access it should get — office admin, manager of a team, payroll admin, and the
 // team they work in — and upsertUser applies it the moment that person first
 // signs in. Before this, every role could only be given after a first sign-in.
 //

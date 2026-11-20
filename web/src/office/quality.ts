@@ -1,4 +1,4 @@
-// Lighter video when your computer or connection is struggling (the owner, 2026-11-05). Audio always
+// Lighter video when your computer or connection is struggling. Audio always
 // comes first, so only video gives way: other people's cameras arrive at the small layer (180p,
 // 15 fps) and yours is sent small. LiveKit already drops layers when bandwidth is short; this adds
 // the cases it doesn't act on — a busy computer (the browser says it's limiting the camera for

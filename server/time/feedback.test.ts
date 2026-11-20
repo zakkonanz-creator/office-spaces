@@ -1,4 +1,4 @@
-// Taylor's feedback (2026-10-14): leave that accrues monthly, project time on a
+// Time-tracking behaviour: leave that accrues monthly, project time on a
 // stopwatch, timesheets for a month or any dates — on a throwaway embedded database.
 import { test } from "node:test";
 import assert from "node:assert/strict";

@@ -17,7 +17,7 @@ test("the real floor passes every check once its seats are fitted (the server do
   assert.deepEqual(checkFloor(f), []);
 });
 
-test("seats: what the pilot saw is caught, then fixed — and fixing twice changes nothing", () => {
+test("seats: a crowded seat is caught, then fixed — and fixing twice changes nothing", () => {
   const problems = checkFloor(floor);
   assert.ok(problems.some((p) => p.includes("seat at desk engineering-k18")), "Robin on the table corner");
   assert.ok(problems.some((p) => p.includes("team-north-k3 and team-north-k5 would overlap")), "neighbours overlapping");

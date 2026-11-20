@@ -8,7 +8,6 @@ import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, 
 import { config } from "./config";
 import { one, q } from "./db";
 import { slackProfile } from "./slack";
-import { startDateFor } from "./tenure";
 import type { Role } from "../shared/protocol";
 import { floor } from "./floorStore";
 import { claimPreassigned } from "./preassign";
@@ -233,7 +232,7 @@ export function nameMatches(google: string, roster: string): boolean {
 
 /**
  * Slack id, photo and title for everyone who hasn't got them yet — people added
- * before Space had a Slack token, or before they joined Slack. Paced well under
+ * before the office had a Slack token, or before they joined Slack. Paced well under
  * Slack's lookup limit. Returns how many were filled.
  */
 export async function fillSlackProfiles(): Promise<number> {
@@ -267,9 +266,6 @@ export async function upsertUser(email: string, name: string, picture?: string):
     else if (pre && pre !== role) await q(`UPDATE users SET role = $2 WHERE id = $1`, [user.id, role]);
     // Their Deputy profile, schedule and leave may be waiting for this first sign-in (Team → People → Import from Deputy).
     await applyPendingDeputy(null, user.id).catch((e) => console.error("deputy apply", e));
-    // Their start date from Slack (shared/tenure.ts), if they were here before Space.
-    const started = await startDateFor(email).catch(() => null);
-    if (started) user = (await one<UserRow>(`UPDATE users SET started_on = $2 WHERE id = $1 RETURNING *`, [user.id, started])) ?? user;
   }
   // Seat them: the roster-seeded desk whose owner name matches, if still free.
   if (!user.desk_id) {

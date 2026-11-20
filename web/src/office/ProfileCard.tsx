@@ -95,7 +95,7 @@ export function personPos(id: string) {
   return live.get(id);
 }
 
-/** Change the name everyone sees (the owner, 2026-11-09). Google sets it on your first sign-in; after that it's yours. */
+/** Change the name everyone sees. Google sets it on your first sign-in; after that it's yours. */
 function NameForm({ name }: { name: string }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(name);

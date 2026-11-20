@@ -32,7 +32,7 @@ test("Fathom webhook: tampered body, wrong secret, stale timestamp, missing head
 test("roster names match Google display names the way people actually write them", () => {
   assert.ok(nameMatches("Alex Admin", "Alex Admin"));
   assert.ok(nameMatches("Diego Ramós", "Diego Ramos Vidal"));
-  assert.ok(nameMatches("Jay Rivers", "Jay (Jason) Rivers"));
+  assert.ok(nameMatches("Kit Rivers", "Kit (Christopher) Rivers"));
   assert.ok(nameMatches("Robin", "Robin"));
   assert.ok(!nameMatches("Robin Khan", "Robin"), "one-word roster names need an exact match");
   assert.ok(!nameMatches("Casey Gray", "Alex Admin"));

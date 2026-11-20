@@ -1,7 +1,7 @@
-// Office streaks (the owner, 2026-11-05), like chess.com's: how many days in a row someone has
-// been in Space. Built from status_events (any time in the office counts), in their own
+// Office streaks, like chess.com's: how many days in a row someone has
+// been in the office. Built from status_events (any time in the office counts), in their own
 // timezone. A weekend day you come in counts toward the streak; a weekend day you don't never
-// breaks it (the owner, 2026-11-16 — before that, weekends didn't count at all). Today counts the
+// breaks it. Today counts the
 // moment you arrive; until then yesterday's streak is still alive — it only breaks once a whole
 // weekday passes without you.
 

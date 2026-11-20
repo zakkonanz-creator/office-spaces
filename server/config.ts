@@ -41,7 +41,7 @@ export const config = {
     apiSecret: env("LIVEKIT_API_SECRET", "secret"),
   },
 
-  /** The Whisper service (transcriber/): Space sends it one person's clip at a time. */
+  /** The Whisper service (transcriber/): the office sends it one person's clip at a time. */
   transcriber: {
     url: env("TRANSCRIBER_URL").replace(/\/$/, ""),
     key: env("TRANSCRIBER_KEY"),

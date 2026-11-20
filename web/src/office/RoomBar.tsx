@@ -1,7 +1,7 @@
 // The strip at the top of the floor when you're in a room: the room's name,
 // its door, and "Transcribe". Outside a closed door it offers a knock.
 //
-// Out of the way (the owner, 2026-11-06): it rests as a small pill (the room, who's here, and anything
+// Out of the way: it rests as a small pill (the room, who's here, and anything
 // live like a meeting or transcription); the buttons open on hover, focus or a tap, and for a few
 // seconds after you walk into a room. When an avatar or the jumbotron is under it, it fades to
 // see-through and lets clicks through to the floor, until the pointer comes back to it.
@@ -23,7 +23,7 @@ function useSeeThrough(ref: React.RefObject<HTMLDivElement | null>) {
   const [near, setNear] = useState(false);
   useEffect(() => {
     let mx = -1, my = -1;
-    // Touch screens have no hover to bring it back, so it never goes see-through there (QA 2026-11-06).
+    // Touch screens have no hover to bring it back, so it never goes see-through there.
     const coarse = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
     if (coarse) return;
     const onMove = (e: PointerEvent) => { mx = e.clientX; my = e.clientY; };
@@ -115,7 +115,7 @@ export function RoomBar({ knockRoom }: { knockRoom: string | null }) {
     }
   };
 
-  // Kumospace offices open into each other, so a closed neighbour can be knocked on from inside a room too.
+  // Offices can open into each other, so a closed neighbour can be knocked on from inside a room too.
   const knock = knockRoom && knockRoom !== me.roomId ? (
     <div className="roombar knockbar">
       <Icon name="door" size={18} />

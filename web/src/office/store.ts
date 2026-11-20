@@ -79,7 +79,7 @@ let toastId = 0;
 export function toast(text: string, opts: Omit<Toast, "id" | "text"> = {}) {
   const t: Toast = { id: ++toastId, text, ...opts };
   // Keep 4. When full, drop the oldest plain toast first, so a burst of Monday arrivals never pushes out
-  // a knock or a follow request you still have to answer (QA 2026-11-06).
+  // a knock or a follow request you still have to answer.
   let list = [...state.toasts, t];
   while (list.length > 4) {
     const i = list.findIndex((x) => !x.action && x !== t);
@@ -99,7 +99,7 @@ export const everyone = (): Person[] => (state.me ? [state.me, ...state.people.v
 export const personName = (id: string) => (state.me?.id === id ? state.me.name : state.people.get(id)?.name ?? "Someone");
 /**
  * Opens a Slack DM with this person: the desktop app if it's installed, Slack in
- * the browser if not (Slack's own redirect decides). Null when Space hasn't
+ * the browser if not (Slack's own redirect decides). Null when the office hasn't
  * matched them to a Slack account (their email isn't in our Slack).
  */
 export const slackDmUrl = (p: Pick<Person, "slackId">) =>

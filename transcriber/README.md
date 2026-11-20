@@ -14,7 +14,7 @@ wake (model is baked into the image, so seconds, not a download).
 
 ## Choosing the model
 
-`WHISPER_MODEL` (build arg and env, default `small`). Measured 2026-10-23 on six
+`WHISPER_MODEL` (build arg and env, default `small`). Measured on six
 synthetic English accents, on an M-series Mac (Railway's CPUs are several times slower):
 
 | model | speed | errors |
@@ -25,6 +25,6 @@ synthetic English accents, on an M-series Mac (Railway's CPUs are several times 
 
 Most errors were jargon and number formatting; `WHISPER_PROMPT` (a vocabulary
 hint) fixes the jargon. Synthetic voices are too clean to separate the models:
-recheck with real pilot audio, and move to `large-v3-turbo` if accents suffer.
+recheck with real meeting audio, and move to `large-v3-turbo` if accents suffer.
 
 Deploy: `../deploy.sh transcriber`.

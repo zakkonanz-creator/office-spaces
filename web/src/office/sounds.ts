@@ -1,5 +1,5 @@
 // Small office sounds, made in the browser (no audio files): a door shutting or opening near
-// you, and someone walking into or out of the room you're in (pilot feedback).
+// you, and someone walking into or out of the room you're in.
 // Knocks and nudges keep their chime. Each person can turn the door/arrival sounds off in Help;
 // it's remembered in this browser only. They stay quiet while you're in a meeting window.
 
@@ -115,7 +115,7 @@ export const arriveSound = () => step(true);
 /** Someone left the room you're in. */
 export const leaveSound = () => step(false);
 
-/** The win bell (#wins): one soft, high bell. Kept quiet on purpose (Alex: "not too loud"). */
+/** The win bell (#wins): one soft, high bell. Kept quiet on purpose. */
 export function winBell() {
   if (!soundsOn() || quiet()) return;
   log("win");

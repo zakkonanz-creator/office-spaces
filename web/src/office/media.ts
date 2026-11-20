@@ -265,7 +265,7 @@ function seesVideo(a: { x: number; y: number; roomId: string | null }, b: { x: n
 
 /** Off while you're in a Meet tab, so the room doesn't echo through it. */
 let meetingAudio = true;
-/** Off while you're Focusing or Away with your mic off (pilot feedback): heads-down means you don't hear the floor either. */
+/** Off while you're Focusing or Away with your mic off: heads-down means you don't hear the floor either. */
 let statusAudio = true;
 let officeAudio = true;
 quietWhile(() => !officeAudio);

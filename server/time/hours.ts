@@ -122,7 +122,7 @@ export async function workDaysOf(userId: number): Promise<number[]> {
   return isWorkDays(r?.work_days) ? r!.work_days! : MON_FRI;
 }
 
-/** Someone's regular week (Deputy's "regular work schedule"), or null if not set. */
+/** Someone's regular week (their usual hours), or null if not set. */
 export async function regularHoursOf(userId: number): Promise<RegularDay[] | null> {
   const r = await one<{ regular_hours: unknown }>(`SELECT regular_hours FROM time_members WHERE user_id = $1`, [userId]);
   return isRegularHours(r?.regular_hours) && (r!.regular_hours as RegularDay[]).length ? (r!.regular_hours as RegularDay[]) : null;

@@ -79,7 +79,7 @@ export async function recentLedger(limit = 60) {
   );
 }
 
-/** Pilot teammates who arrived before the welcome bonus existed get it too (QA 2026-11-06), so Monday's joiners
+/** People who arrived before the welcome bonus existed get it too, so newer joiners
  * aren't 100 ahead. Idempotent: the ledger's (user, kind, ref) key means each person gets it once. Returns how many. */
 export async function backfillWelcome(): Promise<number> {
   const rows = await q<{ user_id: number }>(

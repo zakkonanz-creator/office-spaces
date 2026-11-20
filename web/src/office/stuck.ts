@@ -1,4 +1,4 @@
-// "Am I stuck?" (the owner, 2026-11-05). Twice today a tab left open across a deploy stopped moving and
+// "Am I stuck?". Twice today a tab left open across a deploy stopped moving and
 // a refresh fixed it. This spots the ways a tab gets stuck and offers the refresh:
 //   · frozen: you're trying to move and the office has stopped drawing;
 //   · lost: you're trying to move but this tab has lost track of where you are;
@@ -33,7 +33,7 @@ export function flag(why: "frozen" | "lost" | "bounced") {
   const now = Date.now();
   if (now - warnedAt < 60_000) return; // once a minute at most
   warnedAt = now;
-  const newer = state.updateReady ? " There's also a newer version of Space." : "";
+  const newer = state.updateReady ? " There's also a newer version of the app." : "";
   toast(`Looks like you're stuck.${newer} A refresh fixes it.`, { ttl: 30_000, action: { label: "Refresh", run: () => location.reload() } });
   reportError("stuck", new Error(`${why}${state.updateReady ? " (old version open)" : ""}`));
 }

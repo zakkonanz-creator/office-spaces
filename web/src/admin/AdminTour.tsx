@@ -24,7 +24,7 @@ interface Step {
 }
 
 const STEPS: Step[] = [
-  { stop: "members", tab: "members", target: '[data-tour="members-table"]', title: "Everyone in Space",
+  { stop: "members", tab: "members", target: '[data-tour="members-table"]', title: "Everyone in the office",
     body: <p>Change anyone's role or desk here. Whoever you make an admin gets this tour, and a note on Slack if they're on the team's Slack.</p> },
   { stop: "members", tab: "members", target: '[data-tour="preassign"]', title: "Set up a new hire before day one",
     body: <p>Add their work email, role and team (a payroll admin can add manager or payroll access too). It's applied the moment they first sign in, and the getting-started checklist opens for them by itself.</p> },
@@ -45,7 +45,7 @@ const STEPS: Step[] = [
     body: <p>The audio range on the open floor, for everyone, from the next time they join.</p>,
     careful: <>Everything on this page applies to the whole office.</> },
   { stop: "settings", tab: "settings", target: '[data-tour="settings-transcription"]', title: "Room transcription",
-    body: <p>Hours of audio sent this month and the monthly limit. Room notes go only to the people who were in the room; in Space, admins don't see other rooms' notes.</p> },
+    body: <p>Hours of audio sent this month and the monthly limit. Room notes go only to the people who were in the room; admins don't see other rooms' notes.</p> },
   { stop: "designer", title: "Office Designer",
     body: <>
       <p>It lives in the office: open the side panel and choose <b>Design</b>. Describe a change in plain English ("add two desks to Sales") or edit by hand.</p>

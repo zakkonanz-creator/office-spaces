@@ -1,5 +1,5 @@
 // Slack display names often carry the company ("Alex Admin | Acme"). Screens everyone
-// sees (the jumbotron, the win banner) use just the first name (the owner, 2026-11-06).
+// sees (the jumbotron, the win banner) use just the first name.
 
 /** "Alex Admin | Acme" → "Alex"; "" → "Someone". */
 export function firstName(name: string | null | undefined): string {

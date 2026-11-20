@@ -106,13 +106,13 @@ async function migrate() {
     )`,
     `CREATE UNIQUE INDEX IF NOT EXISTS points_ledger_once ON points_ledger (user_id, kind, ref) WHERE ref IS NOT NULL`,
     `CREATE INDEX IF NOT EXISTS points_ledger_user ON points_ledger (user_id, created_at)`,
-    // Anniversary points moved into tenure (POINTS.perYear) on 2026-11-05: the rows stay for the once-a-year cheer.
+    // Anniversary points moved into tenure (POINTS.perYear): the rows stay for the once-a-year cheer.
     `UPDATE points_ledger SET points = 0 WHERE kind = 'anniversary' AND points <> 0`,
     // Their pet (shared/pets.ts), or NULL.
     `ALTER TABLE users ADD COLUMN IF NOT EXISTS pet TEXT`,
     `ALTER TABLE users ADD COLUMN IF NOT EXISTS outfit TEXT`,
     // One row per stretch of time someone spent in a status while in the office.
-    // ended_at NULL = still going. This is the analytics source (Kumospace's timesheet view).
+    // ended_at NULL = still going. This is the analytics source.
     `CREATE TABLE IF NOT EXISTS status_events (
       id BIGSERIAL PRIMARY KEY,
       user_id INTEGER NOT NULL REFERENCES users(id),

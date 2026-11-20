@@ -1,6 +1,6 @@
 /* Time & Payroll. Reuses the admin shell (.admin, .panel, .grid, .pill) and
    adds only what timesheets and pay runs need: dense tables, a clock card,
-   shift chips. Same quiet tokens as the rest of Space. */
+   shift chips. Same quiet tokens as the rest of the office. */
 
 .time .tabs { gap: 4px; }
 .time .tab-link { padding: 8px 8px; color: var(--ink-3); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500; }
@@ -31,7 +31,7 @@
 .time .pill { margin-left: 6px; }
 
 /* Segmented sub-nav inside a section */
-/* Space's own segmented control (.seg), sized to its content */
+/* The office's own segmented control (.seg), sized to its content */
 .time .seg { display: inline-flex; flex-wrap: wrap; align-items: center; margin-bottom: 14px; max-width: 100%; }
 .time .seg .teams { padding: 0 10px; font-size: 12px; }
 
@@ -215,7 +215,7 @@
 .sheet th.today, .sheet td.today { background: color-mix(in srgb, var(--accent) 6%, transparent); }
 .sheet td.actions { text-align: right; white-space: nowrap; }
 
-/* ── Schedule (Deputy-style roster) ──────────────────────────────────────── */
+/* ── Schedule (roster) ────────────────────────────────────────────────── */
 .roster { width: 100%; min-width: 980px; border-collapse: separate; border-spacing: 0; background: var(--card); border: 1px solid var(--line); border-radius: 12px; table-layout: fixed; }
 .roster th { font-size: 12px; font-weight: 600; color: var(--ink-2); text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 2%, var(--card)); }
 .roster th:first-child { border-top-left-radius: 12px; }
@@ -274,7 +274,7 @@
 .time .pay td.num.neg { color: var(--danger); }
 .time .dash { color: var(--ink-3); opacity: .6; }
 
-/* ── Deputy parity: today, leave calendar, publishing, availability ─────── */
+/* ── Today, leave calendar, publishing, availability ─────── */
 .time .block { display: block; }
 .time .button.disabled { pointer-events: none; opacity: .5; }
 .today-counts { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -350,7 +350,7 @@
   .avail-form > * { flex: 1 1 auto; }
 }
 
-/* ── Deputy screens: overview, people, locations, day view, who's off ───── */
+/* ── Team screens: overview, people, locations, day view, who's off ───── */
 .action-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
 .action-card { display: grid; justify-items: start; justify-content: start; align-content: start; place-items: start; gap: 2px; padding: 14px 16px; text-align: left; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink-2); font-size: 13px; }
 .action-card b { font-size: 26px; line-height: 1.1; color: var(--ink-3); font-variant-numeric: tabular-nums; }

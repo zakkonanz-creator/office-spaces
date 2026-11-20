@@ -126,7 +126,7 @@ test("outfits: Fortnite rarities, in order, the first one free, all in the rewar
   assert.equal(REWARDS.filter((r) => r.kind === "outfit").length, OUTFITS.length - 1); // the free tee isn't a reward
 });
 
-test("the year bonus lands on the anniversary, not before (QA 2026-11-06)", async () => {
+test("the year bonus lands on the anniversary, not before", async () => {
   const { fullYears } = await import("./points");
   const at = (d: string) => Date.parse(`${d}T15:00:00Z`);
   assert.equal(fullYears("2023-11-07", at("2026-11-06")), 2); // the day before: still 2

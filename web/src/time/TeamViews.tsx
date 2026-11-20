@@ -1,7 +1,7 @@
-// The Deputy-style screens:
+// The team views:
 //   Overview   — what's waiting on me: leave requests and timesheets to approve
 //   People     — start date, regular week (hours + break), leave entitlements
-//   Locations  — departments (e.g. WhiteLabel Services: support, onboarding, calls, live chat)
+//   Locations  — departments (e.g. Support: onboarding, calls, live chat)
 //   Day view   — who's due in on one day, who's off and why
 // Managers see hours, never pay.
 
@@ -297,7 +297,7 @@ function DeputyImport({ onDone }: { onDone: () => void }) {
     setMsg("");
     try {
       const j = await post<{ added: number; left: { name: string; why: string }[]; waitingForTimezone: string[] }>("/api/time/deputy/add-people", {});
-      setMsg(`Added ${j.added} people to Space.${j.left.length ? ` Left out: ${j.left.map((l) => `${l.name} (${l.why})`).join(", ")}.` : ""}${j.waitingForTimezone.length ? ` ${j.waitingForTimezone.length} regular weeks go in on each person's first visit, once Space knows their timezone.` : ""}`);
+      setMsg(`Added ${j.added} people to the office.${j.left.length ? ` Left out: ${j.left.map((l) => `${l.name} (${l.why})`).join(", ")}.` : ""}${j.waitingForTimezone.length ? ` ${j.waitingForTimezone.length} regular weeks go in on each person's first visit, once the office knows their timezone.` : ""}`);
       reloadStatus(); onDone();
     } catch (e) { setMsg((e as Error).message); }
   };
@@ -318,7 +318,7 @@ function DeputyImport({ onDone }: { onDone: () => void }) {
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.error ?? `${r.status}`);
       setPol(j);
-      if (commit) { setMsg(`Leave entitlements set from Deputy (${j.set} changed).${j.notInSpace.length ? ` Not in Space: ${j.notInSpace.join(", ")}.` : ""}`); onDone(); }
+      if (commit) { setMsg(`Leave entitlements set from Deputy (${j.set} changed).${j.notInSpace.length ? ` Not in the office: ${j.notInSpace.join(", ")}.` : ""}`); onDone(); }
     } catch (e) { setMsg((e as Error).message); }
   };
   const ent = (m: Record<string, number>) => POLICY_CODES.map((c) => `${leaveLabel(c)} ${m[c] ?? "—"}`).join(" · ");
@@ -337,20 +337,20 @@ function DeputyImport({ onDone }: { onDone: () => void }) {
       </div>
       {notInSpace.length ? (
         <div className="admin-toolbar">
-          <span>{notInSpace.length} {notInSpace.length === 1 ? "person" : "people"} from Deputy {notInSpace.length === 1 ? "isn't" : "aren't"} in Space yet. Their data waits for their first sign-in, or add them now (desk, Slack photo, location, balances, schedule and leave; regular week on their first visit).</span>
-          <button className="primary" onClick={addPeople}>Add them to Space now</button>
+          <span>{notInSpace.length} {notInSpace.length === 1 ? "person" : "people"} from Deputy {notInSpace.length === 1 ? "isn't" : "aren't"} in the office yet. Their data waits for their first sign-in, or add them now (desk, Slack photo, location, balances, schedule and leave; regular week on their first visit).</span>
+          <button className="primary" onClick={addPeople}>Add them to the office now</button>
         </div>
       ) : null}
       {pol ? (
         <div className="scroll-x">
           <p>Deputy's leave policies as of {pol.readAt} · days per year · 0 = not on that policy</p>
           <table className="grid compact">
-            <thead><tr><th>Person</th><th>Space</th><th>Now</th><th>From Deputy</th></tr></thead>
+            <thead><tr><th>Person</th><th>Office</th><th>Now</th><th>From Deputy</th></tr></thead>
             <tbody>
               {pol.rows.map((r) => (
                 <tr key={r.email} className={r.userId ? "" : "removed"}>
                   <td>{r.name}<span className="muted small-text block">{r.email}</span></td>
-                  <td className="small-text">{r.userId ? "yes" : <span className="muted">not in Space</span>}</td>
+                  <td className="small-text">{r.userId ? "yes" : <span className="muted">not in the office</span>}</td>
                   <td className="small-text muted">{ent(r.before)}</td>
                   <td className="small-text">{ent(r.after)}</td>
                 </tr>
@@ -362,13 +362,13 @@ function DeputyImport({ onDone }: { onDone: () => void }) {
       {res ? (
         <>
           <p>
-            Deputy as of {res.exportedAt.slice(0, 16).replace("T", " ")} UTC · {res.summary.people} people · <b>{res.summary.ready}</b> in Space now · {res.summary.waiting} applied when they first sign in · {res.summary.skipped} skipped
+            Deputy as of {res.exportedAt.slice(0, 16).replace("T", " ")} UTC · {res.summary.people} people · <b>{res.summary.ready}</b> in the office now · {res.summary.waiting} applied when they first sign in · {res.summary.skipped} skipped
             {" "}· {res.summary.shifts} upcoming shifts ({res.summary.openShifts} open) · {res.summary.leave} leave requests · locations: {res.locations.join(", ")}
           </p>
           {res.skippedLeaveTypes.length ? <p className="muted small-text">Not brought over (no matching leave type here): {res.skippedLeaveTypes.join(", ")}</p> : null}
           <div className="scroll-x">
             <table className="grid compact">
-              <thead><tr><th>Person</th><th>Space</th><th>Location</th><th>Started</th><th>Regular week (their time)</th><th>Balances</th><th>Shifts</th><th>Leave</th><th>Notes</th></tr></thead>
+              <thead><tr><th>Person</th><th>Office</th><th>Location</th><th>Started</th><th>Regular week (their time)</th><th>Balances</th><th>Shifts</th><th>Leave</th><th>Notes</th></tr></thead>
               <tbody>
                 {res.rows.map((r) => (
                   <tr key={r.deputyId} className={r.status === "skipped" ? "removed" : ""}>
@@ -406,7 +406,7 @@ export function Locations({ teams }: { teams: string[] }) {
   const act = async (fn: () => Promise<unknown>, done: string) => { try { await fn(); setMsg(done); reload(); } catch (e) { setMsg((e as Error).message); } };
   return (
     <div className="stack">
-      <p className="hint">Locations are the team's departments — for example WhiteLabel Services covers support, onboarding, calls and live chat. Everyone, every shift and every manager belongs to one.</p>
+      <p className="hint">Locations are the team's departments — for example Customer Support covers onboarding, calls and live chat. Everyone, every shift and every manager belongs to one.</p>
       <Msg text={msg} />
       <div className="loc-grid">
         {rows.map((l) => (
@@ -436,7 +436,7 @@ export function Locations({ teams }: { teams: string[] }) {
         <section className="panel">
           <h3>Add a location</h3>
           <div className="tpl-form">
-            <input value={add.name} onChange={(e) => setAdd({ ...add, name: e.target.value })} placeholder="Name, e.g. WhiteLabel Services" aria-label="New location name" />
+            <input value={add.name} onChange={(e) => setAdd({ ...add, name: e.target.value })} placeholder="Name, e.g. Customer Support" aria-label="New location name" />
             <input value={add.description} onChange={(e) => setAdd({ ...add, description: e.target.value })} placeholder="What it covers" aria-label="New location description" style={{ flex: 1 }} />
             <button className="primary" disabled={!add.name.trim()} onClick={() => act(async () => { await post("/api/time/locations", add); setAdd({ name: "", description: "" }); }, "Added.")}>Add location</button>
           </div>

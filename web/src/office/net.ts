@@ -233,7 +233,7 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
     // A bonus (first time in): wait for the welcome screen to close, then the big card and fireworks.
     s.on("bonus", (b) => {
       // Wait until onboarding has loaded and had a moment to open the welcome screen, then until that closes
-      // (QA 2026-11-06: on a slow link the card could beat the welcome screen and sit on top of it).
+      // (on a slow link the card could beat the welcome screen and sit on top of it).
       let settledAt = 0;
       const show = (tries = 0) => {
         if (tries < 600) {

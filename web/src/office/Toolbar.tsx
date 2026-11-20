@@ -26,7 +26,7 @@ interface Props {
   onPanel: () => void;
 }
 
-// Phones (the owner, 2026-11-09): no screen sharing in mobile browsers, and a pop-out that
+// Phones: no screen sharing in mobile browsers, and a pop-out that
 // "floats over Slack" is a desktop idea, so those two buttons only show where they work.
 const canShare = () => typeof navigator !== "undefined" && typeof navigator.mediaDevices?.getDisplayMedia === "function";
 const isTouch = () => typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;

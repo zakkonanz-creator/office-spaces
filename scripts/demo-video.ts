@@ -27,7 +27,7 @@ async function person(email: string, name: string, opts: { cam?: string | false;
   const p = await ctx.newPage();
   await p.goto(`${BASE}/auth/dev?email=${email}&name=${encodeURIComponent(name)}`);
   if (opts.cam === false) await p.getByRole("button", { name: "Camera off" }).click().catch(() => {});
-  await p.getByRole("button", { name: "Join Space" }).click();
+  await p.getByRole("button", { name: "Join the office" }).click();
   await p.waitForFunction(() => (window as any).__es?.state?.me);
   await p.getByRole("button", { name: "I'll explore on my own" }).click({ timeout: 4000 }).catch(() => {});
   return p;
