@@ -1,6 +1,6 @@
 # transcriber
 
-Whisper behind one endpoint, for Proximity Office's "Transcribe this room". Its own
+Whisper behind one endpoint, for Office Spaces' "Transcribe this room". Its own
 Railway service (`transcriber`) so transcribing never makes the office lag. It keeps nothing: each clip exists in
 memory for the length of one request.
 

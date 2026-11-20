@@ -17,7 +17,7 @@ function signed(body: string, at = Math.floor(Date.now() / 1000), key = secret) 
 }
 
 test("Fathom webhook: a correct signature from any configured secret passes", () => {
-  const body = JSON.stringify({ meeting_title: "Proximity Office · Sales · 14:00 UTC" });
+  const body = JSON.stringify({ meeting_title: "Office Spaces · Sales · 14:00 UTC" });
   assert.equal(verifyFathom(signed(body), body), true);
 });
 

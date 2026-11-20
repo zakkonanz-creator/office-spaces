@@ -259,7 +259,7 @@ export function registerTimeRoutes(app: FastifyInstance, needUser: NeedUser) {
     await audit(u.id, "request", "leave_request", row!.id, null, { code: type.code, start_date, end_date, days }, note);
     // Their managers hear about it (no manager on the team: the payroll admins). Never holds up the request.
     const when = start_date === end_date ? start_date : `${start_date} → ${end_date}`;
-    const ask = `${u.name} asked for ${type.name.toLowerCase()} leave: ${when} (${days} ${days === 1 ? "day" : "days"})${note ? `: "${note}"` : ""}. Approve or decline in Proximity Office → Time → Team → Approvals.`;
+    const ask = `${u.name} asked for ${type.name.toLowerCase()} leave: ${when} (${days} ${days === 1 ? "day" : "days"})${note ? `: "${note}"` : ""}. Approve or decline in Office Spaces → Time → Team → Approvals.`;
     void approversFor(u.id).then((ids) => Promise.all(ids.map((id) => tell(id, ask)))).catch((e) => console.error("leave request dm:", e));
     return { ok: true, id: row!.id, days };
   });
@@ -330,7 +330,7 @@ export function registerTimeRoutes(app: FastifyInstance, needUser: NeedUser) {
     const row = await one<{ id: number }>(`INSERT INTO swap_requests (shift_id, from_user, to_user, note) VALUES ($1, $2, $3, $4) RETURNING id`, [shiftId, u.id, toUser, typeof b.note === "string" ? b.note.slice(0, 500) : null])
       .catch((e) => { if ((e as { code?: string }).code === "23505") return null; throw e; }); // two asks at once: the index keeps one
     if (!row) return bad(reply, "there's already a swap open for that shift", 409);
-    void tell(toUser, `${u.name} asked you to take their ${shift.date} shift. Open Proximity Office → Time to accept.`);
+    void tell(toUser, `${u.name} asked you to take their ${shift.date} shift. Open Office Spaces → Time to accept.`);
     return { ok: true, id: row!.id };
   });
 

@@ -384,7 +384,7 @@ try {
   await andrew2.getByRole("button", { name: "Join Space" }).click();
   await andrew2.waitForFunction(() => (window as any).__es?.state?.me, null, { timeout: 15000 });
   await sleep(1000);
-  ok(await andrew.getByText("You opened Proximity Office in another tab").isVisible(), "Opening a second tab ends the first one with a clear message");
+  ok(await andrew.getByText("You opened Office Spaces in another tab").isVisible(), "Opening a second tab ends the first one with a clear message");
   ok(await es<number>(alex, `[...__es.state.people.values()].filter(p => p.name === "Morgan Lee").length`) === 1, "…and Morgan appears once, not twice");
 
   // Make sure nobody is in the Meeting Room before the guest arrives.

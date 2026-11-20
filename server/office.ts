@@ -390,7 +390,7 @@ export function attach(server: Server<C2S, S2C>) {
           p.sockets.delete(sid); // a socket that died without telling us
         } else if (old.handshake.auth?.tabId !== auth.tabId) {
           p.sockets.delete(sid);
-          old.emit("kicked", { reason: "You opened Proximity Office in another tab or window." });
+          old.emit("kicked", { reason: "You opened Office Spaces in another tab or window." });
           old.disconnect(true);
         }
       }
@@ -783,7 +783,7 @@ export function attach(server: Server<C2S, S2C>) {
         // Their first time on the floor: tell the team, so someone walks over and says hi.
         if (await firstArrival(me.userId)) {
           // Their first time in: a welcome bonus, celebrated once the snapshot is in (below).
-          welcomeBonus = await award(me.userId, "welcome", POINTS.welcome, "Welcome to Proximity Office", "welcome").catch(() => false);
+          welcomeBonus = await award(me.userId, "welcome", POINTS.welcome, "Welcome to Office Spaces", "welcome").catch(() => false);
           welcomed.set(me.id, { at: Date.now(), by: null });
           for (const [k, v] of welcomed) if (Date.now() - v.at > WELCOME_MS) welcomed.delete(k);
           // …and send them the tour on Slack, to read when they like. Never holds up their arrival.

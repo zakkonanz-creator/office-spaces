@@ -14,7 +14,7 @@ set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
 TARGET="${1:-app}"
 ENVIRONMENT="${ENVIRONMENT:-production}"
-PROJECT="${RAILWAY_PROJECT:-proximity-office}"
+PROJECT="${RAILWAY_PROJECT:-office-spaces}"
 if [ "$TARGET" = "crowd" ] && [ "$ENVIRONMENT" = "production" ]; then
   echo "!! the load-test crowd signs in with the dev login; it only runs against staging" >&2
   exit 1

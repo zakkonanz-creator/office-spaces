@@ -1,4 +1,4 @@
-# Proximity Office
+# Office Spaces
 
 ![Three people on the floor plan: walk up to someone and their video appears, walk away and it fades](docs/demo.gif)
 
@@ -24,8 +24,8 @@ Built with React, Fastify, Socket.IO, Postgres and [LiveKit](https://livekit.io)
 You need **Node 22+** and **LiveKit** (`brew install livekit` on a Mac; see [livekit.io](https://docs.livekit.io/home/self-hosting/local/) for other systems).
 
 ```bash
-git clone https://github.com/zakkonanz-creator/proximity-office.git
-cd proximity-office
+git clone https://github.com/zakkonanz-creator/office-spaces.git
+cd office-spaces
 npm install
 cp env.example .env
 ```
@@ -66,7 +66,7 @@ Transcription isn't in the one-click setup. Add it afterwards (see "Optional: tr
 You'll make one Railway project with four pieces: **Postgres**, **app**, **livekit** and, optionally, **transcriber**.
 
 1. **Install the Railway CLI** and sign in: `npm i -g @railway/cli && railway login`.
-2. **Create a project** at [railway.com](https://railway.com) and name it `proximity-office`. Add a **Postgres** database to it.
+2. **Create a project** at [railway.com](https://railway.com) and name it `office-spaces`. Add a **Postgres** database to it.
 3. **Media server (livekit)**
    - Add an empty service named `livekit`.
    - In its Settings → Networking, add a **public domain** (port 7880) and a **TCP proxy** (port 7881). Railway has no UDP, so audio and video travel over TCP through this proxy.

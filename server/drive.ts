@@ -2,7 +2,7 @@
 // so a Drive search for the meeting finds it (CLAUDE.md: recordings searches
 // check Drive). Layout mirrors the Zoom archive: one dated folder per call.
 //
-//   <DRIVE_RECORDINGS_FOLDER_ID>/            "Proximity Office Recordings"
+//   <DRIVE_RECORDINGS_FOLDER_ID>/            "Office Spaces Recordings"
 //     2026-10-07 1430 · Conference Room/
 //       Fathom summary.md                    summary, action items, Fathom + Meet links
 //

@@ -1,4 +1,4 @@
-// Fathom → Proximity Office. Fathom posts `new-meeting-content-ready` when a
+// Fathom → Office Spaces. Fathom posts `new-meeting-content-ready` when a
 // recording's summary is ready. We match it to the room meeting we started
 // (by title, which we set), then: show it in the room's Recordings list, DM
 // everyone who was there on Slack, and file a copy in the Drive recordings tree.
@@ -46,7 +46,7 @@ function fields(m: any) {
 
 export async function handleFathom(payload: any): Promise<string> {
   const f = fields(payload?.meeting ?? payload);
-  if (!f.title.startsWith("Proximity Office ·")) return "ignored: not a room meeting";
+  if (!f.title.startsWith("Office Spaces ·")) return "ignored: not a room meeting";
   const rec = await one(
     `SELECT * FROM recordings WHERE title = $1 AND created_at > now() - interval '2 days' ORDER BY created_at DESC LIMIT 1`,
     [f.title],

@@ -20,7 +20,7 @@ export function reportError(where: string, err: unknown) {
     sent.add(key);
     recent.push(`${where}: ${e.message}`.slice(0, 300));
     if (recent.length > 5) recent.shift();
-    console.error(`[Proximity Office] ${where}:`, err);
+    console.error(`[Office Spaces] ${where}:`, err);
     void fetch("/api/client-error", {
       method: "POST",
       headers: { "content-type": "application/json" },

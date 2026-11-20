@@ -262,7 +262,7 @@ export function connectSocket(onKicked: (why: string) => void): Promise<void> {
       toast(`👋 ${from.name} nudged you`);
       ding();
       if (document.hidden && "Notification" in window && Notification.permission === "granted") {
-        new Notification("Proximity Office", { body: `${from.name} nudged you` });
+        new Notification("Office Spaces", { body: `${from.name} nudged you` });
       }
     });
     s.on("followRequest", ({ from }) => {

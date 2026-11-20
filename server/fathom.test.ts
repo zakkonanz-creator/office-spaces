@@ -13,9 +13,9 @@ const { handleFathom } = await import("./fathom");
 await openDb();
 
 test("a Fathom summary finds its room meeting and is stored once", async () => {
-  await q(`INSERT INTO recordings (room_id, title, attendee_emails, meet_url) VALUES ('sales', 'Proximity Office · Sales · 14:00 UTC', '{a@example.com}', 'https://meet.google.com/abc-defg-hij')`);
+  await q(`INSERT INTO recordings (room_id, title, attendee_emails, meet_url) VALUES ('sales', 'Office Spaces · Sales · 14:00 UTC', '{a@example.com}', 'https://meet.google.com/abc-defg-hij')`);
   const payload = {
-    meeting_title: "Proximity Office · Sales · 14:00 UTC",
+    meeting_title: "Office Spaces · Sales · 14:00 UTC",
     share_url: "https://fathom.video/share/xyz",
     default_summary: { markdown_formatted: "## Decisions\n- Ship the **launch** offer Friday" },
     action_items: [{ description: "Draft the email", assignee: { name: "Alex" } }],
@@ -31,6 +31,6 @@ test("a Fathom summary finds its room meeting and is stored once", async () => {
 
 test("meetings that weren't started from a room are ignored", async () => {
   assert.equal(await handleFathom({ meeting_title: "Weekly L10" }), "ignored: not a room meeting");
-  assert.equal(await handleFathom({ meeting_title: "Proximity Office · Kitchen · 09:00 UTC" }), "ignored: no matching room meeting");
+  assert.equal(await handleFathom({ meeting_title: "Office Spaces · Kitchen · 09:00 UTC" }), "ignored: no matching room meeting");
   assert.equal(await handleFathom({ meeting: { meeting_title: "Weekly L10" } }), "ignored: not a room meeting");
 });

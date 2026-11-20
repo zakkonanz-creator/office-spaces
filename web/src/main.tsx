@@ -35,7 +35,7 @@ function App() {
 
 const SIGNIN_ERRORS: Record<string, string> = {
   domain: "That Google account isn't on an allowed domain. Use your @example.com or @example.org account.",
-  removed: "Your access to Proximity Office has been removed. Ask an admin if that's a mistake.",
+  removed: "Your access to Office Spaces has been removed. Ask an admin if that's a mistake.",
   unverified: "Google says that email isn't verified.",
   expired: "That sign-in took too long. Try again.",
   failed: "Sign-in failed. Try again.",
@@ -51,7 +51,7 @@ function SignIn({ devLogin }: { devLogin: boolean }) {
     <div className="signin">
       <div className="signin-card">
         <img src="/logo.svg" alt="Acme" className="signin-logo" />
-        <h1>Proximity Office</h1>
+        <h1>Office Spaces</h1>
         <p className="muted">The office. Walk up to someone to talk.</p>
         {err ? <p className="error">{SIGNIN_ERRORS[err] ?? err}{params.get("email") ? ` (${params.get("email")})` : ""}</p> : null}
         <a className="button primary big google" href={`/auth/google?next=${encodeURIComponent(next)}`}>
@@ -127,7 +127,7 @@ class Crashed extends Component<{ children: ReactNode }, { error: Error | null }
     return { error };
   }
   componentDidCatch(error: Error) {
-    console.error("Proximity Office crashed:", error);
+    console.error("Office Spaces crashed:", error);
     reportError("react", error);
   }
   render() {

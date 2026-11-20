@@ -133,7 +133,7 @@ export async function tellNewAdmin(u: { id: number; email: string; slack_id: str
   const who = by ? `${by.name.split(" ")[0]} made you` : "You're now";
   await deps.dm(
     slackId,
-    `${who} an admin of Proximity Office. That means Members, guest links, analytics and the Office Designer. ` +
+    `${who} an admin of Office Spaces. That means Members, guest links, analytics and the Office Designer. ` +
       `Here's the 3-minute admin tour: ${config.publicUrl}/admin/members?tour=1`,
   );
   return true;
@@ -142,7 +142,7 @@ export async function tellNewAdmin(u: { id: number; email: string; slack_id: str
 /** The first-day checklist, as a Slack message. Same steps as the in-office checklist (Onboarding.tsx). */
 export function memberTourText(name: string, url = config.publicUrl): string {
   return [
-    `👋 Welcome to Proximity Office, ${name.split(" ")[0]}! It works like a real office: walk up to someone and you can hear each other, walk away and the sound fades.`,
+    `👋 Welcome to Office Spaces, ${name.split(" ")[0]}! It works like a real office: walk up to someone and you can hear each other, walk away and the sound fades.`,
     ``,
     `*Your first-day checklist* (it's also in the office, under Help → Getting started, and it ticks itself as you go):`,
     `1. *Walk around.* Arrow keys or WASD, or double-click anywhere on the floor.`,

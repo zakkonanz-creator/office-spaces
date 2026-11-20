@@ -84,7 +84,7 @@ export async function recentLedger(limit = 60) {
 export async function backfillWelcome(): Promise<number> {
   const rows = await q<{ user_id: number }>(
     `INSERT INTO points_ledger (user_id, kind, points, reason, ref)
-     SELECT id, 'welcome', $1, 'Welcome to Proximity Office', 'welcome' FROM users
+     SELECT id, 'welcome', $1, 'Welcome to Office Spaces', 'welcome' FROM users
       WHERE first_office_at IS NOT NULL AND NOT removed
      ON CONFLICT DO NOTHING RETURNING user_id`, [POINTS.welcome]);
   return rows.length;

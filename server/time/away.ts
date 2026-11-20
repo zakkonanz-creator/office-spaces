@@ -51,7 +51,7 @@ export async function runAwayNudges(clockNow: ClockNow, tell: (userId: number, t
         [r.user_id, awaySince],
       );
       sent.push(r.user_id);
-      await tell(r.user_id, `You're still clocked in, but you haven't been in Proximity Office for ${Math.floor((now - awaySince) / 3600_000)} hours. If you're done for the day, clock out: ${config.publicUrl}/time. Still working? Hop back into the office: ${config.publicUrl}`);
+      await tell(r.user_id, `You're still clocked in, but you haven't been in Office Spaces for ${Math.floor((now - awaySince) / 3600_000)} hours. If you're done for the day, clock out: ${config.publicUrl}/time. Still working? Hop back into the office: ${config.publicUrl}`);
     }
   } catch (e) {
     console.error("time: away nudge pass failed:", (e as Error).message);

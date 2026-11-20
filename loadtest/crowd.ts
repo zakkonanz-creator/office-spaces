@@ -1,4 +1,4 @@
-// The crowd: fake teammates for measuring what Proximity Office costs when the
+// The crowd: fake teammates for measuring what Office Spaces costs when the
 // whole team is in. Each bot is a real browser running the real app, with a fake
 // webcam (media/*.mjpeg: a person with sensor grain, not Chrome's test pattern)
 // and a fake mic (speech with pauses). It signs in with the dev login, so it only

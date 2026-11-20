@@ -1,4 +1,4 @@
-// Proximity Office server: one process serves the SPA, the API, the Socket.IO
+// Office Spaces server: one process serves the SPA, the API, the Socket.IO
 // office, and the Fathom webhook. LiveKit (the media server) is separate.
 
 import "./env";
@@ -725,7 +725,7 @@ app.patch("/api/admin/members/:id", async (req, reply) => {
     );
     if (!u) return reply.code(404).send();
     if (b.role && before) await roleChanged(id, before.role, u.role, { id: admin.id, name: admin.name }).catch((e) => console.error("role change", e));
-    if (u.removed) kickUser(id, "An admin removed you from Proximity Office.");
+    if (u.removed) kickUser(id, "An admin removed you from Office Spaces.");
     else updateUser(id, { role: u.role, deskId: u.desk_id, title: u.title });
     return u;
   } catch (e) {
@@ -787,7 +787,7 @@ app.get("/api/admin/analytics.csv", async (req, reply) => {
     return reply.code(400).send({ error: "bad tz" });
   }
   reply.header("content-type", "text/csv; charset=utf-8");
-  reply.header("content-disposition", `attachment; filename="proximity-office-${w.from.toISOString().slice(0, 10)}.csv"`);
+  reply.header("content-disposition", `attachment; filename="office-spaces-${w.from.toISOString().slice(0, 10)}.csv"`);
   return toCsv(await analytics(w.from, w.to), tz);
 });
 
@@ -1021,4 +1021,4 @@ const io = new Server<C2S, S2C>(app.server, {
 attach(io);
 await app.listen({ port: config.port, host: "0.0.0.0" });
 void startJumbotron();
-console.log(`Proximity Office on :${config.port} — ${config.production ? "production" : "dev"}; LiveKit at ${config.livekit.url}`);
+console.log(`Office Spaces on :${config.port} — ${config.production ? "production" : "dev"}; LiveKit at ${config.livekit.url}`);

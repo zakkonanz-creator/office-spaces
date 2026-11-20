@@ -25,7 +25,7 @@ export async function startFathomMeeting(user: UserRow, roomId: string, roomName
 
   // The title is also how the Fathom webhook finds this row again.
   const stamp = new Date().toISOString().slice(11, 16);
-  const title = `Proximity Office · ${roomName} · ${stamp} UTC`;
+  const title = `Office Spaces · ${roomName} · ${stamp} UTC`;
   const now = new Date();
   now.setMilliseconds(0);
   const end = new Date(now.getTime() + 30 * 60e3);
@@ -34,7 +34,7 @@ export async function startFathomMeeting(user: UserRow, roomId: string, roomName
     headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
     body: JSON.stringify({
       summary: title,
-      description: `Started from the ${roomName} room in Proximity Office. Recorded by Fathom.`,
+      description: `Started from the ${roomName} room in Office Spaces. Recorded by Fathom.`,
       start: { dateTime: now.toISOString() },
       end: { dateTime: end.toISOString() },
       attendees: attendees.filter((e) => e !== user.email).map((email) => ({ email })),

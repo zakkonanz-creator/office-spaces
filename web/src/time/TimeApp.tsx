@@ -22,7 +22,7 @@ export function TimeApp({ name }: { name: string }) {
     <div className="admin time">
       <header className="admin-head time-head">
         <div className="time-topbar">
-          <a href="/" onClick={toOffice} className="time-brand" aria-label="Proximity Office"><span className="time-mark" aria-hidden>E</span><b>Acme</b><span className="muted">Time</span></a>
+          <a href="/" onClick={toOffice} className="time-brand" aria-label="Office Spaces"><span className="time-mark" aria-hidden>A</span><b>Acme</b><span className="muted">Time</span></a>
           <a href="/" onClick={toOffice} className="back">Back to the office →</a>
         </div>
         {officeHint ? <p className="flash">Your office is already open in another tab. Switch to that tab; you're still in the office there.</p> : null}

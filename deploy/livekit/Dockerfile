@@ -1,4 +1,4 @@
-# LiveKit (open source, Apache-2.0) for Proximity Office, shaped for Railway.
+# LiveKit (open source, Apache-2.0) for Office Spaces, shaped for Railway.
 # Railway has no UDP, so media runs over ICE/TCP through a Railway TCP proxy.
 FROM alpine:3.22
 ARG LIVEKIT_VERSION=1.13.9

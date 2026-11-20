@@ -1,5 +1,5 @@
-// Restore a nightly Drive export (proximity-office-YYYY-MM-DD.json.gz) into a database.
-//   DATABASE_URL=postgres://… npx tsx scripts/restore-backup.ts path/to/proximity-office-2026-10-09.json.gz [--dry-run]
+// Restore a nightly Drive export (office-spaces-YYYY-MM-DD.json.gz) into a database.
+//   DATABASE_URL=postgres://… npx tsx scripts/restore-backup.ts path/to/office-spaces-2026-10-09.json.gz [--dry-run]
 // Run the app once against the target first so its tables exist. Rows are inserted with
 // ON CONFLICT DO NOTHING, so a restore into a partly filled database only adds what's missing.
 import { readFileSync } from "node:fs";

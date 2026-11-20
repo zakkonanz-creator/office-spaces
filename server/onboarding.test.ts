@@ -74,7 +74,7 @@ test("onboarding: a newcomer gets the first-day tour on Slack, with every checkl
   assert.equal(sent.length, 1);
   const [sid, text] = sent[0];
   assert.equal(sid, "U77");
-  assert.match(text, /Welcome to Proximity Office, Noor!/);
+  assert.match(text, /Welcome to Office Spaces, Noor!/);
   // One numbered line per checklist step, in the checklist's order.
   assert.equal((text.match(/^\d\. \*/gm) ?? []).length, MEMBER_STEPS.length);
   for (const w of ["Walk around", "Go to your desk", "interrupted", "Say hi", "private conversation", "Find a teammate", "Clock in"]) assert.ok(text.includes(w), w);

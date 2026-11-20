@@ -23,7 +23,7 @@ export function Admin() {
       <header className="admin-head">
         <a href="/" className="back" onClick={backToOffice}>← Back to the office</a>
         <div className="admin-title">
-          <h1>Proximity Office · Admin</h1>
+          <h1>Office Spaces · Admin</h1>
           {/* A full load with ?tour=1: the tour reopens even if it was hidden or finished. */}
           <a className="button small" href={`/admin/${tab}?tour=1`} title="What each admin page is for, and what can't be undone">Take the admin tour</a>
         </div>
@@ -625,7 +625,7 @@ function Settings() {
       </div>
       <div className="panel">
         <h3>Google Drive</h3>
-        <p className="hint">Fathom summaries from room meetings are filed in a dated folder under <i>Proximity Office Recordings</i>, next to the other call recordings. The same account writes the nightly database backup.</p>
+        <p className="hint">Fathom summaries from room meetings are filed in a dated folder under <i>Office Spaces Recordings</i>, next to the other call recordings. The same account writes the nightly database backup.</p>
         <p>Folder: {s.driveFolderConfigured ? "configured" : <span className="bad-line">DRIVE_RECORDINGS_FOLDER_ID is not set</span>}</p>
         <p>Writing as: {s.driveAccount ?? <span className="bad-line">nobody linked yet</span>}</p>
         {payrollAdmin
@@ -652,7 +652,7 @@ function ChangelogPanels() {
     <>
       <div className="panel changelog" id="changelog">
         <h3>Changelog</h3>
-        <p className="hint">What's shipped in Proximity Office, newest first.</p>
+        <p className="hint">What's shipped in Office Spaces, newest first.</p>
         {shown.map((r) => (
           <div key={r.date} className="release">
             <div className="release-head"><b>{r.title}</b><span className="muted">{fmt(r.date)}</span></div>

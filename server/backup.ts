@@ -3,7 +3,7 @@
 // pay history, timesheets and analytics are still in the team's Drive.
 //
 // Each night at ~03:00 UTC: every table → one gzipped JSON file, uploaded to
-// DRIVE_BACKUP_FOLDER_ID as "proximity-office-YYYY-MM-DD.json.gz". The last 30 are kept.
+// DRIVE_BACKUP_FOLDER_ID as "office-spaces-YYYY-MM-DD.json.gz". The last 30 are kept.
 // It writes with the Drive account a payroll admin linked (Admin → Settings → Link Drive; payroll admins only).
 // Restoring: each table is a list of rows; load them back with INSERTs (scripts/restore-backup.ts).
 
@@ -61,7 +61,7 @@ async function backupOnce(): Promise<{ ok: boolean; file?: string; rows?: number
   const rows = Object.values(dump.tables).reduce((n, t) => n + t.length, 0);
   // Compressed off the event loop: a big gzip must not freeze everyone's office.
   const body = await gzipAsync(Buffer.from(JSON.stringify(dump)));
-  const name = `proximity-office-${dump.exportedAt.slice(0, 10)}.json.gz`;
+  const name = `office-spaces-${dump.exportedAt.slice(0, 10)}.json.gz`;
   const h = { authorization: `Bearer ${token}` };
   const boundary = "es" + Math.random().toString(16).slice(2);
   const meta = Buffer.from(`--${boundary}\r\ncontent-type: application/json\r\n\r\n${JSON.stringify({ name, parents: [config.drive.backupFolderId] })}\r\n--${boundary}\r\ncontent-type: application/gzip\r\n\r\n`);
@@ -73,7 +73,7 @@ async function backupOnce(): Promise<{ ok: boolean; file?: string; rows?: number
   if (!up.ok) return { ok: false, error: `upload ${up.status}: ${(await up.text()).slice(0, 160)}` };
   // Keep the newest KEEP exports.
   const list = await fetch(
-    `https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&includeItemsFromAllDrives=true&orderBy=createdTime desc&pageSize=200&fields=files(id,name)&q=${encodeURIComponent(`'${config.drive.backupFolderId}' in parents and name contains 'proximity-office-' and trashed = false`)}`,
+    `https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&includeItemsFromAllDrives=true&orderBy=createdTime desc&pageSize=200&fields=files(id,name)&q=${encodeURIComponent(`'${config.drive.backupFolderId}' in parents and name contains 'office-spaces-' and trashed = false`)}`,
     { headers: h },
   );
   if (list.ok) {

@@ -124,7 +124,7 @@ export async function runReminders(tell: ScheduleDeps["tell"], now = Date.now())
       const claimed = await one(`INSERT INTO shift_reminders (shift_id, kind) VALUES ($1, 'soon') ON CONFLICT DO NOTHING RETURNING shift_id`, [s.id]);
       if (!claimed) continue; // another pass got it first
       sent.push({ shiftId: s.id, userId: s.user_id! });
-      await tell(s.user_id!, `Heads-up: your ${s.team} shift starts at ${fmtLocal(i.start, c.tz).slice(11)} (${Math.round((i.start - now) / 60_000)} min). Clock in at Proximity Office → Time when you start.`);
+      await tell(s.user_id!, `Heads-up: your ${s.team} shift starts at ${fmtLocal(i.start, c.tz).slice(11)} (${Math.round((i.start - now) / 60_000)} min). Clock in at Office Spaces → Time when you start.`);
     }
   } catch (e) {
     console.error("time: reminder pass failed:", (e as Error).message);

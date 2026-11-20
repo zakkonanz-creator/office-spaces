@@ -191,7 +191,7 @@ function Recordings() {
       {older.map((r) => (
         <div key={r.id} className="rec">
           <button className="rec-head" onClick={() => setOpen(open === r.id ? null : r.id)}>
-            <span className="rec-title">{r.title.replace(/^Proximity Office · /, "")}</span>
+            <span className="rec-title">{r.title.replace(/^Office Spaces · /, "")}</span>
             <span className="rec-meta">{new Date(r.created_at).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} · {r.started_by ?? "—"}</span>
             <span className="pill ok">Notes ready</span>
           </button>
